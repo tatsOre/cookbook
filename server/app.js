@@ -30,7 +30,7 @@ mongoose.Promise = global.Promise;
 require("./auth/jwt_auth");
 
 const indexRouter = require("./routes/index");
-accountRouter = require("./routes/account");
+const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
 const recipesRouter = require("./routes/recipes");
 
@@ -38,10 +38,11 @@ app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(passport.initialize());
 
 // App Custom Routes
 app.use("/", indexRouter);
-app.use("/account", accountRouter);
+app.use("/auth", authRouter);
 app.use("/api/v1/recipes?", recipesRouter); // decide this
 app.use("/api/v1/users?", usersRouter);
 

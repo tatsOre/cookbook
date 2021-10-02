@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
-const Recipe = mongoose.model("Recipe");
+const { NotFoundError } = require("../lib/errorHandlers");
+const RecipeModel = mongoose.model("Recipe");
 
 /**
  * GET /api/v1/recipes
  * Retrieve list of all recipe instances.
  */
 exports.recipe_list = async (req, res) => {
-  const recipes = await Recipe.find({ public: true }).select(
+  const recipes = await RecipeModel.find({ public: true }).select(
     "-ingredients -instructions"
   );
 
@@ -19,7 +20,7 @@ exports.recipe_list = async (req, res) => {
  */
 exports.recipe_details = async (req, res) => {
   // todo: check if recipe is public, check recipe owner
-  const recipe = await Recipe.findOne({ _id: req.params.id });
+  const recipe = await RecipeModel.findOne({ _id: req.params.id });
   res.json(recipe);
 };
 
@@ -28,8 +29,7 @@ exports.recipe_details = async (req, res) => {
  * Create and save new recipe instance.
  */
 exports.recipe_create = async (req, res) => {
-  const recipe = new Recipe(req.body);
-  await recipe.save();
+  const recipe = await RecipeModel.create({ ...req.body });
   res.json(recipe);
 };
 
@@ -38,7 +38,7 @@ exports.recipe_create = async (req, res) => {
  * Update a recipe instance.
  */
 exports.recipe_update = async (req, res) => {
-  const recipe = await Recipe.findOneAndUpdate(
+  const recipe = await RecipeModel.findOneAndUpdate(
     { _id: req.params.id },
     req.body,
     {
@@ -46,7 +46,7 @@ exports.recipe_update = async (req, res) => {
       new: true,
     }
   );
-  if (!recipe) throw Error("Not found");
+  if (!recipe) throw NotFoundError("Not found");
   res.json(recipe);
 };
 
@@ -56,7 +56,7 @@ exports.recipe_update = async (req, res) => {
  */
 exports.recipe_delete = async (req, res) => {
   const { id } = req.params;
-  await Recipe.findByIdAndDelete({ _id: id });
+  await RecipeModel.findByIdAndDelete({ _id: id });
   res.status(204).send();
 };
 

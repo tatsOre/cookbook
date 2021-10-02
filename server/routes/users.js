@@ -11,12 +11,12 @@ router.get("/", async (req, res, next) => {
 
 router.get(
   "/profile",
-  passport.authenticate("jwt", { session: false }), // ESTO SE DEBE TENER PRESENTE PARA TODAS LAS SECURED ROUTES
+  passport.authenticate("jwt", { session: false }),
   (req, res, next) => {
     res.json({
       message: "You made it to the secure route",
       user: req.user,
-      token: req.query.secret_token,
+      token: req.get("Authorization"),
     });
   }
 );

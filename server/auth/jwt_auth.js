@@ -1,68 +1,29 @@
 const passport = require("passport");
-const localStrategy = require("passport-local").Strategy;
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
+
 const UserModel = require("../models/User");
-
-passport.use(
-  "signup",
-  new localStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-    },
-    async (email, password, done) => {
-      try {
-        const user = await UserModel.create({ email, password });
-        return done(null, user);
-      } catch (error) {
-        done(error);
-      }
-    }
-  )
-);
-
-passport.use(
-  "login",
-  new localStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-    },
-    async (email, password, done) => {
-      try {
-        const user = await UserModel.findOne({ email });
-        if (!user) {
-          console.log("User not found");
-          return done(null, false, { message: "User not found" });
-        }
-
-        const validate = await user.isValidPassword(password);
-
-        if (!validate) {
-          return done(null, false, { message: "Wrong Password" });
-        }
-
-        return done(null, user, { message: "Logged in Successfully" });
-      } catch (error) {
-        return done(error);
-      }
-    }
-  )
-);
 
 passport.use(
   new JWTstrategy(
     {
-      secretOrKey: "TOP_SECRET",
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter("secret_token"),
+      secretOrKey: process.env.JWT_SECRET,
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
-      try {
-        return done(null, token.user);
-      } catch (error) {
-        done(error);
-      }
+      console.log("token:", token);
+      const user = await UserModel.findOne({ _id: token.user._id });
+      if (user) return done(null, user);
+      return done(null, false);
     }
   )
 );
+
+/*
+Authorization: Bearer token
+token: {
+  user: { _id: '61576e446d162fbd4c57af0b', email: 'example@gmail.com' },
+  iat: 1633124205,
+  exp: 1633729005
+}
+*/
