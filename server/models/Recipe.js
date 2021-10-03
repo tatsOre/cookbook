@@ -41,4 +41,3 @@ const RecipeSchema = new Schema({
 const RecipeModel = mongoose.model("Recipe", RecipeSchema);
 
 module.exports = RecipeModel;
-// https://mongoosejs.com/docs/schematypes.html#maps

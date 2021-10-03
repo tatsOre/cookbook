@@ -1,43 +1,44 @@
 const mongoose = require("mongoose");
-const { NotFoundError } = require("../lib/errorHandlers");
+
 const RecipeModel = mongoose.model("Recipe");
+
+const { NotFoundError } = require("../lib/errorHandlers");
 
 /**
  * GET /api/v1/recipes
- * Retrieve list of all recipe instances.
+ * Retrieve the list of all public recipe items.
  */
-exports.recipe_list = async (req, res) => {
+exports.getRecipes = async (req, res) => {
   const recipes = await RecipeModel.find({ public: true }).select(
     "-ingredients -instructions"
   );
-
   res.json({ total: recipes.length, recipes });
 };
 
 /**
- * GET /api/v1/recipes/:id
- * Retrieve detail page for a specific recipe.
+ * POST /api/v1/recipe/create
+ * Add new recipe item.
  */
-exports.recipe_details = async (req, res) => {
+exports.getOneRecipe = async (req, res) => {
   // todo: check if recipe is public, check recipe owner
   const recipe = await RecipeModel.findOne({ _id: req.params.id });
   res.json(recipe);
 };
 
 /**
- * POST /api/v1/recipes/:id
- * Create and save new recipe instance.
+ * POST /api/v1/recipe/create
+ * Add new recipe item.
  */
-exports.recipe_create = async (req, res) => {
+exports.addOneRecipe = async (req, res) => {
   const recipe = await RecipeModel.create({ ...req.body });
   res.json(recipe);
 };
 
 /**
- * PUT /api/v1/recipes/:id
- * Update a recipe instance.
+ * PATCH /api/v1/recipe/:id/update
+ * Update recipe item with ID :id.
  */
-exports.recipe_update = async (req, res) => {
+exports.updateOneRecipe = async (req, res) => {
   const recipe = await RecipeModel.findOneAndUpdate(
     { _id: req.params.id },
     req.body,
@@ -54,10 +55,8 @@ exports.recipe_update = async (req, res) => {
  * DELETE /api/v1/recipes/:id
  * Delete a recipe instance.
  */
-exports.recipe_delete = async (req, res) => {
+exports.deleteOneRecipe = async (req, res) => {
   const { id } = req.params;
   await RecipeModel.findByIdAndDelete({ _id: id });
   res.status(204).send();
 };
-
-// https://www.udemy.com/course/react-nextjs-firebase-nodejs-mongodb-authentication/
