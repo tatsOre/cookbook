@@ -19,32 +19,37 @@ const UserSchema = new Schema({
   password: {
     type: String,
     minLength: [8, "Password must be at least 8 characters long"],
-    required: [true, "User password is required"],
+    validate: [
+      validator.isAlphanumeric,
+      "Password must have at least one non-alpha character",
+    ],
   },
-  facebook: {
-    id: String,
-    token: String,
-    name: String,
-    email: String,
-  },
-  google: {
-    id: String,
-    token: String,
-    email: String,
-    name: String,
+  providers: {
+    facebook: {
+      id: String,
+      email: String,
+    },
+    google: {
+      id: String,
+      email: String,
+      displayName: String,
+      photo: String,
+    },
   },
   photo: String,
+  role: { type: String, enum: ["public", "user", "admin"] },
 });
 
 UserSchema.pre("save", async function (next) {
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
+  if (this.password) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+  }
   next();
 });
 
 UserSchema.methods.isValidPassword = async function (password) {
-  const user = this;
-  const compare = await bcrypt.compare(password, user.password);
+  const compare = bcrypt.compare(password, this.password);
   return compare;
 };
 

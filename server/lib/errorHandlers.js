@@ -7,21 +7,21 @@
 
 /* eslint-disable */
 
-exports.DuplicateKeyError = class DuplicateKeyError extends Error {
+DuplicateKeyError = class DuplicateKeyError extends Error {
   constructor(message) {
     super(message);
     this.name = "DuplicateKeyError";
   }
 };
 
-exports.NotFoundError = class NotFoundError extends Error {
+NotFoundError = class NotFoundError extends Error {
   constructor(message) {
     super(message);
     this.name = "NotFoundError";
   }
 };
 
-exports.catchErrors = (fn) => {
+catchErrors = (fn) => {
   return function (req, res, next) {
     return fn(req, res, next).catch((error) => {
       switch (error.name) {
@@ -42,4 +42,10 @@ exports.catchErrors = (fn) => {
       }
     });
   };
+};
+
+module.exports = {
+  catchErrors,
+  DuplicateKeyError,
+  NotFoundError,
 };

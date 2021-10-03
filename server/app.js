@@ -1,8 +1,8 @@
 const createError = require("http-errors");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const express = require("express");
 const logger = require("morgan");
-const mongoose = require("mongoose");
 const passport = require("passport");
 
 // Register the models Schema
@@ -12,46 +12,31 @@ require("./models/User");
 require("dotenv").config({ path: "variables.env" });
 
 const app = express();
-
 const PORT = process.env.PORT || 3000;
-const DATABASE = process.env.DATABASE;
 
-mongoose.connect(DATABASE, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-mongoose.connection.on("error", (error) => console.log(error));
-mongoose.connection.on("connected", () =>
-  console.log("Connected to the database")
-);
-mongoose.Promise = global.Promise;
-
-// Passport SignUp, Login, JWT Strategies
-require("./auth/jwt_auth");
+// MongoDB
+require("./config/db")();
+// Passport strategies
+require("./config/passport")();
 
 const indexRouter = require("./routes/index");
-const authRouter = require("./routes/auth");
-const usersRouter = require("./routes/users");
-const recipesRouter = require("./routes/recipes");
 
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(passport.initialize());
 
 // App Custom Routes
-app.use("/", indexRouter);
-app.use("/auth", authRouter);
-app.use("/api/v1/recipes?", recipesRouter); // decide this
-app.use("/api/v1/users?", usersRouter);
+app.use("/api/v1/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
 });
 
-// Handle errors.
+// Handle errors
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({ message: err.message });
