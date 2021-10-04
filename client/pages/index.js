@@ -1,9 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import Step from '../components/Step/Step';
 
 export default function Home() {
   return (
     <div>
+      <Step />
     </div>
   )
 }
+
