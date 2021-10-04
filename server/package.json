@@ -17,6 +17,7 @@
     "http-errors": "~1.6.3",
     "jest": "^27.2.3",
     "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
     "mongoose": "^6.0.8",
     "mongoose-mongodb-errors": "^0.0.2",
     "morgan": "~1.9.1",

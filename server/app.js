@@ -8,6 +8,7 @@ const passport = require("passport");
 // Register the models Schema
 require("./models/Recipe");
 require("./models/User");
+require("./models/ShoppingList");
 
 require("dotenv").config({ path: "variables.env" });
 
@@ -20,6 +21,7 @@ require("./config/db")();
 require("./config/passport")();
 
 const indexRouter = require("./routes/index");
+const adminRouter = require("./routes/admin");
 
 app.use(cors());
 app.use(logger("dev"));
@@ -29,6 +31,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 
 // App Custom Routes
+app.use("/admin/", adminRouter);
 app.use("/api/v1/", indexRouter);
 
 // catch 404 and forward to error handler

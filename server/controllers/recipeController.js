@@ -16,7 +16,7 @@ exports.getRecipes = async (req, res) => {
 };
 
 /**
- * POST /api/v1/recipe/create
+ * GET /api/v1/recipe/:id
  * Add new recipe item.
  */
 exports.getOneRecipe = async (req, res) => {
@@ -47,12 +47,12 @@ exports.updateOneRecipe = async (req, res) => {
       new: true,
     }
   );
-  if (!recipe) throw NotFoundError("Not found");
+  if (!recipe) throw NotFoundError("Document not found");
   res.json(recipe);
 };
 
 /**
- * DELETE /api/v1/recipes/:id
+ * DELETE /api/v1/recipe/:id/delete
  * Delete a recipe instance.
  */
 exports.deleteOneRecipe = async (req, res) => {
