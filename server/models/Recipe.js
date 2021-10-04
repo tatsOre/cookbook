@@ -11,6 +11,11 @@ const RecipeSchema = new Schema({
   },
   created: { type: Date, default: Date.now() },
   updated: { type: Date, default: Date.now() },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: "You must supply an author for the recipe",
+  },
   description: String,
   photo_url: String,
   servings: {
@@ -37,6 +42,14 @@ const RecipeSchema = new Schema({
     default: false,
   },
 });
+
+function autopopulate(next) {
+  this.populate({ path: "author", select: "_id firstName lastName" });
+  next();
+}
+
+RecipeSchema.pre("find", autopopulate);
+RecipeSchema.pre("findOne", autopopulate);
 
 const RecipeModel = mongoose.model("Recipe", RecipeSchema);
 

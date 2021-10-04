@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const mongodbErrorHandler = require("mongoose-mongodb-errors");
+const md5 = require("md5");
 const validator = require("validator");
 
 const { Schema } = mongoose;
@@ -32,19 +33,24 @@ const UserSchema = new Schema({
     google: {
       id: String,
       email: String,
-      displayName: String,
       photo: String,
     },
   },
   photo: String,
+  recipes: [{ type: mongoose.Schema.ObjectId, ref: "Recipe" }],
+  favorites: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
+  shopping_lists: [{ type: Schema.Types.ObjectId, ref: "ShoppingList" }],
   role: { type: String, enum: ["public", "user", "admin"] },
 });
 
+UserSchema.virtual("gravatar").get(function () {
+  const hash = md5(this.email);
+  return `https://gravatar.com/avatar/${hash}?s=200`;
+});
+
 UserSchema.pre("save", async function (next) {
-  if (this.password) {
-    const hash = await bcrypt.hash(this.password, 10);
-    this.password = hash;
-  }
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
   next();
 });
 

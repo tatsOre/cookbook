@@ -34,6 +34,7 @@ exports.registerGoogleUser = async (req, res, next) => {
       firstName: googleUser._json.given_name,
       lastName: googleUser._json.family_name,
       email: googleUser._json.email,
+      password: googleUser._json.email,
       providers: {
         google: {
           id: googleUser._json.sub,

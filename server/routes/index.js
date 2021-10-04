@@ -16,15 +16,12 @@ router.get("/", (req, res) => {
 /*
   Routes for User Controller
 */
-
-/**
- * GET /api/v1/users
- * Retrive all users.
- */
-router.get("/users", async (req, res, next) => {
-  const users = await UserModel.find({});
-  res.json({ total: users.length, users });
-});
+const {
+  getOneUser,
+  getUserProfile,
+  updateOneUser,
+  deleteOneUser,
+} = require("../controllers/userController");
 
 /**
  * GET /api/v1/user/me
@@ -33,13 +30,26 @@ router.get("/users", async (req, res, next) => {
 router.get(
   "/user/me",
   passport.authenticate("jwt", { session: false }),
-  (req, res, next) => {
-    res.json({
-      message: "You made it to the secure route",
-      user: req.user,
-    });
-  }
+  getUserProfile
 );
+
+/**
+ * GET /api/v1/user/:id
+ * Retrive user public profile information.
+ */
+router.get("/user/:id", catchErrors(getOneUser));
+
+/**
+ * PATCH /api/v1/user/:id/update
+ * Update user.
+ */
+router.patch("/user/:id/update", catchErrors(updateOneUser));
+
+/**
+ * DELETE /api/v1/user/:id/delete
+ * Delete user.
+ */
+router.delete("/user/:id/delete", catchErrors(deleteOneUser));
 
 /*
   Routes for Register and Auth Users Controller
@@ -123,7 +133,7 @@ router.patch("/recipe/:id/update", catchErrors(updateOneRecipe));
 
 /**
  * DELETE /api/v1/recipe/:id/delete
- * Update recipe item with ID :id.
+ * Delete recipe item with ID :id.
  */
 router.delete("/recipe/:id/delete", catchErrors(deleteOneRecipe));
 
