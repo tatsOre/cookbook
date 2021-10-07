@@ -1,0 +1,14 @@
+.instructions__item {
+  display: flex;
+}
+
+.instructions__label {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.instructions__comments {
+  white-space: pre-line;
+  font-size: 1.4rem;
+}

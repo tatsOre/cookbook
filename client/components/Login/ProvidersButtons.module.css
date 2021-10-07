@@ -1,0 +1,33 @@
+.divider {
+  padding-top: 2rem;
+  position: relative;
+  text-align: center;
+}
+
+.divider__line {
+  height: 1px;
+  background-color: #f1eeea;
+  width: 100%;
+}
+
+.divider__text {
+  display: inline-block;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  top: -16px;
+  position: relative;
+  color: gray;
+}
+
+.google__auth {
+  display: flex;
+  justify-content: center;
+  border: 1px solid lightblue;
+  padding: 1rem 0;
+  cursor: pointer;
+}
+
+.google__link {
+  text-decoration: none;
+  padding-left: 1rem;
+}

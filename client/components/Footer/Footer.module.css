@@ -1,0 +1,22 @@
+.footer {
+  width: 100%;
+  color: var(--color-light);
+  background-color: var(--color-primary);
+}
+
+.footer__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.footer__container div {
+  padding: 1rem 0rem;
+}
+
+.footer__text {
+  font-size: 1.25rem;
+  font-weight: lighter;
+  letter-spacing: 0.05rem;
+  border-top: 1px solid #00e677;
+}

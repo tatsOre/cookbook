@@ -1,0 +1,55 @@
+.tabs__container {
+  background-color: white;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.tabs__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: pink;
+  color: white;
+}
+
+.tabs__container.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tab__link {
+  background-color: gainsboro;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 50%;
+}
+
+.tab__link:hover {
+  cursor: pointer;
+}
+
+.tab__link.active {
+  background-color: pink;
+  color: white;
+}
+
+.tab__content {
+  display: none;
+  color: gray;
+}
+
+.tab__content.active {
+  display: block;
+}

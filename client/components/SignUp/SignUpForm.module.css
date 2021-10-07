@@ -1,0 +1,44 @@
+.signup__container {
+  max-width: 420px;
+  margin: auto;
+  padding: 4rem 1.5rem 0rem;
+}
+
+.signup__form {
+  background-color: white;
+  padding: 1rem 3rem 3rem;
+}
+
+.form__input {
+  width: 100%;
+  border: 1px solid gray;
+  padding: 1rem;
+  margin: 0.75rem 0;
+}
+
+.form__input:focus {
+  outline: none;
+  border: 1px solid blueviolet;
+}
+
+.form__submit {
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+.form__link {
+  text-decoration: none;
+}
+
+.block {
+  background-color: white;
+  text-align: center;
+  border-top: 1px solid gray;
+  padding: 1.5rem 3rem;
+}
+
+.block p:first-child {
+  margin-bottom: 0.5rem;
+}

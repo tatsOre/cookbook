@@ -1,0 +1,11 @@
+.header {
+  width: 100%;
+  color: var(--color-light);
+  background-color: var(--color-primary);
+}
+
+.header__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
