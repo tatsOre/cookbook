@@ -1,9 +1,7 @@
 const passport = require("passport");
 const router = require("express").Router();
 
-const UserModel = require("../models/User");
-
-const { catchErrors, NotFoundError } = require("../lib/errorHandlers");
+const { catchErrors } = require("../lib/errorHandlers");
 
 /*
   Index
@@ -18,7 +16,7 @@ router.get("/", (req, res) => {
 */
 const {
   getOneUser,
-  getUserProfile,
+  getBasicProfile,
   updateOneUser,
   deleteOneUser,
 } = require("../controllers/userController");
@@ -30,7 +28,7 @@ const {
 router.get(
   "/user/me",
   passport.authenticate("jwt", { session: false }),
-  getUserProfile
+  getBasicProfile
 );
 
 /**
@@ -58,7 +56,7 @@ const {
   registerUser,
   registerGoogleUser,
   login,
-  loginSuccess,
+  setJWTcookie,
 } = require("../controllers/authController");
 
 /**
@@ -71,7 +69,7 @@ router.post("/auth/register", catchErrors(registerUser));
  * POST /api/v1/auth/login
  * Login a user - local login. Set JWT Cookie and send user main info.
  */
-router.post("/auth/login", login, loginSuccess);
+router.post("/auth/login", catchErrors(login), setJWTcookie);
 
 /**
  * GET /api/v1/auth/google
@@ -90,10 +88,10 @@ router.get(
   "/auth/google_redirect",
   passport.authenticate("google", {
     assignProperty: "googleUser",
-    failureRedirect: "http://127.0.0.1:5500/login.html", // Todo: change to client address
+    failureRedirect: "http://localhost:3001/login", // Todo: change to client address
   }),
   registerGoogleUser,
-  loginSuccess
+  setJWTcookie
 );
 
 /*

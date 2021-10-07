@@ -7,8 +7,7 @@ const validator = require("validator");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-  firstName: String,
-  lastName: String,
+  name: String,
   email: {
     type: String,
     trim: true,
@@ -20,10 +19,6 @@ const UserSchema = new Schema({
   password: {
     type: String,
     minLength: [8, "Password must be at least 8 characters long"],
-    validate: [
-      validator.isAlphanumeric,
-      "Password must have at least one non-alpha character",
-    ],
   },
   providers: {
     facebook: {

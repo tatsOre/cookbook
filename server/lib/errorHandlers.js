@@ -21,6 +21,13 @@ NotFoundError = class NotFoundError extends Error {
   }
 };
 
+InvalidPropertyError = class InvalidPropertyError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "InvalidPropertyError";
+  }
+};
+
 catchErrors = (fn) => {
   return function (req, res, next) {
     return fn(req, res, next).catch((error) => {
@@ -29,13 +36,16 @@ catchErrors = (fn) => {
           const errors = Object.keys(error.errors).map((key) => ({
             [key]: error.errors[key].message,
           }));
-          return res.status(400).send({ error: errors });
+          return res.status(400).send({ message: errors });
+
+        case "InvalidPropertyError":
+          return res.status(401).send({ message: [error.message] });
 
         case "DuplicateKeyError":
-          return res.status(403).send({ error: error.message });
+          return res.status(403).send({ message: [error.message] });
 
         case "NotFoundError":
-          return res.status(404).send({ error: error.message });
+          return res.status(404).send({ message: [error.message] });
 
         default:
           next(error);
@@ -47,5 +57,6 @@ catchErrors = (fn) => {
 module.exports = {
   catchErrors,
   DuplicateKeyError,
+  InvalidPropertyError,
   NotFoundError,
 };

@@ -10,7 +10,7 @@ const ShoppingListModel = mongoose.model("ShoppingList");
  * GET /api/v1/user/me
  * Retrive full user profile information.
  */
-exports.getUserProfile = (req, res) => {
+exports.getBasicProfile = (req, res) => {
   res.json({
     message: "You made it to the secure route",
     user: req.user,
@@ -19,7 +19,7 @@ exports.getUserProfile = (req, res) => {
 
 /**
  * GET /api/v1/user/:id
- * Retrive user public profile information.
+ * Retrive user public profile/account information.
  */
 exports.getOneUser = async (req, res) => {
   // TODO change routes and params with passport authorization

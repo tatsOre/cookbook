@@ -17,7 +17,7 @@ const RecipeSchema = new Schema({
     required: "You must supply an author for the recipe",
   },
   description: String,
-  photo_url: String,
+  photo: String,
   servings: {
     type: Number,
     min: [1, "Why no servings?"],
@@ -35,16 +35,17 @@ const RecipeSchema = new Schema({
     type: Map,
     of: String,
   },
-  category: [String],
+  categories: [String],
   cuisine: [String],
   public: {
     type: Boolean,
     default: false,
   },
+  comments: String,
 });
 
 function autopopulate(next) {
-  this.populate({ path: "author", select: "_id firstName lastName" });
+  this.populate({ path: "author", select: "_id name" });
   next();
 }
 
