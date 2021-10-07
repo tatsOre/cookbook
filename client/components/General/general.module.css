@@ -1,0 +1,25 @@
+.icon__background {
+  background-color: #00e677;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #22ff94;
+  display: flex;
+  justify-content: center;
+}
+
+.icon__label {
+  color: white;
+  font-weight: bold;
+}
+
+.logotype {
+  display: flex;
+}
+
+.logotype p {
+  margin-left: 1rem;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: bold;
+}

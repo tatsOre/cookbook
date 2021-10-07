@@ -7,6 +7,14 @@
   background-color: var(--color-light);
 }
 
+.recipe li {
+  list-style: none;
+}
+
+.recipe ul {
+  padding-left: 0;
+}
+
 .recipe__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;

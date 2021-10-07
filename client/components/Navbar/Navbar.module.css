@@ -1,0 +1,52 @@
+/* Modal Top Navigation for Desktop */
+.topnav__container {
+  color: var(--color-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.topnav__usermenu {
+  color: var(--color-light);
+  display: flex;
+  align-items: center;
+}
+
+.topnav__usermenu p {
+  margin: 0;
+}
+
+.topnav__container {
+  display: block;
+}
+
+/* Modal Side Navigation for Mobile Devices */
+.sidenav__container {
+  display: none;
+}
+
+.sidenav__header {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-bottom: 1px solid var(--color-neutral);
+}
+
+.sidenav__header > button {
+  align-self: flex-end;
+}
+
+.sidenav__body {
+  padding: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .sidenav__container {
+    display: block;
+  }
+
+  .topnav__container {
+    display: none;
+  }
+}
