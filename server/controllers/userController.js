@@ -1,16 +1,14 @@
 const mongoose = require("mongoose");
 
-const { NotFoundError } = require("../lib/errorHandlers");
-
 const UserModel = mongoose.model("User");
 const RecipeModel = mongoose.model("Recipe");
 const ShoppingListModel = mongoose.model("ShoppingList");
 
 /**
- * GET /api/v1/user/me
+ * GET /api/v1/me
  * Retrive full user profile information.
  */
-exports.getBasicProfile = (req, res) => {
+exports.getCurrentUser = (req, res) => {
   res.json({
     message: "You made it to the secure route",
     user: req.user,
@@ -25,11 +23,11 @@ exports.getOneUser = async (req, res) => {
   // TODO change routes and params with passport authorization
   const user = await UserModel.findOne({ _id: req.params.id })
     .select("-providers -favorites -shopping_lists")
-    .populate("recipes");
+    .populate("recipes"); // change to public recipes
   res.json({ message: "user public profile", user });
 };
 
-/**
+/** // TODO change route to /api/v1/me/update
  * PATCH /api/v1/user/:id/update
  * Update user.
  */
@@ -43,7 +41,7 @@ exports.updateOneUser = async (req, res) => {
   res.json({ message: "Your profile information has been updated", user });
 };
 
-/**
+/** TODO change route to /api/v1/me/delete
  * DELETE /api/v1/user/:id/delete
  * Delete user.
  */
@@ -52,5 +50,6 @@ exports.deleteOneUser = async (req, res) => {
   const { id: userID } = req.params;
   await RecipeModel.deleteMany({ author: userID });
   await ShoppingListModel.deleteMany({ author: userID });
+  await UserModel.deleteOne({ _id: id });
   res.json({ message: "All your information has been deleted" });
 };

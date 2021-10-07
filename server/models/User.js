@@ -31,6 +31,7 @@ const UserSchema = new Schema({
       photo: String,
     },
   },
+  about: String,
   photo: String,
   recipes: [{ type: mongoose.Schema.ObjectId, ref: "Recipe" }],
   favorites: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],

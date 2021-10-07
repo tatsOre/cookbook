@@ -3,6 +3,9 @@ const router = require("express").Router();
 
 const { catchErrors } = require("../lib/errorHandlers");
 
+const mongoose = require("mongoose");
+const UserModel = mongoose.model("User");
+
 /*
   Index
 */
@@ -16,7 +19,7 @@ router.get("/", (req, res) => {
 */
 const {
   getOneUser,
-  getBasicProfile,
+  getCurrentUser,
   updateOneUser,
   deleteOneUser,
 } = require("../controllers/userController");
@@ -26,9 +29,30 @@ const {
  * Retrive user profile information.
  */
 router.get(
-  "/user/me",
+  "/me",
   passport.authenticate("jwt", { session: false }),
-  getBasicProfile
+  getCurrentUser
+);
+
+/**
+ * POST /api/v1/user/me/favorites
+ * Add/Remove a recipe to user favorites
+ */
+router.post(
+  "/me/favorites",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const favorites = req.user.favorites.map((obj) => obj.toString());
+    const operator = favorites.includes(req.body.recipe)
+      ? "$pull"
+      : "$addToSet";
+    const user = await UserModel.findByIdAndUpdate(
+      req.user._id,
+      { [operator]: { favorites: req.body.recipe } },
+      { new: true }
+    );
+    return res.json(user);
+  }
 );
 
 /**

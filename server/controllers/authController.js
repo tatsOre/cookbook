@@ -57,10 +57,14 @@ exports.registerGoogleUser = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await UserModel.findOne({ email }).select("-providers");
-  if (!user) throw new NotFoundError("User not found");
+  if (!user)
+    throw new NotFoundError(
+      "Email not found or you do not have an account yet"
+    );
 
   const validate = await user.isValidPassword(password);
-  if (!validate) throw new InvalidPropertyError("Wrong password");
+  if (!validate)
+    throw new InvalidPropertyError("Your email and password do not match");
 
   req.user = user;
   next();
