@@ -35,7 +35,7 @@ router.get(
 );
 
 /**
- * POST /api/v1/user/me/favorites
+ * POST /api/v1/me/favorites
  * Add/Remove a recipe to user favorites
  */
 router.post(
