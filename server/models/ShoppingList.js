@@ -15,15 +15,7 @@ const ShoppingListSchema = new Schema({
     ref: "User",
     required: "You must supply an author for the shopping list",
   },
-  items: [
-    {
-      name: String,
-      unit: String,
-      metric_quantity: Number,
-      metric_display_quantify: String,
-      metric_unit: String,
-    },
-  ],
+  items: [String],
 });
 
 function autopopulate(next) {

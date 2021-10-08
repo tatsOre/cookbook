@@ -81,6 +81,7 @@ const {
   registerGoogleUser,
   login,
   setJWTcookie,
+  logout,
 } = require("../controllers/authController");
 
 /**
@@ -94,6 +95,12 @@ router.post("/auth/register", catchErrors(registerUser));
  * Login a user - local login. Set JWT Cookie and send user main info.
  */
 router.post("/auth/login", catchErrors(login), setJWTcookie);
+
+/**
+ * GET /api/v1/auth/logout
+ * Removes JWT Cookie and logout the user.
+ */
+router.get("/auth/logout", logout);
 
 /**
  * GET /api/v1/auth/google
