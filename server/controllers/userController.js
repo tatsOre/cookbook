@@ -9,10 +9,7 @@ const ShoppingListModel = mongoose.model("ShoppingList");
  * Retrive full user profile information.
  */
 exports.getCurrentUser = (req, res) => {
-  res.json({
-    message: "You made it to the secure route",
-    user: req.user,
-  });
+  res.json(req.user);
 };
 
 /**
@@ -20,11 +17,10 @@ exports.getCurrentUser = (req, res) => {
  * Retrive user public profile/account information.
  */
 exports.getOneUser = async (req, res) => {
-  // TODO change routes and params with passport authorization
   const user = await UserModel.findOne({ _id: req.params.id })
     .select("-providers -favorites -shopping_lists")
     .populate("recipes"); // change to public recipes
-  res.json({ message: "user public profile", user });
+  res.json(user);
 };
 
 /** // TODO change route to /api/v1/me/update
