@@ -3,12 +3,14 @@ import { DropdownButton } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Badge } from "react-bootstrap";
 
+import styles from "./Ingredients.module.css";
+
 
 const Ingredients = () => {
 
 
     return (
-        <>
+        <div className={styles.ingredients__container}>
             <h1>Create your New Recipe!</h1>
             <form>
                 <label htmlFor="recipeTitle">title for your recipe</label>
@@ -57,7 +59,7 @@ const Ingredients = () => {
                 <Button>Add New Ingredient</Button>
                 <Button>Save</Button>
             </form>
-        </>
+        </div>
   );
 };
 
