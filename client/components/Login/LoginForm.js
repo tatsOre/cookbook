@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 import AlertMessage from "../Alert/AlertMessage";
@@ -7,9 +8,9 @@ import styles from "./LoginForm.module.css";
 import { LOGIN_URL } from "../../config";
 
 const Login = () => {
+  const router = useRouter();
   const [disabled, setDisabled] = useState(false);
   const [warning, setWarning] = useState({ show: false, messages: [] });
-
   const loginUser = async (event) => {
     event.preventDefault();
     setDisabled(true);
@@ -34,9 +35,9 @@ const Login = () => {
         show: true,
         messages: result.message,
       });
+      return setDisabled(false);
     }
-
-    setDisabled(false);
+    router.push("/");
   };
 
   return (

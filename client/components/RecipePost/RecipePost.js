@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
-import Tabs from "./Tabs";
-import styles from "./RecipePost.module.css";
+import { userContext } from "../../src/UserContext";
+
+import ButtonFavorites from "../Buttons/ButtonFavorites";
 import RecipeInstructions from "./RecipeInstructions";
+import Tabs from "./Tabs";
+
+import styles from "./RecipePost.module.css";
 
 const RecipePost = ({ recipe }) => {
+  const { user } = useContext(userContext);
+  const userRecipes = user?.recipes || [];
+
   const [openTabs, setOpenTabs] = useState(false);
 
   const handleOpenTabs = () => setOpenTabs(true);
 
   const {
+    _id,
     title,
     description,
     photo,
@@ -34,15 +42,19 @@ const RecipePost = ({ recipe }) => {
             <a>{author.name}</a>
           </Link>
         </p>
-        <button type="button" onClick={() => alert("Added to your favorites!")}>
-          Add to favorites
-        </button>
-        <button type="button" onClick={() => alert("Edit your recipe!")}>
-          Edit
-        </button>
-        <button type="button" onClick={() => alert("Are you sure?")}>
-          Delete
-        </button>
+        {userRecipes.includes(_id) ? (
+          <div>
+            <button type="button" onClick={() => alert("Edit your recipe!")}>
+              Edit
+            </button>
+            <button type="button" onClick={() => alert("Are you sure?")}>
+              Delete
+            </button>
+          </div>
+        ) : (
+          <ButtonFavorites id={_id} />
+        )}
+
         <div className={styles.recipe__image_container}>
           <img className={styles.recipe__image} src={photo} alt={title} />
         </div>

@@ -11,10 +11,10 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 
 import styles from "./Navbar.module.css";
 
-const PIC =
-  "https://thumbs.dreamstime.com/z/default-avatar-profile-flat-icon-social-media-user-vector-portrait-unknown-human-image-default-avatar-profile-flat-icon-184330869.jpg";
+import { logout } from "../../src/ApiCalls";
 
 const TopNavBar = () => {
+  const handleLogout = () => logout();
   return (
     <div className={styles.topnav__container}>
       <div className={styles.topnav__usermenu}>
@@ -29,7 +29,9 @@ const TopNavBar = () => {
           <NavDropdown.Item href="/">Favorites</NavDropdown.Item>
           <NavDropdown.Item href="/">Shopping Lists</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="/">Logout</NavDropdown.Item>
+          <NavDropdown.Item href="/" onClick={handleLogout}>
+            Logout
+          </NavDropdown.Item>
         </NavDropdown>
       </div>
     </div>
@@ -50,7 +52,7 @@ const SideNavBar = () => {
       <Offcanvas show={show} onHide={handleClose}>
         <div className={styles.sidenav__header}>
           <CloseButton onClick={handleClose} />
-          <UserAvatar pic={PIC} altText="Mark Photo" size="lg" />
+          <UserAvatar pic="" altText="Mark Photo" size="lg" />
           <h3>Welcome, Mark.</h3>
         </div>
         <div className={styles.sidenav__body}>
@@ -75,17 +77,16 @@ const SideNavBar = () => {
 };
 
 const Navigation = () => {
-  const loggedIn = useContext(userContext);
-  console.log(loggedIn);
+  const { user } = useContext(userContext);
   return (
     <nav>
-      {loggedIn.user && (
+      {user && (
         <>
           <TopNavBar />
           <SideNavBar />
         </>
       )}
-      {!loggedIn.user && (
+      {!user && (
         <span>
           Already have an account? <a href="/login"> Login</a> or{" "}
           <a href="/signup">create one</a>
