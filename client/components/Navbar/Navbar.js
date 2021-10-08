@@ -1,6 +1,8 @@
 import Link from "next/link";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { userContext } from "../../src/UserContext";
+
 import { UserAvatar } from "../Utilities/Avatar";
 
 import CloseButton from "react-bootstrap/CloseButton";
@@ -73,10 +75,22 @@ const SideNavBar = () => {
 };
 
 const Navigation = () => {
+  const loggedIn = useContext(userContext);
+  console.log(loggedIn);
   return (
     <nav>
-      <TopNavBar />
-      <SideNavBar />
+      {loggedIn.user && (
+        <>
+          <TopNavBar />
+          <SideNavBar />
+        </>
+      )}
+      {!loggedIn.user && (
+        <span>
+          Already have an account? <a href="/login"> Login</a> or{" "}
+          <a href="/signup">create one</a>
+        </span>
+      )}
     </nav>
   );
 };

@@ -48,7 +48,7 @@ const Tabs = ({ open, openTabs, ingredients, instructions }) => {
       <TabContent label="Ingredients" active={activeTab === "Ingredients"}>
         <ul>
           {ingredients.map((item) => (
-            <li>
+            <li key={item._id}>
               <input type="checkbox" />
               <label>
                 {item.metric_quantity} {item.unit} {item.name}

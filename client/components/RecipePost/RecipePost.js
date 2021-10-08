@@ -51,14 +51,18 @@ const RecipePost = ({ recipe }) => {
           <p className={styles.TESTTWO}>Cuisine</p>
           <ul>
             {cuisine.map((item) => (
-              <li className={styles.TEST}>{item}</li>
+              <li key={item} className={styles.TEST}>
+                {item}
+              </li>
             ))}
           </ul>
 
           <p className={styles.TESTTWO}>Categories</p>
           <ul>
             {categories.map((item) => (
-              <li className={styles.TEST}>{item}</li>
+              <li key={item} className={styles.TEST}>
+                {item}
+              </li>
             ))}
           </ul>
         </div>
@@ -85,7 +89,7 @@ const RecipePost = ({ recipe }) => {
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>
             <ul>
               {ingredients.map((item) => (
-                <li>
+                <li key={`ing-${item._id}`}>
                   <input type="checkbox" />
                   <label>
                     {item.metric_quantity} {item.unit} {item.name}

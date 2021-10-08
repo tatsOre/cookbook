@@ -5,7 +5,7 @@ const RecipeInstructions = ({ instructions, comments }) => {
     <>
       <ul>
         {Object.values(instructions).map((step, index) => (
-          <li>
+          <li key={`step-${index + 1}`}>
             <div className={styles.instructions__item}>
               <p className={styles.instructions__label}>{index + 1}.</p>
               <p className={styles.instructions__step}>{step}</p>

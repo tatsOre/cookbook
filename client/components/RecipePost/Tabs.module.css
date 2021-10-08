@@ -11,6 +11,14 @@
   transform: scale(0);
 }
 
+.tabs__container ul {
+  padding-left: 0;
+}
+
+.tabs__container li {
+  list-style: none;
+}
+
 .tabs__header {
   display: flex;
   justify-content: space-between;

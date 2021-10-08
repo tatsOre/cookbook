@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout/Layout";
 import RecipePost from "../../components/RecipePost/RecipePost";
-import { endpoint } from "../../config";
+import { ALLRECIPES_URL, RECIPE_BASE_URL } from "../../config";
 
 export default function RecipePage({ recipe }) {
   return (
@@ -11,7 +11,7 @@ export default function RecipePage({ recipe }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${endpoint}/api/v1/recipes`);
+  const res = await fetch(ALLRECIPES_URL);
   const data = await res.json();
 
   const paths = data.recipes.map((post) => ({
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`${endpoint}/api/v1/recipe/${params.slug}`);
+  const res = await fetch(`${RECIPE_BASE_URL}/${params.slug}`);
   const recipe = await res.json();
 
   return { props: { recipe } };
