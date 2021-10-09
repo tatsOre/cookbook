@@ -4,6 +4,7 @@ import { userContext } from "../../src/UserContext";
 
 import ButtonFavorites from "../Buttons/ButtonFavorites";
 import RecipeInstructions from "./RecipeInstructions";
+import RecipeIngredients from "./RecipeIngredients";
 import Tabs from "./Tabs";
 
 import styles from "./RecipePost.module.css";
@@ -13,7 +14,6 @@ const RecipePost = ({ recipe }) => {
   const userRecipes = user?.recipes || [];
 
   const [openTabs, setOpenTabs] = useState(false);
-
   const handleOpenTabs = () => setOpenTabs(true);
 
   const {
@@ -29,8 +29,6 @@ const RecipePost = ({ recipe }) => {
     author,
     comments,
   } = recipe;
-
-  const addToShoppingList = 1;
 
   return (
     <>
@@ -99,21 +97,7 @@ const RecipePost = ({ recipe }) => {
         <div className={styles.article__ingredients_container}>
           <div className={styles.recipe__ingredients}>
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>
-            <ul>
-              {ingredients.map((item) => (
-                <li key={`ing-${item._id}`}>
-                  <input type="checkbox" />
-                  <label>
-                    {item.metric_quantity} {item.unit} {item.name}
-                  </label>
-                </li>
-              ))}
-            </ul>
-            <button>
-              Add {addToShoppingList ? addToShoppingList : "ALL"} ingredient
-              {addToShoppingList > 1 || addToShoppingList === 0 ? "s" : ""} to
-              shopping list
-            </button>
+            <RecipeIngredients ingredients={ingredients} />
           </div>
           <div className={styles.recipe__instructions}>
             <h2 className={styles.recipe__subtitle}>Instructions</h2>

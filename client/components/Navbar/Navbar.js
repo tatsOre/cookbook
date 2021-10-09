@@ -6,6 +6,7 @@ import { userContext } from "../../src/UserContext";
 import { UserAvatar } from "../Utilities/Avatar";
 
 import CloseButton from "react-bootstrap/CloseButton";
+import { IconPlaceholder } from "../General/Icon";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
@@ -46,7 +47,7 @@ const SideNavBar = () => {
   return (
     <div className={styles.sidenav__container}>
       <button variant="primary" onClick={handleShow}>
-        Open Menu
+        <IconPlaceholder iconlabel="" />
       </button>
 
       <Offcanvas show={show} onHide={handleClose}>

@@ -1,5 +1,5 @@
 .tabs__container {
-  background-color: white;
+  background-color: var(--color-light);
   top: 0;
   bottom: 0;
   left: 0;
@@ -23,9 +23,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  background-color: pink;
-  color: white;
+  padding: 1.5rem 3rem 0.5rem;
+  background-color: var(--color-accent);
+  color: var(--color-light);
+}
+
+.tabs__header > p {
+  font-size: 2.5rem;
 }
 
 .tabs__container.active {
@@ -34,7 +38,7 @@
 }
 
 .tab__link {
-  background-color: gainsboro;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   outline: none;
@@ -49,15 +53,33 @@
 }
 
 .tab__link.active {
-  background-color: pink;
-  color: white;
+  background-color: var(--color-accent);
+  color: var(--color-light);
 }
 
 .tab__content {
   display: none;
-  color: gray;
+  padding: 2rem 3rem;
+  font-size: 1.8rem;
+  font-weight: normal;
 }
 
 .tab__content.active {
   display: block;
+}
+
+/* Ingredients checkboxes/lables */
+.ingredients__item {
+  display: flex;
+  align-items: baseline;
+}
+
+.ingredients__item label {
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.ingredients__item input:checked + label {
+  text-decoration-line: line-through;
+  text-decoration-thickness: 1px;
 }

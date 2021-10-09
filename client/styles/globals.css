@@ -5,8 +5,8 @@
 /* Color variables
   ============================= */
 :root {
-  --color-primary: #071629;
-  --color-accent: #e64100;
+  --color-primary: #000000;
+  --color-accent: #1db609;
   --color-base: #3a4553;
   --color-neutral: #1c3b415e;
   --color-light: white;
