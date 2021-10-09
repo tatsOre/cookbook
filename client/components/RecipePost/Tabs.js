@@ -14,9 +14,9 @@ const TabLink = ({ label, active, setActiveTab }) => {
   );
 };
 
-const TabContent = ({ label, active, children }) => {
+const TabContent = ({ active, children }) => {
   return (
-    <div className={` ${active && styles.active} ${styles.tab__content}`}>
+    <div className={`${active && styles.active} ${styles.tab__content}`}>
       {children}
     </div>
   );
@@ -45,19 +45,21 @@ const Tabs = ({ open, openTabs, ingredients, instructions }) => {
         setActiveTab={setActiveTab}
       />
 
-      <TabContent label="Ingredients" active={activeTab === "Ingredients"}>
+      <TabContent active={activeTab === "Ingredients"}>
         <ul>
           {ingredients.map((item) => (
             <li key={item._id}>
-              <input type="checkbox" />
-              <label>
-                {item.metric_quantity} {item.unit} {item.name}
-              </label>
+              <div className={styles.ingredients__item}>
+                <input id={item._id} type="checkbox" />
+                <label htmlFor={item._id} className={styles.ingredients__label}>
+                  {item.metric_quantity} {item.unit} {item.name}
+                </label>
+              </div>
             </li>
           ))}
         </ul>
       </TabContent>
-      <TabContent label="Instructions" active={activeTab === "Instructions"}>
+      <TabContent active={activeTab === "Instructions"}>
         {instructions}
       </TabContent>
     </div>

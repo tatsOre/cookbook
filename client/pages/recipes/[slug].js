@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout/Layout";
 import RecipePost from "../../components/RecipePost/RecipePost";
-import { ALLRECIPES_URL, RECIPE_BASE_URL } from "../../config";
+import { ALL_RECIPES_URL, RECIPE_BASE_URL } from "../../config";
 
 export default function RecipePage({ recipe }) {
   return (
@@ -11,7 +11,7 @@ export default function RecipePage({ recipe }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(ALLRECIPES_URL);
+  const res = await fetch(ALL_RECIPES_URL);
   const data = await res.json();
 
   const paths = data.recipes.map((post) => ({

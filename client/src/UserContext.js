@@ -1,17 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { CURRENT_USER_URL } from "../config";
-
-export const fetchCurrentUser = async () => {
-  const response = await fetch(CURRENT_USER_URL, {
-    method: "GET",
-    credentials: "include",
-  });
-  if (response.status !== 200) {
-    console.log({ status: response.status, text: response.statusText });
-    return null;
-  }
-  return response.json();
-};
+import { fetchCurrentUser } from "./ApiCalls";
 
 export const userContext = createContext();
 
@@ -23,8 +11,9 @@ export const UserProvider = ({ children }) => {
       .then((res) => setUser(res))
       .catch((err) => console.log(err));
   }, []);
+  const handleLogout = () => setUser(null);
 
   const { Provider } = userContext;
 
-  return <Provider value={{ user }}>{children}</Provider>;
+  return <Provider value={{ user, setUser }}>{children}</Provider>;
 };

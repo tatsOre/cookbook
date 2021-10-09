@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
-import Tabs from "./Tabs";
-import styles from "./RecipePost.module.css";
+import { userContext } from "../../src/UserContext";
+
+import ButtonFavorites from "../Buttons/ButtonFavorites";
 import RecipeInstructions from "./RecipeInstructions";
+import RecipeIngredients from "./RecipeIngredients";
+import Tabs from "./Tabs";
+
+import styles from "./RecipePost.module.css";
 
 const RecipePost = ({ recipe }) => {
-  const [openTabs, setOpenTabs] = useState(false);
+  const { user } = useContext(userContext);
+  const userRecipes = user?.recipes || [];
 
+  const [openTabs, setOpenTabs] = useState(false);
   const handleOpenTabs = () => setOpenTabs(true);
 
   const {
+    _id,
     title,
     description,
     photo,
@@ -22,8 +30,6 @@ const RecipePost = ({ recipe }) => {
     comments,
   } = recipe;
 
-  const addToShoppingList = 1;
-
   return (
     <>
       <article className={styles.recipe}>
@@ -34,15 +40,19 @@ const RecipePost = ({ recipe }) => {
             <a>{author.name}</a>
           </Link>
         </p>
-        <button type="button" onClick={() => alert("Added to your favorites!")}>
-          Add to favorites
-        </button>
-        <button type="button" onClick={() => alert("Edit your recipe!")}>
-          Edit
-        </button>
-        <button type="button" onClick={() => alert("Are you sure?")}>
-          Delete
-        </button>
+        {userRecipes.includes(_id) ? (
+          <div>
+            <button type="button" onClick={() => alert("Edit your recipe!")}>
+              Edit
+            </button>
+            <button type="button" onClick={() => alert("Are you sure?")}>
+              Delete
+            </button>
+          </div>
+        ) : (
+          <ButtonFavorites id={_id} />
+        )}
+
         <div className={styles.recipe__image_container}>
           <img className={styles.recipe__image} src={photo} alt={title} />
         </div>
@@ -87,21 +97,7 @@ const RecipePost = ({ recipe }) => {
         <div className={styles.article__ingredients_container}>
           <div className={styles.recipe__ingredients}>
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>
-            <ul>
-              {ingredients.map((item) => (
-                <li key={`ing-${item._id}`}>
-                  <input type="checkbox" />
-                  <label>
-                    {item.metric_quantity} {item.unit} {item.name}
-                  </label>
-                </li>
-              ))}
-            </ul>
-            <button>
-              Add {addToShoppingList ? addToShoppingList : "ALL"} ingredient
-              {addToShoppingList > 1 || addToShoppingList === 0 ? "s" : ""} to
-              shopping list
-            </button>
+            <RecipeIngredients ingredients={ingredients} />
           </div>
           <div className={styles.recipe__instructions}>
             <h2 className={styles.recipe__subtitle}>Instructions</h2>
