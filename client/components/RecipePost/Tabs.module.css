@@ -74,6 +74,11 @@
   align-items: baseline;
 }
 
+.ingredients__item input {
+  color: white;
+  accent-color: var(--color-light);
+}
+
 .ingredients__item label {
   margin-left: 1rem;
   margin-bottom: 0.5rem;

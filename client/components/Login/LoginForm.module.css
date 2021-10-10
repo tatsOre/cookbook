@@ -13,7 +13,7 @@
   width: 100%;
   border: 1px solid gray;
   padding: 1rem;
-  margin: 0.75rem 0;
+  margin-top: 1rem;
 }
 
 .form__input:focus {
@@ -28,6 +28,11 @@
   cursor: pointer;
 }
 
+.login_form span[role="alert"] {
+  font-size: 1.2rem;
+  color: tomato;
+}
+
 .form__link {
   text-decoration: none;
 }
@@ -35,6 +40,6 @@
 .block {
   background-color: white;
   text-align: center;
-  border-top: 1px solid gray;
+  border-top: 1px solid rgba(180, 180, 180, 0.24);
   padding: 2rem 3rem;
 }
