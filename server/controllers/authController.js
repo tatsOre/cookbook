@@ -98,3 +98,14 @@ exports.logout = async (req, res) => {
   res.clearCookie(process.env.COOKIE_SECRET);
   res.json({ message: ["logout successful"] });
 };
+
+/**
+ * Handler
+ */
+exports.confirmPasswords = async (req, res, next) => {
+  if (req.body.password !== req.body["confirm_password"]) {
+    throw new InvalidPropertyError("Your passwords do not match");
+  }
+  console.log("Before next");
+  return next();
+};

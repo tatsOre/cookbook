@@ -3,9 +3,6 @@ const router = require("express").Router();
 
 const { catchErrors } = require("../lib/errorHandlers");
 
-const mongoose = require("mongoose");
-const UserModel = mongoose.model("User");
-
 /*
   Index
 */
@@ -22,6 +19,7 @@ const {
   getCurrentUser,
   updateOneUser,
   deleteOneUser,
+  updateFavorites,
 } = require("../controllers/userController");
 
 /**
@@ -36,23 +34,12 @@ router.get(
 
 /**
  * POST /api/v1/me/favorites
- * Add/Remove a recipe to user favorites
+ * Add/Remove a recipe to/from user favorites.
  */
 router.post(
   "/me/favorites",
   passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    const favorites = req.user.favorites.map((obj) => obj.toString());
-    const operator = favorites.includes(req.body.recipe)
-      ? "$pull"
-      : "$addToSet";
-    const user = await UserModel.findByIdAndUpdate(
-      req.user._id,
-      { [operator]: { favorites: req.body.recipe } },
-      { new: true }
-    );
-    return res.json(user);
-  }
+  catchErrors(updateFavorites)
 );
 
 /**
@@ -82,13 +69,18 @@ const {
   login,
   setJWTcookie,
   logout,
+  confirmPasswords,
 } = require("../controllers/authController");
 
 /**
  * POST /api/v1/auth/register
  * Add/Register new user with local signup.
  */
-router.post("/auth/register", catchErrors(registerUser));
+router.post(
+  "/auth/register",
+  catchErrors(confirmPasswords),
+  catchErrors(registerUser)
+);
 
 /**
  * POST /api/v1/auth/login

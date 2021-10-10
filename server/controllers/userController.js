@@ -49,3 +49,18 @@ exports.deleteOneUser = async (req, res) => {
   await UserModel.deleteOne({ _id: id });
   res.json({ message: "All your information has been deleted" });
 };
+
+/**
+ * POST /api/v1/me/favorites
+ * Add/Remove a recipe to/from user favorites.
+ */
+exports.updateFavorites = async (req, res) => {
+  const favorites = req.user.favorites.map((obj) => obj.toString());
+  const operator = favorites.includes(req.body.recipe) ? "$pull" : "$addToSet";
+  const user = await UserModel.findByIdAndUpdate(
+    req.user._id,
+    { [operator]: { favorites: req.body.recipe } },
+    { new: true }
+  );
+  return res.json(user);
+};
