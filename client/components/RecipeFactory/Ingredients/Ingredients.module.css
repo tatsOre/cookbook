@@ -33,7 +33,7 @@
     gap: 0.5rem;
   }
 
-  .ingredients__categories > span {
+  .ingredients__categories > label {
     padding: 1rem;
   }
 
@@ -76,3 +76,7 @@
   .ingredients__list > li {
     display: flex;
   }
+.testcheckbox {
+  background-color: blue;
+
+}

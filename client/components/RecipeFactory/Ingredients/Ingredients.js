@@ -1,8 +1,5 @@
-import { useState } from "react";
-import { Dropdown } from "react-bootstrap";
-import { DropdownButton } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Badge } from "react-bootstrap";
+
+import { ToggleButtonGroup, Button, Dropdown, DropdownButton, ToggleButton } from "react-bootstrap";
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 
 import styles from "./Ingredients.module.css";
@@ -10,8 +7,12 @@ import styles from "./Ingredients.module.css";
 
 const Ingredients = () => {
 
+    /* TODO: Grab this data from the API*/
     const fractionOptions= ["0", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"]
     const measurementOptions = ["Teaspoon", "Tablespoon", "Cup", "Gallon", "Grams", "Kilograms", "Ounces", "Litres", "None"];
+    const categoriesOptions = ["Lunch", "Dinner", "Dessert", "Appetizer", "Beverage", "Miscellaneous"];
+
+
     const defaultIngredientValues= {
         recipe: {
             title: "",
@@ -52,13 +53,21 @@ const Ingredients = () => {
                 <label>Recipe for <input className={styles.ingredients__inputNumber} type="number" /> sevings</label>
 
                 <div className={styles.ingredients__categories}>
-                    <Badge>Breakfast</Badge>
-                    <Badge>Lunch</Badge>
-                    <Badge>Dinner</Badge>
-                    <Badge>Dessert</Badge>
-                    <Badge>Appetizer</Badge>
-                    <Badge>Beverage</Badge>
-                    <Badge>Miscellaneous</Badge>                   
+                <Controller
+                    control={control}
+                    name="recipe.categories"
+                    defaultValue={[]}
+                    render={({field: {onChange, value}}) =>
+                    <ToggleButtonGroup 
+                    className={styles.ingredients__categories}
+                    onChange={onChange}
+                    type="checkbox"
+                    value={value}
+                    >
+                        {categoriesOptions.map(option => <ToggleButton id={`cat-btn-${option}`} key={option} value={option}>{option}</ToggleButton>)}
+                    </ToggleButtonGroup> 
+                    }
+                />          
                 </div>
 
                 <section className={styles.ingredients__addIngredient}>
