@@ -38,6 +38,7 @@ const Ingredients = () => {
     const fractionOptions= ["0", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"]
     const measurementOptions = ["Teaspoon", "Tablespoon", "Cup", "Gallon", "Grams", "Kilograms", "Ounces", "Litres", "None"];
     const categoriesOptions = ["Lunch", "Dinner", "Dessert", "Appetizer", "Beverage", "Miscellaneous"];
+    const cuisineOptions = ["Vegan", "Vegetarian", "Gluten Free", "Quick", "Kosher", "For Two", "Make Ahead"];
 
 
     const defaultValues = {
@@ -174,9 +175,25 @@ const Ingredients = () => {
                         </div>
                     ))}
                     <Button onClick={() => instructionsAppend("")}>Add Instruction</Button>
-                    <Button type="submit">Save</Button>
-
                     
+                    <div className={styles.ingredients__categories}>
+                        <Controller
+                            control={control}
+                            name="recipe.cuisine"
+                            defaultValue={[]}
+                            render={({field: {onChange, value}}) =>
+                            <ToggleButtonGroup 
+                            className={styles.ingredients__categories}
+                            onChange={onChange}
+                            type="checkbox"
+                            value={value}
+                            >
+                                {cuisineOptions.map(option => <ToggleButton id={`cui-btn-${option}`} key={option} value={option}>{option}</ToggleButton>)}
+                            </ToggleButtonGroup> 
+                            }
+                        />          
+                    </div>
+                    <Button type="submit">Save</Button>
                 </form>
             </div>
         );
