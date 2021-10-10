@@ -67,3 +67,12 @@
     width: 30%;
     padding: 1rem;
   }
+
+  .ingredients__list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .ingredients__list > li {
+    display: flex;
+  }
