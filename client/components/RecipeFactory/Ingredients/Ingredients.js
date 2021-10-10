@@ -23,9 +23,6 @@ const Ingredients = () => {
         <Dropdown.Item eventKey={option} key={option}>{option}</Dropdown.Item>
     );
 
-    const [fractionDropdownState, setfractionDropdownState] = useState(fractionOptions[0]);
-    const [measurementDropdownState, setMeasurementDropdownState] = useState(measurementOptions[0])
-
     const onSubmit = (data) => console.log("data", data);
 
     return (
@@ -78,7 +75,6 @@ const Ingredients = () => {
                     render={({field: {onChange, value}}) => 
                     <DropdownButton
                     className={styles.ingredients__dropdown} 
-                    title={measurementDropdownState}
                     onSelect={onChange}
                     title={value}
                     > 
