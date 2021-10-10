@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Link from "next/link";
 
 import AlertMessage from "../Alert/AlertMessage";
@@ -7,10 +8,17 @@ import styles from "./SignUpForm.module.css";
 import { SIGNUP_URL } from "../../config";
 
 const SignUp = () => {
+  const {
+    register,
+    formState: { errors },
+    getValues,
+    handleSubmit,
+  } = useForm();
+
   const [warning, setWarning] = useState({ show: false, messages: [] });
   const [disabled, setDisabled] = useState(false);
 
-  const registerUser = async (event) => {
+  const onSubmit = async (data, event) => {
     event.preventDefault();
     setDisabled(true);
 
@@ -19,13 +27,8 @@ const SignUp = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: event.target.name.value,
-        email: event.target.email.value,
-        password: event.target.password.value,
-      }),
+      body: JSON.stringify(data),
     });
-
     const result = await res.json();
 
     if (res.status !== 200) {
@@ -34,14 +37,14 @@ const SignUp = () => {
         messages: result.message,
       });
     }
-
-    setDisabled(false);
+    setDisabled(false); // change when logs the user, decide this.
   };
 
   return (
     <div className={styles.signup__container}>
-      <form onSubmit={registerUser} className={styles.signup__form}>
-        <h1>Create your account</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.signup__form}>
+        <h1>Create an account</h1>
+        <p>Fill in your details below to create an account.</p>
         {warning.show && (
           <AlertMessage
             variant="danger"
@@ -49,44 +52,80 @@ const SignUp = () => {
             messages={warning.messages}
           />
         )}
-        <div>
-          <div>
-            <label htmlFor="name" className="sr-only">
-              Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Name"
-              className={styles.form__input}
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="sr-only">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Email"
-              className={styles.form__input}
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              className={styles.form__input}
-            />
-          </div>
-        </div>
+
+        <label htmlFor="name" className="sr-only">
+          Name
+        </label>
+        <input
+          className={styles.form__input}
+          id="name"
+          type="text"
+          placeholder="Name"
+          {...register("name", {
+            required: "Name is required",
+            maxLength: { value: 50, message: "Max length is 50" },
+          })}
+        />
+        {errors.name && <span role="alert">{errors.name.message}</span>}
+
+        <label htmlFor="email" className="sr-only">
+          Email
+        </label>
+        <input
+          className={styles.form__input}
+          id="email"
+          type="email"
+          placeholder="Email"
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Entered value does not match email format",
+            },
+          })}
+        />
+        {errors.email && <span role="alert">{errors.email.message}</span>}
+
+        <label htmlFor="password" className="sr-only">
+          Password
+        </label>
+        <input
+          className={styles.form__input}
+          id="password"
+          type="password"
+          placeholder="Password"
+          {...register("password", {
+            required: "You must specify a password",
+            minLength: {
+              value: 8,
+              message: "Password must have at least 8 characters",
+            },
+          })}
+        />
+        {errors.password && <span role="alert">{errors.password.message}</span>}
+
+        <label htmlFor="confirm_password" className="sr-only">
+          Confirm password
+        </label>
+        <input
+          className={styles.form__input}
+          id="confirm_password"
+          type="password"
+          placeholder="Confirm Password"
+          {...register("confirm_password", {
+            required: "Please confirm password",
+            validate: {
+              matchesPreviousPassword: (value) => {
+                const { password } = getValues();
+                return password === value || "Passwords do not match";
+              },
+            },
+          })}
+        />
+        {errors.confirm_password && (
+          <span role="alert">{errors.confirm_password.message}</span>
+        )}
+
         <button
           type="submit"
           disabled={disabled}
@@ -97,7 +136,7 @@ const SignUp = () => {
         <ProvidersButtons />
       </form>
 
-      <div className={styles.block}>
+      <div className={styles.signup__links}>
         <p>
           Have an account?
           <Link href="/login">

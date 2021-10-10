@@ -77,6 +77,11 @@
   margin-top: 2rem;
 }
 
+.recipe__ingredients input {
+  color: white;
+  accent-color: var(--color-light);
+}
+
 .recipe__ingredients button {
   font-size: 1.25rem;
   letter-spacing: 0.05rem;
