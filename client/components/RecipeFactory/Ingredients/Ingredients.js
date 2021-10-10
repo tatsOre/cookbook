@@ -1,9 +1,36 @@
 
 import { ToggleButtonGroup, Button, Dropdown, DropdownButton, ToggleButton } from "react-bootstrap";
-import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { Wizard, useWizard } from "react-use-wizard";
 
 import styles from "./Ingredients.module.css";
 
+
+
+const Footer = () => {
+    const {
+      nextStep,
+      previousStep,
+      isLastStep,
+      isFirstStep,
+    } = useWizard();
+  
+    return (
+      <code>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button
+            onClick={() => previousStep()}
+            disabled={isFirstStep}
+          >
+            Previous
+          </button>
+          <button onClick={() => nextStep()} disabled={isLastStep}>
+            Next
+          </button>
+        </div>
+      </code>
+    );
+  };
 
 const Ingredients = () => {
 
@@ -13,18 +40,20 @@ const Ingredients = () => {
     const categoriesOptions = ["Lunch", "Dinner", "Dessert", "Appetizer", "Beverage", "Miscellaneous"];
 
 
-    const defaultIngredientValues= {
+    const defaultValues = {
         recipe: {
             title: "",
             description: "",
             ingredients: [
                 {fraction: fractionOptions[0], unit: "1", measurement: measurementOptions[0]}
             ],
+            instructions: ["ggg"]
         }
     }
 
+
     const { register, handleSubmit, control } = useForm({
-        defaultValues: {...defaultIngredientValues}
+        defaultValues: {...defaultValues}
     });
     const fractionSelection = fractionOptions.map((option) => 
         <Dropdown.Item eventKey={option} key={option}>{option}</Dropdown.Item>
@@ -34,23 +63,37 @@ const Ingredients = () => {
         <Dropdown.Item eventKey={option} key={option}>{option}</Dropdown.Item>
     );
 
-    const {fields, append, remove} = useFieldArray({
-        control,
-        name: "recipe.ingredients"
-    });
+    const {
+        fields: ingredientsFields, 
+        append: ingredientsAppend,
+        remove: ingredientsRemove
+    } = useFieldArray({control, name: "recipe.ingredients"});
 
-    return (
+    const {
+        fields: instructionsFields,
+        append: instructionsAppend,
+        remove: instructionsRemove
+    } = useFieldArray({control, name:"recipe.instructions"})
+
+    const Welcome = () => {
+        return(
+            <div>sdsd</div>
+        )
+    };
+
+    const IngredientsStep = () => {
+        return (
         <div className={styles.ingredients__container}>
-            <h1>Create your New Recipe!</h1>
+            <h2>Create your New Recipe!</h2>
 
-            <form onSubmit={handleSubmit(data => console.log(data))}>
+            <form>
                 <label htmlFor="title">Title for your recipe</label>
                 <input {...register("recipe.title")} className={styles.ingredients__input} type="text" />
 
                 <label htmlFor="Description">Description</label>
                 <textarea {...register("recipe.description")} className={styles.ingredients__inputArea} type="text" />
 
-                <label>Recipe for <input className={styles.ingredients__inputNumber} type="number" /> sevings</label>
+                <label>Recipe for <input {...register("recipe.servings")} className={styles.ingredients__inputNumber} type="number" /> sevings</label>
 
                 <div className={styles.ingredients__categories}>
                 <Controller
@@ -74,7 +117,7 @@ const Ingredients = () => {
                 <h2>Add the ingredients:</h2>
 
                 <ul className={styles.ingredients__list}>
-                    {fields.map((item, index) => (
+                    {ingredientsFields.map((item, index) => (
                         <li key={item.id}>
                             <input {...register(`recipe.ingredients.${index}.unit`)} className={styles.ingredients__inputUnit} type="number" />
                             <Controller 
@@ -107,15 +150,45 @@ const Ingredients = () => {
                                 }
                             />
                                 <input  {...register(`recipe.ingredients.${index}.name`)} className={styles.ingredients__inputIngredient} type="text" />
-                                <Button onClick={() => remove(index)}>Delete</Button>
+                                <Button onClick={() => ingredientsRemove(index)}>Delete</Button>
                         </li>
                     ))}
                 </ul>
-                <Button onClick={() => append(defaultIngredientValues.recipe.ingredients[0])}className={styles.ingredients__add}>Add New Ingredient</Button>
+                <Button onClick={() => ingredientsAppend(defaultValues.recipe.ingredients[0])}className={styles.ingredients__add}>Add New Ingredient</Button>
                 </section>
-                <Button type="submit" >Save</Button>
             </form>
         </div>
+        )
+    }
+
+    const InstructionsStep = () => {
+        return(
+            <div className={styles.ingredients__container}>
+                <h2>Add the instructions:</h2>
+                <form onSubmit={handleSubmit(data => console.log(data))}>
+                    {instructionsFields.map((field, index) => (
+                        <div key={field.id}>
+                            <h3>{index+1}</h3>
+                            <textarea {...register(`recipe.instructions.${index}.instruction`)} className={styles.ingredients__inputArea} type="text" />
+                            <Button onClick={() => instructionsRemove(index)}>Delete</Button>
+                        </div>
+                    ))}
+                    <Button onClick={() => instructionsAppend("")}>Add Instruction</Button>
+                    <Button type="submit">Save</Button>
+
+                    
+                </form>
+            </div>
+        );
+        
+    }
+
+    return (
+        <Wizard startIndex={1} footer={<Footer />}>
+            <Welcome number={1} />
+            <IngredientsStep number={2} />
+            <InstructionsStep number={3} />
+        </Wizard> 
   );
 };
 
