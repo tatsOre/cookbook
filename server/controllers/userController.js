@@ -84,7 +84,7 @@ exports.searchUserRecipes = async (req, res) => {
   const { field, q } = req.query;
 
   const user = await UserModel.findOne({
-    _id: "61576e446d162fbd4c57af0b",
+    _id: req.user._id,
   }).populate({
     path: field,
     select: "-author",

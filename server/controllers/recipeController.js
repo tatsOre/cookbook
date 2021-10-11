@@ -29,7 +29,7 @@ exports.getRecipes = async (req, res) => {
 
 /**
  * GET /api/v1/recipes/sort?:key=:value
- * Sort public recipes by query (category|cuisine|created).
+ * Sort public recipes by query (category|cuisine).
  */
 exports.getRecipesByQuery = async (req, res) => {
   const { field, value } = req.query;

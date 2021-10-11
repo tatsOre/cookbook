@@ -59,16 +59,16 @@ router.get("/me/search", userController.searchUserRecipes);
 router.get("/user/:id", catchErrors(userController.getOneUser));
 
 /**
- * PATCH /api/v1/user/:id/update
+ * PATCH /api/v1/user/:id
  * Update user.
  */
-router.patch("/user/:id/update", catchErrors(userController.updateOneUser));
+router.patch("/user/:id", catchErrors(userController.updateOneUser));
 
 /**
- * DELETE /api/v1/user/:id/delete
+ * DELETE /api/v1/user/:id
  * Delete user.
  */
-router.delete("/user/:id/delete", catchErrors(userController.deleteOneUser));
+router.delete("/user/:id", catchErrors(userController.deleteOneUser));
 
 /*
   Routes for Register and Auth Users Controller
@@ -128,6 +128,7 @@ router.get(
   Routes for Recipes Controller
 */
 const recipeController = require("../controllers/recipeController");
+const ShoppingListModel = require("../models/ShoppingList");
 
 /**
  * GET /api/v1/recipes
@@ -171,5 +172,50 @@ router.delete("/recipe/:id", catchErrors(recipeController.deleteOneRecipe));
  * GET /api/v1/recipes/search?q=[query]
  */
 router.get("/recipes/search", catchErrors(recipeController.searchRecipes));
+
+/*
+  Routes for Shopping Lists
+*/
+const shopListsController = require("../controllers/shopListsController");
+
+/**
+ * GET /api/v1/me/shopping_lists
+ * Retrieve user shopping lists.
+ */
+router.get(
+  "/me/shopping_lists",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(shopListsController.getShopLists)
+);
+
+/**
+ * POST /api/v1/me/shopping_lists
+ * Add shopping list item
+ */
+router.post(
+  "/me/shopping_lists",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(shopListsController.addOneShoppingList)
+);
+
+/**
+ * PATCH /api/v1/me/shopping_lists/:id
+ * Update a shopping list item
+ */
+router.patch(
+  "/me/shopping_lists/:id",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(shopListsController.updateOneShoppingList)
+);
+
+/**
+ * DELETE /api/v1/me/shopping_lists
+ * Delete a shopping list item
+ */
+router.delete(
+  "/me/shopping_lists/:id",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(shopListsController.deleteOneShoppingList)
+);
 
 module.exports = router;

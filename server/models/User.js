@@ -6,38 +6,43 @@ const validator = require("validator");
 
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-  name: String,
-  email: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    required: [true, "User email is required"],
-    unique: true,
-    validate: [validator.isEmail, "Invalid email address"],
-  },
-  password: {
-    type: String,
-    minLength: [8, "Password must be at least 8 characters long"],
-  },
-  providers: {
-    facebook: {
-      id: String,
-      email: String,
+const UserSchema = new Schema(
+  {
+    name: String,
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      required: [true, "Email address is required"],
+      unique: true,
+      validate: [validator.isEmail, "Invalid email address"],
     },
-    google: {
-      id: String,
-      email: String,
-      photo: String,
+    password: {
+      type: String,
+      minLength: [8, "Password must be at least 8 characters long"],
     },
+    providers: {
+      facebook: {
+        id: String,
+        email: String,
+      },
+      google: {
+        id: String,
+        email: String,
+        photo: String,
+      },
+    },
+    about: String,
+    photo: String,
+    recipes: [{ type: mongoose.Schema.ObjectId, ref: "Recipe" }],
+    favorites: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
+    shopping_lists: [{ type: Schema.Types.ObjectId, ref: "ShoppingList" }],
+    role: { type: String, enum: ["public", "user", "admin"] },
   },
-  about: String,
-  photo: String,
-  recipes: [{ type: mongoose.Schema.ObjectId, ref: "Recipe" }],
-  favorites: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
-  shopping_lists: [{ type: Schema.Types.ObjectId, ref: "ShoppingList" }],
-  role: { type: String, enum: ["public", "user", "admin"] },
-});
+  {
+    timestamps: true,
+  }
+);
 
 UserSchema.virtual("gravatar").get(function () {
   const hash = md5(this.email);
