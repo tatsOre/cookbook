@@ -44,13 +44,27 @@ const RecipeSchema = new Schema({
   comments: String,
 });
 
-function autopopulate(next) {
+RecipeSchema.index({
+  title: "text",
+  categories: "text",
+  cuisine: "text",
+});
+
+function findManyHook(next) {
+  this.select("-ingredients -instructions -comments").populate({
+    path: "author",
+    select: "_id name",
+  });
+  next();
+}
+
+function findOneHook(next) {
   this.populate({ path: "author", select: "_id name" });
   next();
 }
 
-RecipeSchema.pre("find", autopopulate);
-RecipeSchema.pre("findOne", autopopulate);
+RecipeSchema.pre("find", findManyHook);
+RecipeSchema.pre("findOne", findOneHook);
 
 const RecipeModel = mongoose.model("Recipe", RecipeSchema);
 
