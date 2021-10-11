@@ -14,24 +14,16 @@ router.get("/", (req, res) => {
 /*
   Routes for User Controller
 */
-const {
-  getOneUser,
-  getCurrentUser,
-  updateOneUser,
-  deleteOneUser,
-  getFavorites,
-  updateFavorites,
-  searchUserRecipes,
-} = require("../controllers/userController");
+const userController = require("../controllers/userController");
 
 /**
  * GET /api/v1/user/me
- * Retrive user profile information.
+ * Retrieve user profile information.
  */
 router.get(
   "/me",
   passport.authenticate("jwt", { session: false }),
-  getCurrentUser
+  userController.getCurrentUser
 );
 
 /**
@@ -41,7 +33,7 @@ router.get(
 router.get(
   "/me/favorites",
   passport.authenticate("jwt", { session: false }),
-  catchErrors(getFavorites)
+  catchErrors(userController.getFavorites)
 );
 
 /**
@@ -51,44 +43,37 @@ router.get(
 router.post(
   "/me/favorites",
   passport.authenticate("jwt", { session: false }),
-  catchErrors(updateFavorites)
+  catchErrors(userController.updateFavorites)
 );
 
 /**
  * GET /api/v1/me/search?field=:field&q=:queryParam
  * EX: http://localhost:3000/api/v1/me/search?field=recipes&q=pasta
  */
-router.get("/me/search", searchUserRecipes);
+router.get("/me/search", userController.searchUserRecipes);
 
 /**
  * GET /api/v1/user/:id
  * Retrieve user public profile information.
  */
-router.get("/user/:id", catchErrors(getOneUser));
+router.get("/user/:id", catchErrors(userController.getOneUser));
 
 /**
  * PATCH /api/v1/user/:id/update
  * Update user.
  */
-router.patch("/user/:id/update", catchErrors(updateOneUser));
+router.patch("/user/:id/update", catchErrors(userController.updateOneUser));
 
 /**
  * DELETE /api/v1/user/:id/delete
  * Delete user.
  */
-router.delete("/user/:id/delete", catchErrors(deleteOneUser));
+router.delete("/user/:id/delete", catchErrors(userController.deleteOneUser));
 
 /*
   Routes for Register and Auth Users Controller
 */
-const {
-  registerUser,
-  registerGoogleUser,
-  login,
-  setJWTcookie,
-  logout,
-  confirmPasswords,
-} = require("../controllers/authController");
+const authController = require("../controllers/authController");
 
 /**
  * POST /api/v1/auth/register
@@ -96,21 +81,25 @@ const {
  */
 router.post(
   "/auth/register",
-  catchErrors(confirmPasswords),
-  catchErrors(registerUser)
+  catchErrors(authController.confirmPasswords),
+  catchErrors(authController.registerUser)
 );
 
 /**
  * POST /api/v1/auth/login
  * Login a user - local login. Set JWT Cookie and send user main info.
  */
-router.post("/auth/login", catchErrors(login), setJWTcookie);
+router.post(
+  "/auth/login",
+  catchErrors(authController.login),
+  authController.setJWTcookie
+);
 
 /**
  * GET /api/v1/auth/logout
  * Removes JWT Cookie and logout the user.
  */
-router.get("/auth/logout", logout);
+router.get("/auth/logout", authController.logout);
 
 /**
  * GET /api/v1/auth/google
@@ -131,51 +120,56 @@ router.get(
     assignProperty: "googleUser",
     failureRedirect: "http://localhost:3001/login", // Todo: change to client address
   }),
-  registerGoogleUser,
-  setJWTcookie
+  authController.registerGoogleUser,
+  authController.setJWTcookie
 );
 
 /*
   Routes for Recipes Controller
 */
-const {
-  getRecipes,
-  getOneRecipe,
-  addOneRecipe,
-  updateOneRecipe,
-  deleteOneRecipe,
-  searchRecipes,
-} = require("../controllers/recipeController");
+const recipeController = require("../controllers/recipeController");
 
 /**
  * GET /api/v1/recipes
- * Retrieve the list of all public recipe items.
+ * Retrieve the list of all public recipe items with optional pagination.
+ * EX: http://localhost:3000/api/v1/recipes?page=2&limit=2
  */
-router.get("/recipes", getRecipes);
+router.get("/recipes", catchErrors(recipeController.getRecipes));
+
+/**
+ * GET /api/v1/recipes/sort?:query
+ * Sort public recipes by query (category|cuisine).
+ */
+router.get("/recipes/sort", catchErrors(recipeController.getRecipesByQuery));
+
+/**
+ * GET /api/v1/recipes/latest
+ */
+router.get("/recipes/latest", catchErrors(recipeController.getLatestRecipes));
 
 /**
  * GET /api/v1/recipe/:id
  */
-router.get("/recipe/:id", catchErrors(getOneRecipe));
+router.get("/recipe/:id", catchErrors(recipeController.getOneRecipe));
 
 /**
- * POST /api/v1/recipe/create
+ * POST /api/v1/recipe
  */
-router.post("/recipe/create", catchErrors(addOneRecipe));
+router.post("/recipe", catchErrors(recipeController.addOneRecipe));
 
 /**
- * PATCH /api/v1/recipe/:id/update
+ * PATCH /api/v1/recipe/:id
  */
-router.patch("/recipe/:id/update", catchErrors(updateOneRecipe));
+router.patch("/recipe/:id", catchErrors(recipeController.updateOneRecipe));
 
 /**
- * DELETE /api/v1/recipe/:id/delete
+ * DELETE /api/v1/recipe/:id
  */
-router.delete("/recipe/:id/delete", catchErrors(deleteOneRecipe));
+router.delete("/recipe/:id", catchErrors(recipeController.deleteOneRecipe));
 
 /**
  * GET /api/v1/recipes/search?q=[query]
  */
-router.get("/recipes/search", searchRecipes);
+router.get("/recipes/search", catchErrors(recipeController.searchRecipes));
 
 module.exports = router;

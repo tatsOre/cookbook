@@ -20,8 +20,9 @@ require("./config/db")();
 // Passport strategies
 require("./config/passport")();
 
-const indexRouter = require("./routes/index");
 const adminRouter = require("./routes/admin");
+const assetRouter = require("./routes/assets");
+const indexRouter = require("./routes/index");
 
 app.use(
   cors({
@@ -37,6 +38,7 @@ app.use(passport.initialize());
 
 // App Custom Routes
 app.use("/admin/", adminRouter);
+app.use("/assets/", assetRouter);
 app.use("/api/v1/", indexRouter);
 
 // catch 404 and forward to error handler

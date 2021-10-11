@@ -52,7 +52,7 @@ exports.deleteOneUser = async (req, res) => {
 
 /**
  * GET /api/v1/me/favorites
- * Add/Remove a recipe to/from user favorites.
+ * Retrieve user favorites.
  */
 exports.getFavorites = async (req, res) => {
   const user = await UserModel.findOne({ _id: req.user._id })

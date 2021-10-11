@@ -3,14 +3,51 @@ const mongoose = require("mongoose");
 const RecipeModel = mongoose.model("Recipe");
 
 const { NotFoundError } = require("../lib/errorHandlers");
-const UserModel = require("../models/User");
 
 /**
  * GET /api/v1/recipes
- * Retrieve the list of all public recipe items.
+ * Retrieve the list of all public recipe items with optional pagination.
  */
 exports.getRecipes = async (req, res) => {
-  const recipes = await RecipeModel.find({ public: true });
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = page * limit - limit;
+
+  const recipesPromise = RecipeModel.find({ public: true })
+    .skip(skip)
+    .limit(limit)
+    .sort({ created: "desc" });
+
+  const countPromise = RecipeModel.find({ public: true }).count();
+
+  const [recipes, count] = await Promise.all([recipesPromise, countPromise]);
+
+  const totalPages = Math.ceil(count / limit);
+
+  res.json({ total: count, pages: totalPages, page, recipes });
+};
+
+/**
+ * GET /api/v1/recipes/sort?:key=:value
+ * Sort public recipes by query (category|cuisine|created).
+ */
+exports.getRecipesByQuery = async (req, res) => {
+  const { field, value } = req.query;
+  const query = new RegExp(value, "gi");
+  const recipes = await RecipeModel.find({
+    public: true,
+    [field]: query,
+  });
+  res.json({ total: recipes.length, recipes });
+};
+
+/**
+ * GET /api/v1/recipes/latest
+ */
+exports.getLatestRecipes = async (req, res) => {
+  const recipes = await RecipeModel.find({ public: true })
+    .limit(10)
+    .sort({ created: "desc" });
   res.json({ total: recipes.length, recipes });
 };
 
@@ -24,7 +61,7 @@ exports.getOneRecipe = async (req, res) => {
 };
 
 /**
- * POST /api/v1/recipe/create
+ * POST /api/v1/recipe
  */
 exports.addOneRecipe = async (req, res) => {
   const recipe = await RecipeModel.create({ ...req.body });
@@ -32,7 +69,7 @@ exports.addOneRecipe = async (req, res) => {
 };
 
 /**
- * PATCH /api/v1/recipe/:id/update
+ * PATCH /api/v1/recipe/:id
  */
 exports.updateOneRecipe = async (req, res) => {
   const recipe = await RecipeModel.findOneAndUpdate(
@@ -48,7 +85,7 @@ exports.updateOneRecipe = async (req, res) => {
 };
 
 /**
- * DELETE /api/v1/recipe/:id/delete
+ * DELETE /api/v1/recipe/:id
  */
 exports.deleteOneRecipe = async (req, res) => {
   const { id } = req.params;
