@@ -19,7 +19,9 @@ const {
   getCurrentUser,
   updateOneUser,
   deleteOneUser,
+  getFavorites,
   updateFavorites,
+  searchUserRecipes,
 } = require("../controllers/userController");
 
 /**
@@ -33,6 +35,16 @@ router.get(
 );
 
 /**
+ * GET /api/v1/me/favorites
+ * Retrieve user favorites.
+ */
+router.get(
+  "/me/favorites",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(getFavorites)
+);
+
+/**
  * POST /api/v1/me/favorites
  * Add/Remove a recipe to/from user favorites.
  */
@@ -43,8 +55,14 @@ router.post(
 );
 
 /**
+ * GET /api/v1/me/search?field=:field&q=:queryParam
+ * EX: http://localhost:3000/api/v1/me/search?field=recipes&q=pasta
+ */
+router.get("/me/search", searchUserRecipes);
+
+/**
  * GET /api/v1/user/:id
- * Retrive user public profile information.
+ * Retrieve user public profile information.
  */
 router.get("/user/:id", catchErrors(getOneUser));
 
@@ -126,6 +144,7 @@ const {
   addOneRecipe,
   updateOneRecipe,
   deleteOneRecipe,
+  searchRecipes,
 } = require("../controllers/recipeController");
 
 /**
@@ -136,26 +155,27 @@ router.get("/recipes", getRecipes);
 
 /**
  * GET /api/v1/recipe/:id
- * Retrieve recipe item with ID :id.
  */
 router.get("/recipe/:id", catchErrors(getOneRecipe));
 
 /**
  * POST /api/v1/recipe/create
- * Add new recipe item.
  */
 router.post("/recipe/create", catchErrors(addOneRecipe));
 
 /**
  * PATCH /api/v1/recipe/:id/update
- * Update recipe item with ID :id.
  */
 router.patch("/recipe/:id/update", catchErrors(updateOneRecipe));
 
 /**
  * DELETE /api/v1/recipe/:id/delete
- * Delete recipe item with ID :id.
  */
 router.delete("/recipe/:id/delete", catchErrors(deleteOneRecipe));
+
+/**
+ * GET /api/v1/recipes/search?q=[query]
+ */
+router.get("/recipes/search", searchRecipes);
 
 module.exports = router;

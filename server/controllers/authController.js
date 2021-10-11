@@ -75,7 +75,6 @@ exports.login = async (req, res, next) => {
  */
 // TODO: fix Google flow
 exports.setJWTcookie = async (req, res) => {
-  console.log(req.cookies);
   const { user } = req;
   const body = { _id: user._id, email: user.email };
   const expiresIn = "7d";
@@ -106,6 +105,5 @@ exports.confirmPasswords = async (req, res, next) => {
   if (req.body.password !== req.body["confirm_password"]) {
     throw new InvalidPropertyError("Your passwords do not match");
   }
-  console.log("Before next");
-  return next();
+  next();
 };

@@ -14,7 +14,7 @@ exports.getCurrentUser = (req, res) => {
 
 /**
  * GET /api/v1/user/:id
- * Retrive user public profile/account information.
+ * Retrieve user public profile/account information.
  */
 exports.getOneUser = async (req, res) => {
   const user = await UserModel.findOne({ _id: req.params.id })
@@ -51,6 +51,17 @@ exports.deleteOneUser = async (req, res) => {
 };
 
 /**
+ * GET /api/v1/me/favorites
+ * Add/Remove a recipe to/from user favorites.
+ */
+exports.getFavorites = async (req, res) => {
+  const user = await UserModel.findOne({ _id: req.user._id })
+    .select("favorites")
+    .populate("favorites");
+  return res.json(user);
+};
+
+/**
  * POST /api/v1/me/favorites
  * Add/Remove a recipe to/from user favorites.
  */
@@ -63,4 +74,28 @@ exports.updateFavorites = async (req, res) => {
     { new: true }
   );
   return res.json(user);
+};
+
+/**
+ * GET /api/v1/me/search?field=:field&q=:queryParam
+ * field: [recipes || favorites]
+ */
+exports.searchUserRecipes = async (req, res) => {
+  const { field, q } = req.query;
+
+  const user = await UserModel.findOne({
+    _id: "61576e446d162fbd4c57af0b",
+  }).populate({
+    path: field,
+    select: "-author",
+    match: {
+      $or: [
+        { title: new RegExp(q, "gi") },
+        { categories: new RegExp(q, "gi") },
+        { cuisine: new RegExp(q, "gi") },
+      ],
+    },
+  });
+
+  res.json(user.recipes);
 };
