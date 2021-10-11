@@ -39,6 +39,7 @@ const Ingredients = () => {
     const measurementOptions = ["Teaspoon", "Tablespoon", "Cup", "Gallon", "Grams", "Kilograms", "Ounces", "Litres", "None"];
     const categoriesOptions = ["Lunch", "Dinner", "Dessert", "Appetizer", "Beverage", "Miscellaneous"];
     const cuisineOptions = ["Vegan", "Vegetarian", "Gluten Free", "Quick", "Kosher", "For Two", "Make Ahead"];
+    const cloudinaryURL = "https://api.cloudinary.com/v1_1/dshl3pgv4/upload"
 
 
     const defaultValues = {
@@ -48,7 +49,7 @@ const Ingredients = () => {
             ingredients: [
                 {fraction: fractionOptions[0], unit: "1", measurement: measurementOptions[0]}
             ],
-            instructions: ["ggg"]
+            instructions: [""]
         }
     }
 
@@ -76,10 +77,25 @@ const Ingredients = () => {
         remove: instructionsRemove
     } = useFieldArray({control, name:"recipe.instructions"})
 
-    const Welcome = () => {
+    const WelcomeStep = () => {
         return(
             <div>sdsd</div>
         )
+    };
+
+    async function onFormSubmit(formData) {
+        console.log(formData.recipe.thumbnail[0]);
+        const imageUploadData = new FormData();
+        imageUploadData.append("file", formData.recipe.thumbnail[0]);
+
+        //@TODO: make this an env
+        imageUploadData.append("upload_preset", "xw6p5o5v");
+
+        const response = await fetch(cloudinaryURL, {
+            method: "PUT",
+            body: imageUploadData
+        });
+        console.log(response);
     };
 
     const IngredientsStep = () => {
@@ -166,7 +182,7 @@ const Ingredients = () => {
         return(
             <div className={styles.ingredients__container}>
                 <h2>Add the instructions:</h2>
-                <form onSubmit={handleSubmit(data => console.log(data))}>
+                <form onSubmit={handleSubmit(onFormSubmit)}>
                     {instructionsFields.map((field, index) => (
                         <div key={field.id}>
                             <h3>{index+1}</h3>
@@ -194,15 +210,16 @@ const Ingredients = () => {
                         />          
                     </div>
                     <Button type="submit">Save</Button>
+
+                    <input type="file" {...register(`recipe.thumbnail`)}/>
                 </form>
             </div>
         );
-        
     }
 
     return (
         <Wizard startIndex={1} footer={<Footer />}>
-            <Welcome number={1} />
+            <WelcomeStep number={1} />
             <IngredientsStep number={2} />
             <InstructionsStep number={3} />
         </Wizard> 
