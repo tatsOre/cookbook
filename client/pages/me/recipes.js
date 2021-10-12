@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { userContext } from "../src/UserContext";
+import { userContext } from "../../src/UserContext";
 
-import Layout from "../components/Layout/Layout";
+import Layout from "../../components/Layout/Layout";
 
 export default function Home() {
   const { user } = useContext(userContext);

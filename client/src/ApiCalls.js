@@ -6,7 +6,7 @@ export const fetchCurrentUser = async () => {
     credentials: "include",
   });
   if (response.status !== 200) {
-    console.log({ status: response.status, text: response.statusText });
+    // console.log({ status: response.status, text: response.statusText });
     return null;
   }
   return response.json();
@@ -32,5 +32,24 @@ export const logout = async () => {
   return await fetch(LOGOUT_URL, {
     method: "GET",
     credentials: "include",
+  });
+};
+
+const getData = async (url, data) => {
+  return await fetch(url, {
+    method: "GET",
+    credentials: "include",
+  });
+};
+
+export const postData = async (url, data) => {
+  return await fetch(url, {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Credentials": true,
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(data),
   });
 };

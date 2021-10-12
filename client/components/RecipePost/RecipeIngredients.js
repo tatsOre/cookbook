@@ -1,46 +1,77 @@
 import { useState } from "react";
+import AlertMessage from "../Alert/AlertMessage";
 
-const RecipeIngredients = ({ ingredients }) => {
-  const recipeIngr = ingredients.map((ing) => ({ ...ing, checked: true }));
-  const [checkedIngr, setCheckedIngr] = useState(recipeIngr);
+import { postData } from "../../src/ApiCalls";
+import { SHOP_LIST_BASE_URL } from "../../config";
+
+const RecipeIngredients = ({ ingredients, recipe }) => {
+  const recipeIngrsInitial = ingredients.map((ingr) => ({
+    ...ingr,
+    checked: true,
+  }));
+  const [checkedIngr, setCheckedIngr] = useState(recipeIngrsInitial);
+  const [alertMessage, setAlertMessage] = useState(true);
+
   const addToShopList = checkedIngr.filter((ingr) => !ingr.checked);
   const count = addToShopList.length;
 
   const handleInputChange = ({ target }) => {
     const { value } = target;
-    const updated = checkedIngr.map((item, index) => {
+
+    setAlertMessage(false);
+
+    const updated = checkedIngr.map((ingr, index) => {
       if (value == index) {
-        return { ...item, checked: !item.checked };
+        return { ...ingr, checked: !ingr.checked };
       }
-      return item;
+      return ingr;
     });
+
     setCheckedIngr(updated);
   };
 
-  const handleAddToShopList = () => {
-    console.log(addToShopList);
+  const handleAddToShopList = async (event) => {
+    event.preventDefault();
+    const items = addToShopList.map(
+      ({ unit, fraction, measurement, name }) =>
+        `${unit} ${fraction} ${measurement} ${name}`
+    );
+
+    const response = await postData(SHOP_LIST_BASE_URL, { recipe, items });
+
+    if (response.status === 200) {
+      setAlertMessage(true);
+    }
+
+    event.target.reset();
+    setCheckedIngr(recipeIngrsInitial);
   };
 
   return (
-    <form>
+    <form onSubmit={handleAddToShopList}>
       <ul>
-        {ingredients.map((item, index) => (
-          <li key={`ing-${item._id}`}>
+        {ingredients.map((ingr, index) => (
+          <li key={`ing-${ingr._id}`}>
             <input
-              id={`ing-${item._id}`}
+              id={`ing-${ingr._id}`}
               type="checkbox"
               value={index}
               onChange={handleInputChange}
             />
-            <label htmlFor={`ing-${item._id}`}>
-              {item.metric_quantity} {item.unit} {item.name}
+            <label htmlFor={`ing-${ingr._id}`}>
+              {ingr.unit} {ingr.fraction} {ingr.measurement} {ingr.name}
             </label>
           </li>
         ))}
       </ul>
-      <button type="button" onClick={handleAddToShopList}>
-        Add {count ? count : "ALL"} ingredient
-        {count > 1 || count === 0 ? "s" : ""} to shopping list
+      {alertMessage && (
+        <AlertMessage variant="success" label={`Added to your shopping lists!`}>
+          <a href="/">Go to my shopping lists.</a>
+        </AlertMessage>
+      )}
+      <button type="submit">
+        {`Add ${count ? count : "ALL"}
+          ingredient${count > 1 || count === 0 ? "s" : ""} to shopping list`}
       </button>
     </form>
   );

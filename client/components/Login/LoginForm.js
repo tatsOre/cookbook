@@ -8,7 +8,11 @@ import ProvidersButtons from "./ProvidersButtons";
 import styles from "./LoginForm.module.css";
 import { LOGIN_URL } from "../../config";
 
+import { useContext } from "react";
+import { userContext } from "../../src/UserContext";
+
 const Login = () => {
+  const { alert, setAlert } = useContext(userContext);
   const {
     register,
     formState: { errors },
@@ -23,7 +27,7 @@ const Login = () => {
   const onSubmit = async (data, event) => {
     event.preventDefault();
     setDisabled(true);
-    console.log(data);
+
     const res = await fetch(LOGIN_URL, {
       method: "POST",
       headers: {
@@ -42,6 +46,7 @@ const Login = () => {
       });
       return setDisabled(false);
     }
+    setAlert(!alert);
     router.push("/");
   };
 

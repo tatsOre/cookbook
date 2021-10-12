@@ -97,7 +97,7 @@ const RecipePost = ({ recipe }) => {
         <div className={styles.article__ingredients_container}>
           <div className={styles.recipe__ingredients}>
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>
-            <RecipeIngredients ingredients={ingredients} />
+            <RecipeIngredients ingredients={ingredients} recipe={_id} />
           </div>
           <div className={styles.recipe__instructions}>
             <h2 className={styles.recipe__subtitle}>Instructions</h2>

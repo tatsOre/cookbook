@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { userContext } from "../../src/UserContext";
 
@@ -14,14 +14,19 @@ import styles from "./Navbar.module.css";
 
 import { logout } from "../../src/ApiCalls";
 
-const TopNavBar = () => {
-  const handleLogout = () => logout();
+const TopNavBar = ({ user }) => {
+  const router = useRouter();
+
+  const handleClickLogout = () => {
+    logout();
+    router.push("/");
+  };
   return (
     <div className={styles.topnav__container}>
       <div className={styles.topnav__usermenu}>
         <p>Signed in as: </p>
         <NavDropdown
-          title="Lipa Echeverry"
+          title={user?.name}
           id="collasible-nav-dropdown"
           align="end"
         >
@@ -30,7 +35,7 @@ const TopNavBar = () => {
           <NavDropdown.Item href="/">Favorites</NavDropdown.Item>
           <NavDropdown.Item href="/">Shopping Lists</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="/" onClick={handleLogout}>
+          <NavDropdown.Item href="/" onClick={handleClickLogout}>
             Logout
           </NavDropdown.Item>
         </NavDropdown>
@@ -39,7 +44,7 @@ const TopNavBar = () => {
   );
 };
 
-const SideNavBar = () => {
+const SideNavBar = ({ user }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -54,7 +59,7 @@ const SideNavBar = () => {
         <div className={styles.sidenav__header}>
           <CloseButton onClick={handleClose} />
           <UserAvatar pic="" altText="Mark Photo" size="lg" />
-          <h3>Welcome, Mark.</h3>
+          <h3>Welcome{user?.name && `, ${user.name}`}</h3>
         </div>
         <div className={styles.sidenav__body}>
           <nav>
@@ -70,6 +75,10 @@ const SideNavBar = () => {
             <Link href="/">
               <a>Shopping Lists</a>
             </Link>
+
+            <a href="/" onClick={() => alert("fuck")}>
+              Logout
+            </a>
           </nav>
         </div>
       </Offcanvas>
@@ -83,8 +92,8 @@ const Navigation = () => {
     <nav>
       {user && (
         <>
-          <TopNavBar />
-          <SideNavBar />
+          <TopNavBar user={user} />
+          <SideNavBar user={user} />
         </>
       )}
       {!user && (
