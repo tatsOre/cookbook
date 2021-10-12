@@ -30,7 +30,7 @@ router.get(
  * GET /api/v1/me/recipes
  * Retrieve user recipes.
  */
- router.get(
+router.get(
   "/me/recipes",
   passport.authenticate("jwt", { session: false }),
   catchErrors(userController.getUserRecipes)
@@ -138,7 +138,6 @@ router.get(
   Routes for Recipes Controller
 */
 const recipeController = require("../controllers/recipeController");
-const ShoppingListModel = require("../models/ShoppingList");
 
 /**
  * GET /api/v1/recipes
@@ -166,17 +165,29 @@ router.get("/recipe/:id", catchErrors(recipeController.getOneRecipe));
 /**
  * POST /api/v1/recipe
  */
-router.post("/recipe", catchErrors(recipeController.addOneRecipe));
+router.post(
+  "/recipe",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(recipeController.addOneRecipe)
+);
 
 /**
  * PATCH /api/v1/recipe/:id
  */
-router.patch("/recipe/:id", catchErrors(recipeController.updateOneRecipe));
+router.patch(
+  "/recipe/:id",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(recipeController.updateOneRecipe)
+);
 
 /**
  * DELETE /api/v1/recipe/:id
  */
-router.delete("/recipe/:id", catchErrors(recipeController.deleteOneRecipe));
+router.delete(
+  "/recipe/:id",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(recipeController.deleteOneRecipe)
+);
 
 /**
  * GET /api/v1/recipes/search?q=[query]

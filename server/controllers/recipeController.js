@@ -17,7 +17,7 @@ exports.getRecipes = async (req, res) => {
   const recipesPromise = RecipeModel.find({ public: true })
     .skip(skip)
     .limit(limit)
-    .sort({ created: "desc" });
+    .sort({ createdAt: "desc" });
 
   const countPromise = RecipeModel.find({ public: true }).count();
 
@@ -48,7 +48,7 @@ exports.getRecipesByQuery = async (req, res) => {
 exports.getLatestRecipes = async (req, res) => {
   const recipes = await RecipeModel.find({ public: true })
     .limit(10)
-    .sort({ created: "desc" });
+    .sort({ createdAt: "desc" });
 
   res.json({ total: recipes.length, recipes });
 };

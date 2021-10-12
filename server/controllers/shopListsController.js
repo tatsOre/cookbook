@@ -14,8 +14,10 @@ exports.getShopLists = async (req, res) => {
       path: "shopping_lists",
       populate: {
         path: "recipe",
-        select: "-categories -cuisine -author -servings -photo -description",
+        select:
+          "-categories -cuisine -author -servings -photo -description -createdAt -updatedAt",
       },
+      options: { sort: { createdAt: -1 } },
     });
 
   return res.json(shopLists);

@@ -23,11 +23,10 @@ const RecipeSchema = new Schema(
     },
     ingredients: [
       {
+        unit: Number,
+        fraction: String,
+        measurement: String,
         name: String,
-        unit: String,
-        metric_quantity: Number,
-        metric_display_quantify: String,
-        metric_unit: String,
       },
     ],
     instructions: {
@@ -54,12 +53,10 @@ RecipeSchema.index({
 });
 
 function findManyHook(next) {
-  this.select("-ingredients -instructions -public -comments").populate(
-    {
-      path: "author",
-      select: "_id name",
-    }
-  );
+  this.select("-ingredients -instructions -public -comments").populate({
+    path: "author",
+    select: "_id name",
+  });
   next();
 }
 
