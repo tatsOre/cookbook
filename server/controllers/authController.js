@@ -56,7 +56,7 @@ exports.registerGoogleUser = async (req, res, next) => {
  */
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
-  const user = await UserModel.findOne({ email }).select("-providers");
+  const user = await UserModel.findOne({ email }).select("+password");
   if (!user)
     throw new NotFoundError(
       "Email not found or you do not have an account yet"
@@ -95,6 +95,7 @@ exports.setJWTcookie = async (req, res) => {
 exports.logout = async (req, res) => {
   console.log(req.cookies);
   res.clearCookie(process.env.COOKIE_SECRET);
+
   res.json({ message: ["logout successful"] });
 };
 

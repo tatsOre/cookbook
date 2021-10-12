@@ -20,6 +20,7 @@ const UserSchema = new Schema(
     password: {
       type: String,
       minLength: [8, "Password must be at least 8 characters long"],
+      select: false,
     },
     providers: {
       facebook: {

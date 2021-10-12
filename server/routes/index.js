@@ -27,6 +27,16 @@ router.get(
 );
 
 /**
+ * GET /api/v1/me/recipes
+ * Retrieve user recipes.
+ */
+ router.get(
+  "/me/recipes",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(userController.getUserRecipes)
+);
+
+/**
  * GET /api/v1/me/favorites
  * Retrieve user favorites.
  */

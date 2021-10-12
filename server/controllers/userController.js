@@ -20,6 +20,7 @@ exports.getOneUser = async (req, res) => {
   const user = await UserModel.findOne({ _id: req.params.id })
     .select("-providers -favorites -shopping_lists")
     .populate("recipes"); // change to public recipes
+
   res.json(user);
 };
 
@@ -34,6 +35,7 @@ exports.updateOneUser = async (req, res) => {
     runValidators: true,
     new: true,
   });
+
   res.json({ message: "Your profile information has been updated", user });
 };
 
@@ -47,7 +49,20 @@ exports.deleteOneUser = async (req, res) => {
   await RecipeModel.deleteMany({ author: userID });
   await ShoppingListModel.deleteMany({ author: userID });
   await UserModel.deleteOne({ _id: id });
+
   res.json({ message: "All your information has been deleted" });
+};
+
+/**
+ * GET /api/v1/me/recipes
+ * Retrieve user recipes.
+ */
+exports.getUserRecipes = async (req, res) => {
+  const user = await UserModel.findOne({ _id: req.user._id })
+    .select("recipes")
+    .populate("recipes");
+
+  return res.json(user);
 };
 
 /**
@@ -58,6 +73,7 @@ exports.getFavorites = async (req, res) => {
   const user = await UserModel.findOne({ _id: req.user._id })
     .select("favorites")
     .populate("favorites");
+
   return res.json(user);
 };
 
@@ -73,6 +89,7 @@ exports.updateFavorites = async (req, res) => {
     { [operator]: { favorites: req.body.recipe } },
     { new: true }
   );
+
   return res.json(user);
 };
 

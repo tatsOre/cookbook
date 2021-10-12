@@ -49,8 +49,8 @@ exports.updateOneShoppingList = async (req, res) => {
       new: true,
     }
   );
-  if (!shopList) throw NotFoundError("Document not found");
 
+  if (!shopList) throw NotFoundError("Document not found");
   res.json(shopList);
 };
 
@@ -60,6 +60,7 @@ exports.updateOneShoppingList = async (req, res) => {
  */
 exports.deleteOneShoppingList = async (req, res) => {
   const { id } = req.params;
+
   await UserModel.findByIdAndUpdate(req.user._id, {
     $pull: { shopping_lists: id },
   });
