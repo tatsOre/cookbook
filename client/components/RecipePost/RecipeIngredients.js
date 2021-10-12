@@ -7,63 +7,66 @@ import { SHOP_LIST_BASE_URL } from "../../config";
 const RecipeIngredients = ({ ingredients, recipe }) => {
   const recipeIngrsInitial = ingredients.map((ingr) => ({
     ...ingr,
-    checked: true,
+    checked: false,
   }));
-  const [checkedIngr, setCheckedIngr] = useState(recipeIngrsInitial);
-  const [alertMessage, setAlertMessage] = useState(true);
+  const [ingrState, setIngrState] = useState(recipeIngrsInitial);
+  const [alertMessage, setAlertMessage] = useState(false);
 
-  const addToShopList = checkedIngr.filter((ingr) => !ingr.checked);
-  const count = addToShopList.length;
+  const selected = ingrState.filter((ingr) => ingr.checked);
+  const count = selected.length;
 
   const handleInputChange = ({ target }) => {
     const { value } = target;
 
     setAlertMessage(false);
 
-    const updated = checkedIngr.map((ingr, index) => {
+    const updated = ingrState.map((ingr, index) => {
       if (value == index) {
         return { ...ingr, checked: !ingr.checked };
       }
       return ingr;
     });
 
-    setCheckedIngr(updated);
+    setIngrState(updated);
   };
 
-  const handleAddToShopList = async (event) => {
+  const handleAddToShopList = (event) => {
+    setIngrState(recipeIngrsInitial);
+    // Remove alert message if count === 0
+    setAlertMessage(false);
     event.preventDefault();
+    // count 0 === Add? = all ingrs to shop list:
+    const addToShopList = count ? selected : ingredients;
     const items = addToShopList.map(
       ({ unit, fraction, measurement, name }) =>
         `${unit} ${fraction} ${measurement} ${name}`
     );
 
-    const response = await postData(SHOP_LIST_BASE_URL, { recipe, items });
-
-    if (response.status === 200) {
-      setAlertMessage(true);
-    }
-
-    event.target.reset();
-    setCheckedIngr(recipeIngrsInitial);
+    postData(SHOP_LIST_BASE_URL, { recipe, items })
+      .then((response) => {
+        if (response.status === 200) {
+          setAlertMessage(true);
+        }
+      }) // todo: handle errors in UI/UX
+      .catch((error) => console.log({ error }));
   };
 
   return (
     <form onSubmit={handleAddToShopList}>
-      <ul>
-        {ingredients.map((ingr, index) => (
-          <li key={`ing-${ingr._id}`}>
+      <fieldset>
+        {ingrState.map((ingr, index) => (
+          <label key={`ingr-${index}`}>
             <input
-              id={`ing-${ingr._id}`}
               type="checkbox"
               value={index}
               onChange={handleInputChange}
+              checked={!!ingr.checked}
+              readOnly
             />
-            <label htmlFor={`ing-${ingr._id}`}>
-              {ingr.unit} {ingr.fraction} {ingr.measurement} {ingr.name}
-            </label>
-          </li>
+            {ingr.unit} {ingr.fraction} {ingr.measurement} {ingr.name}
+          </label>
         ))}
-      </ul>
+      </fieldset>
       {alertMessage && (
         <AlertMessage variant="success" label={`Added to your shopping lists!`}>
           <a href="/">Go to my shopping lists.</a>

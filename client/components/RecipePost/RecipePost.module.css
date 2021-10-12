@@ -77,9 +77,22 @@
   margin-top: 2rem;
 }
 
+.recipe__ingredients fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.recipe__ingredients label {
+  margin-bottom: 0.5rem;
+  margin-left: 0.2rem;
+}
+
 .recipe__ingredients input {
   color: white;
   accent-color: var(--color-light);
+  margin-right: 1rem;
 }
 
 .recipe__ingredients button {

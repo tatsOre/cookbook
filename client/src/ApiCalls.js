@@ -42,7 +42,7 @@ const getData = async (url, data) => {
   });
 };
 
-export const postData = async (url, data) => {
+export const postData = async (url = "", data = {}) => {
   return await fetch(url, {
     method: "POST",
     headers: {
