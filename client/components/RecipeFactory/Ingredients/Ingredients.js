@@ -1,5 +1,5 @@
 
-import { ToggleButtonGroup, Button, Dropdown, DropdownButton, ToggleButton } from "react-bootstrap";
+import { ToggleButtonGroup, Button, Dropdown, DropdownButton, ToggleButton, Form } from "react-bootstrap";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { Wizard, useWizard } from "react-use-wizard";
 
@@ -77,27 +77,24 @@ const Ingredients = () => {
         remove: instructionsRemove
     } = useFieldArray({control, name:"recipe.instructions"})
 
-    const WelcomeStep = () => {
-        return(
-            <div>sdsd</div>
-        )
-    };
-
     async function onFormSubmit(formResult) {
-        const imageUploadData = new FormData();
-        imageUploadData.append("file", formResult.recipe.thumbnail[0]);
+        console.log(formResult);
 
-        //@TODO: make this an env
-        imageUploadData.append("upload_preset", "xw6p5o5v");
+        if(FormResult.recipe.thumbnail.length > 0) {
+            const imageUploadData = new FormData();
+            imageUploadData.append("file", formResult.recipe.thumbnail[0]);
 
-        const response = await fetch(cloudinaryURL, {
-            method: "POST",
-            body: imageUploadData
-        });
-        const imageURL = await response.json();
 
-        formResult.recipe.thumbnail = await imageURL.url;
+            //@TODO: make this an env
+            imageUploadData.append("upload_preset", "xw6p5o5v");
 
+            const response = await fetch(cloudinaryURL, {
+                method: "POST",
+                body: imageUploadData
+            });
+            const imageURL = await response.json();
+            formResult.recipe.thumbnail = await imageURL.url;
+        }
     };
 
     const IngredientsStep = () => {
@@ -214,6 +211,12 @@ const Ingredients = () => {
                     <Button type="submit">Save</Button>
 
                     <input type="file" {...register(`recipe.thumbnail`)}/>
+                    <label htmlFor="recipe.public">make public?</label>
+                    <Controller
+                        control={control}
+                        name="recipe.public"
+                        render={({field: {ref, value, onChange}}) => <Form.Check onChange={onChange} type="switch" />}
+                    />
                 </form>
             </div>
         );
@@ -221,9 +224,8 @@ const Ingredients = () => {
 
     return (
         <Wizard startIndex={1} footer={<Footer />}>
-            <WelcomeStep number={1} />
-            <IngredientsStep number={2} />
-            <InstructionsStep number={3} />
+            <IngredientsStep number={1} />
+            <InstructionsStep number={2} />
         </Wizard> 
   );
 };
