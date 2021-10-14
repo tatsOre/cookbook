@@ -83,19 +83,21 @@ const Ingredients = () => {
         )
     };
 
-    async function onFormSubmit(formData) {
-        console.log(formData.recipe.thumbnail[0]);
+    async function onFormSubmit(formResult) {
         const imageUploadData = new FormData();
-        imageUploadData.append("file", formData.recipe.thumbnail[0]);
+        imageUploadData.append("file", formResult.recipe.thumbnail[0]);
 
         //@TODO: make this an env
         imageUploadData.append("upload_preset", "xw6p5o5v");
 
         const response = await fetch(cloudinaryURL, {
-            method: "PUT",
+            method: "POST",
             body: imageUploadData
         });
-        console.log(response);
+        const imageURL = await response.json();
+
+        formResult.recipe.thumbnail = await imageURL.url;
+
     };
 
     const IngredientsStep = () => {
