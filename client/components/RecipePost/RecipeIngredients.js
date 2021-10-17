@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AlertMessage from "../Alert/AlertMessage";
-
+import { ButtonOutlined } from "../Buttons/Buttons";
 import { postData } from "../../src/ApiCalls";
 import { SHOP_LIST_BASE_URL } from "../../config";
 
@@ -14,6 +14,10 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
 
   const selected = ingrState.filter((ingr) => ingr.checked);
   const count = selected.length;
+
+  const buttonLabel = `Add ${count ? count : "ALL"} ingredient${
+    count > 1 || count === 0 ? "s" : ""
+  } to shopping list`;
 
   const handleInputChange = ({ target }) => {
     const { value } = target;
@@ -72,10 +76,7 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
           <a href="/">Go to my shopping lists.</a>
         </AlertMessage>
       )}
-      <button type="submit">
-        {`Add ${count ? count : "ALL"}
-          ingredient${count > 1 || count === 0 ? "s" : ""} to shopping list`}
-      </button>
+      <ButtonOutlined type="submit">{buttonLabel}</ButtonOutlined>
     </form>
   );
 };

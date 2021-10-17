@@ -1,0 +1,16 @@
+.card__small {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 1rem;
+}
+
+.card__details {
+  width: 75%;
+  display: flex;
+  flex-flow: row wrap;
+  padding-left: 1rem;
+}
+
+.card__small h3 {
+  width: 100%;
+}

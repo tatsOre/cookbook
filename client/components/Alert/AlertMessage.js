@@ -2,7 +2,7 @@ import Alert from "react-bootstrap/Alert";
 import styles from "./Alert.module.css";
 
 const AlertMessage = ({ variant, label, messages = [], children }) => {
-  const content = messages.map((msg) => <li>{msg}</li>);
+  const content = messages.map((msg, index) => <li key={index}>{msg}</li>);
   const themes = {
     success: styles["alert-success"],
     danger: styles["alert-danger"],

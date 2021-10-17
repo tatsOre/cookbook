@@ -1,14 +1,47 @@
 .header {
   width: 100%;
-  color: #00e677;
-  background-color: var(--color-primary);
+  background-color: rgb(241, 241, 241);
 }
 
 .header__container {
   max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem 0rem 0.5rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
-  padding: 1.25rem 2rem;
+}
+
+.header__divider {
+  margin: 0;
+  width: 100%;
+  height: 2px;
+  color: white;
+  background-image: linear-gradient(
+    to right,
+    white 5%,
+    #cbcbce,
+    #cbcbce,
+    white 95%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  background-position: 0 center;
+}
+
+.button__useraccount {
+  order: 3;
+}
+
+@media screen and (max-width: 599px) {
+  .header__container {
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .button__useraccount {
+    display: none;
+  }
 }

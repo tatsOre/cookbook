@@ -1,5 +1,28 @@
 const router = require("express").Router();
 
+const cuisine = [
+  "brazilian",
+  "british",
+  "cajun creole",
+  "chinese",
+  "filipino",
+  "french",
+  "greek",
+  "indian",
+  "irish",
+  "italian",
+  "jamaican",
+  "japanese",
+  "korean",
+  "mexican",
+  "moroccan",
+  "russian",
+  "southern US",
+  "spanish",
+  "thai",
+  "vietnamese",
+];
+
 const equivalences = [
   { fraction: "0", decimal: 0 },
   { fraction: "1/8", decimal: 0.125 },

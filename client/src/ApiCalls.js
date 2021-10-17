@@ -35,7 +35,7 @@ export const logout = async () => {
   });
 };
 
-const getData = async (url, data) => {
+export const getData = async (url) => {
   return await fetch(url, {
     method: "GET",
     credentials: "include",

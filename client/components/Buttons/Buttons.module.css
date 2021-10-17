@@ -1,0 +1,90 @@
+.btn__publish__recipe,
+.btn__edit__recipe,
+.btn__delete__recipe,
+.btn__outlined {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.025rem;
+  text-decoration: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 2px;
+}
+
+/* Delete Recipe Button */
+.btn__delete__recipe {
+  background-color: rgb(255, 248, 248);
+  color: red;
+  border: 1px solid red;
+}
+
+.btn__publish__recipe,
+.btn__edit__recipe,
+.btn__outlined {
+  background-color: rgb(241, 241, 241);
+  color: darkslategrey;
+  border: 1px solid darkslategrey;
+}
+
+/* Button Mobile */
+.button__mobile__icon {
+  height: 30px;
+  width: 25px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.button__mobile__icon div {
+  background-color: #cbcbce;
+  height: 3px;
+  margin-bottom: 5px;
+}
+.button__mobile__icon div:nth-child(1) {
+  width: 50%;
+}
+
+.button__mobile__icon div:nth-child(2) {
+  width: 75%;
+}
+
+.button__mobile__icon div:nth-child(3) {
+  width: 100%;
+}
+
+/* Button Add/Remove Favorites */
+
+.btn__favorites {
+  background-color: transparent;
+  border: none;
+}
+
+.btn__favorites svg {
+  width: 30px;
+  height: 30px;
+}
+
+.btn__favorites .icon__active {
+  fill: tomato;
+}
+
+.btn__favorites .icon__inactive {
+  fill: gray;
+}
+
+/* Bootstrap Tooltip */
+.favorites__tooltip {
+  background-color: black;
+  color: white;
+  opacity: 0.7;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .button__mobile {
+    order: 1;
+  }
+}

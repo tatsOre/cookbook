@@ -1,29 +1,23 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { userContext } from "../../src/UserContext";
-
-import { UserAvatar } from "../Utilities/Avatar";
+import { useRouter } from "next/router";
 
 import CloseButton from "react-bootstrap/CloseButton";
-import { IconPlaceholder } from "../General/Icon";
+import Image from "react-bootstrap/Image";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
-import styles from "./Navbar.module.css";
+import { AVATAR_DEFAULT } from "../../config";
+import ButtonMenuMobile from "../Buttons/ButtonMenuMobile";
 
 import { logout } from "../../src/ApiCalls";
+import styles from "./Navbar.module.css";
 
-const TopNavBar = ({ user }) => {
-  const router = useRouter();
-
-  const handleClickLogout = () => {
-    logout();
-    router.push("/");
-  };
+const TopNavBar = ({ user, handleLogout }) => {
   return (
-    <div className={styles.topnav__container}>
-      <div className={styles.topnav__usermenu}>
+    <div className={styles.navigation__top}>
+      <div className={styles.navigation__top__menu}>
         <p>Signed in as: </p>
         <NavDropdown
           title={user?.name}
@@ -35,7 +29,7 @@ const TopNavBar = ({ user }) => {
           <NavDropdown.Item href="/">Favorites</NavDropdown.Item>
           <NavDropdown.Item href="/">Shopping Lists</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="/" onClick={handleClickLogout}>
+          <NavDropdown.Item href="/" onClick={handleLogout}>
             Logout
           </NavDropdown.Item>
         </NavDropdown>
@@ -44,24 +38,29 @@ const TopNavBar = ({ user }) => {
   );
 };
 
-const SideNavBar = ({ user }) => {
+const SideNavBar = ({ user, handleLogout }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  return (
-    <div className={styles.sidenav__container}>
-      <button variant="primary" onClick={handleShow}>
-        <IconPlaceholder iconlabel="" />
-      </button>
+  const { name, photo } = user;
 
+  return (
+    <div className={styles.navigation__mobile}>
+      <ButtonMenuMobile handleShow={handleShow} />
       <Offcanvas show={show} onHide={handleClose}>
-        <div className={styles.sidenav__header}>
+        <div className={styles.side__header}>
           <CloseButton onClick={handleClose} />
-          <UserAvatar pic="" altText="Mark Photo" size="lg" />
-          <h3>Welcome{user?.name && `, ${user.name}`}</h3>
+          <Image
+            height={50}
+            width={50}
+            src={`${photo || AVATAR_DEFAULT}`}
+            altText={name || ""}
+            roundedCircle
+          />
+          <h3>Hello{name && `, ${name.split(" ")[0]}.`}</h3>
         </div>
-        <div className={styles.sidenav__body}>
+        <div className={styles.side__body}>
           <nav>
             <Link href="/">
               <a>Account</a>
@@ -75,8 +74,7 @@ const SideNavBar = ({ user }) => {
             <Link href="/">
               <a>Shopping Lists</a>
             </Link>
-
-            <a href="/" onClick={() => alert("fuck")}>
+            <a href="/" onClick={handleLogout}>
               Logout
             </a>
           </nav>
@@ -87,20 +85,27 @@ const SideNavBar = ({ user }) => {
 };
 
 const Navigation = () => {
-  const { user } = useContext(userContext);
+  const { user, setUser } = useContext(userContext);
+  const router = useRouter();
+  const handleClickLogout = () => {
+    logout();
+    setUser(null);
+    router.push("/");
+  };
+
   return (
-    <nav>
+    <nav className={styles.navigation}>
       {user && (
         <>
-          <TopNavBar user={user} />
-          <SideNavBar user={user} />
+          <TopNavBar user={user} handleLogout={handleClickLogout} />
+          <SideNavBar user={user} handleLogout={handleClickLogout} />
         </>
       )}
       {!user && (
-        <span>
-          Already have an account? <a href="/login"> Login</a> or{" "}
-          <a href="/signup">create one</a>
-        </span>
+        <>
+          <a href="/login">Login</a>
+          <a href="/signup">Sign Up</a>
+        </>
       )}
     </nav>
   );
