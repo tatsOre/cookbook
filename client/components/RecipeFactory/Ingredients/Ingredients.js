@@ -49,7 +49,8 @@ const Ingredients = () => {
             ingredients: [
                 {fraction: fractionOptions[0], unit: "1", measurement: measurementOptions[0]}
             ],
-            instructions: [""]
+            instructions: [""],
+            thumbnail: ""
         }
     }
 
@@ -223,9 +224,9 @@ const Ingredients = () => {
     }
 
     return (
-        <Wizard startIndex={1} footer={<Footer />}>
-            <IngredientsStep number={1} />
-            <InstructionsStep number={2} />
+        <Wizard startIndex={0} footer={<Footer />}>
+            <IngredientsStep />
+            <InstructionsStep />
         </Wizard> 
   );
 };
