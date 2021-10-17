@@ -53,7 +53,7 @@ RecipeSchema.index({
 });
 
 function findManyHook(next) {
-  this.select("-ingredients -instructions -public -comments").populate({
+  this.select("-ingredients -instructions -comments").populate({
     path: "author",
     select: "_id name",
   });

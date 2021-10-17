@@ -47,8 +47,8 @@ exports.getRecipesByQuery = async (req, res) => {
  */
 exports.getLatestRecipes = async (req, res) => {
   const recipes = await RecipeModel.find({ public: true })
-    .limit(10)
-    .sort({ createdAt: "desc" });
+    .limit(6)
+    .sort({ updatedAt: "desc" });
 
   res.json({ total: recipes.length, recipes });
 };
@@ -112,6 +112,7 @@ exports.deleteOneRecipe = async (req, res) => {
  * GET /api/v1/recipes/search?q=[query]
  */
 exports.searchRecipes = async (req, res) => {
+  // todo: implement partial search
   const recipes = await RecipeModel.find(
     {
       public: true,
@@ -120,7 +121,7 @@ exports.searchRecipes = async (req, res) => {
     { score: { $meta: "textScore" } }
   )
     .sort({ score: { $meta: "textScore" } })
-    .limit(10);
+    .limit(5);
 
   res.json(recipes);
   /*

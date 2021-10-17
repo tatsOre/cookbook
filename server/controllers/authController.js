@@ -93,9 +93,7 @@ exports.setJWTcookie = async (req, res) => {
  * GET /api/v1/auth/logout
  */
 exports.logout = async (req, res) => {
-  console.log(req.cookies);
   res.clearCookie(process.env.COOKIE_SECRET);
-
   res.json({ message: ["logout successful"] });
 };
 
