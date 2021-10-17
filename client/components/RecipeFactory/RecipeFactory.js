@@ -12,7 +12,6 @@ const measurementOptions = ["Teaspoon", "Tablespoon", "Cup", "Gallon", "Grams", 
 const categoriesOptions = ["Lunch", "Dinner", "Dessert", "Appetizer", "Beverage", "Miscellaneous"];
 
 const defaultValues = {
-  recipe: {
       instructions: [
         ""
       ],
@@ -20,7 +19,6 @@ const defaultValues = {
       ingredients: [
         {fraction: fractionOptions[0], unit: "1", measurement: measurementOptions[0]}
     ],
-  }
 }
 
 function onError(errors) {
@@ -29,9 +27,14 @@ function onError(errors) {
 
 async function onFormSubmit(formResult) {
         
-  if(formResult.recipe.thumbnail.length > 0) {
-      const imageUploadData = new FormData();
-      imageUploadData.append("file", formResult.recipe.thumbnail[0]);
+  if(formResult.thumbnail.length > 0) {
+    const normalizedFormResult = {
+      ...formResult,
+      instructions: formResult.instructions.reduce((previous, current, idx) => ({...previous, [idx]: current.instruction}), {})
+    }
+    console.log(JSON.stringify(formResult))
+      /* const imageUploadData = new FormData();
+      imageUploadData.append("file", formResult.thumbnail[0]);
 
       //@TODO: make this an env
       imageUploadData.append("upload_preset", "xw6p5o5v");
@@ -41,7 +44,7 @@ async function onFormSubmit(formResult) {
           body: imageUploadData
       });
       const imageURL = await response.json();
-      formResult.recipe.thumbnail = await imageURL.url;
+      formResult.thumbnail = await imageURL.url; */
   }
 };
 

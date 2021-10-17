@@ -26,26 +26,26 @@ const Ingredients = () => {
         fields: ingredientsFields, 
         append: ingredientsAppend,
         remove: ingredientsRemove
-    } = useFieldArray({control, name: "recipe.ingredients"});
+    } = useFieldArray({control, name: "ingredients"});
 
     return (
         <div className={styles.ingredients__container}>
             <h2>Create your New Recipe!</h2>
-                <label htmlFor="recipe.title">Title for your recipe</label>
-                <input {...register("recipe.title", {required: "Title is needed"})} className={styles.ingredients__input} type="text" />
-                {errors?.recipe?.title && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.title.message}</span>}
+                <label htmlFor="title">Title for your recipe</label>
+                <input {...register("title", {required: "Title is needed"})} className={styles.ingredients__input} type="text" />
+                {errors?.title && <span className={styles.ingredients__error} role="alert">{errors?.title.message}</span>}
 
                 <label htmlFor="Description">Description</label>
-                <textarea {...register("recipe.description", {required: "A description is required"})} className={styles.ingredients__inputArea} type="text" />
-                {errors?.recipe?.description && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.description.message}</span>}
+                <textarea {...register("description", {required: "A description is required"})} className={styles.ingredients__inputArea} type="text" />
+                {errors?.description && <span className={styles.ingredients__error} role="alert">{errors?.description.message}</span>}
 
-                <label>Recipe for <input {...register("recipe.servings", {required: "Number of servings is required"})} className={styles.ingredients__inputNumber} type="number" /> sevings</label>
-                {errors?.recipe?.servings && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.servings.message}</span>}
+                <label>Recipe for <input {...register("servings", {required: "Number of servings is required"})} className={styles.ingredients__inputNumber} type="number" /> sevings</label>
+                {errors?.servings && <span className={styles.ingredients__error} role="alert">{errors?.servings.message}</span>}
 
                 <div className={styles.ingredients__categories}>
                 <Controller
                     control={control}
-                    name="recipe.categories"
+                    name="categories"
                     defaultValue={[]}
                     rules={{required:"At least one category is needed"}}
                     render={({field: {onChange, value}}) =>
@@ -59,7 +59,7 @@ const Ingredients = () => {
                     </ToggleButtonGroup> 
                     }
                 />
-                {errors?.recipe?.categories && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.categories.message}</span>}          
+                {errors?.categories && <span className={styles.ingredients__error} role="alert">{errors?.categories.message}</span>}          
                 </div>
 
                 <section className={styles.ingredients__addIngredient}>
@@ -68,10 +68,10 @@ const Ingredients = () => {
                 <ul className={styles.ingredients__list}>
                     {ingredientsFields.map((item, index) => (
                         <li key={item.id}>
-                            <input {...register(`recipe.ingredients.${index}.unit`, {required: "At least one ingredient is required"})} className={styles.ingredients__inputUnit} type="number" />
+                            <input {...register(`ingredients.${index}.unit`, {required: "At least one ingredient is required"})} className={styles.ingredients__inputUnit} type="number" />
                             <Controller 
                                 control={control}
-                                name={`recipe.ingredients.${index}.fraction`}
+                                name={`ingredients.${index}.fraction`}
                                 rules={{required:"At least one ingredient is needed"}}
                                 defaultValue={fractionOptions[0]}
                                 render={({field: {onChange, value}}) => 
@@ -87,7 +87,7 @@ const Ingredients = () => {
                             />      
                             <Controller 
                                 control={control}
-                                name={`recipe.ingredients.${index}.measurement`}
+                                name={`ingredients.${index}.measurement`}
                                 defaultValue={measurementOptions[0]}
                                 rules={{required:"A measurement is needed"}}
                                 render={({field: {onChange, value}}) => 
@@ -100,13 +100,13 @@ const Ingredients = () => {
                                 </DropdownButton>
                                 }
                             />
-                                <input  {...register(`recipe.ingredients.${index}.name`, {required: "ingredient name is required"})} className={styles.ingredients__inputIngredient} type="text" />
+                                <input  {...register(`ingredients.${index}.name`, {required: "ingredient name is required"})} className={styles.ingredients__inputIngredient} type="text" />
                                 <Button onClick={() => ingredientsRemove(index)}>Delete</Button>
                         </li>
                     ))}
                 </ul>
-                <Button onClick={() => ingredientsAppend(defaultValues.recipe.ingredients[0])}className={styles.ingredients__add}>Add New Ingredient</Button>
-                {errors?.recipe?.ingredients && <span className={styles.ingredients__error} role="alert">Add at least one ingredient</span>}
+                <Button onClick={() => ingredientsAppend(defaultValues.ingredients[0])}className={styles.ingredients__add}>Add New Ingredient</Button>
+                {errors?.ingredients && <span className={styles.ingredients__error} role="alert">Add at least one ingredient</span>}
                 </section>
         </div>
     )

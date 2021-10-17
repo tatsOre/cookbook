@@ -11,23 +11,23 @@ const Instructions = () => {
         fields: instructionsFields,
         append: instructionsAppend,
         remove: instructionsRemove
-    } = useFieldArray({control, name:"recipe.instructions"})
+    } = useFieldArray({control, name:"instructions"})
     return(
         <div className={styles.instructions__container}>
             <h2>Add the instructions:</h2>
                 {instructionsFields.map((field, index) => (
                     <div key={field.id}>
                         <h3>{index+1}</h3>
-                        <textarea {...register(`recipe.instructions.${index}.instruction`)} className={styles.instructions__inputArea} type="text" />
+                        <textarea {...register(`instructions.${index}.instruction`)} className={styles.instructions__inputArea} type="text" />
                         <Button onClick={() => instructionsRemove(index)}>Delete</Button>
                     </div>
                 ))}
-             <Button onClick={() => instructionsAppend(defaultValues.recipe.instructions[0])}className={styles.instructions__add}>Add New Instruction</Button>
+             <Button onClick={() => instructionsAppend(defaultValues.instructions[0])}className={styles.instructions__add}>Add New Instruction</Button>
                 
                 <div className={styles.instructions__categories}>
                     <Controller
                         control={control}
-                        name="recipe.cuisine"
+                        name="cuisine"
                         defaultValue={[]}
                         rules={{required:"At least one type of cuisine is needed"}}
                         render={({field: {onChange, value}}) =>
@@ -41,22 +41,22 @@ const Instructions = () => {
                         </ToggleButtonGroup> 
                         }
                     /> 
-                    {errors?.recipe?.cuisine && <span className={styles.instructions__error} role="alert">{errors.recipe.cuisine.message}</span>}        
+                    {errors?.cuisine && <span className={styles.instructions__error} role="alert">{errors.cuisine.message}</span>}        
                 </div>
                 
                 <Controller
                     control={control}
-                    name="recipe.thumbnail"
+                    name="thumbnail"
                     defaultvalue=""
                     rules={{required: "You must select a thumbnail"}}
                     render={({field: {onChange}}) => <input onChange={onChange} type="file" />} 
                 />
-                {errors?.recipe?.cuisine && <span className={styles.instructions__error} role="alert">{errors.recipe.thumbnail.message}</span>}
+                {errors?.cuisine && <span className={styles.instructions__error} role="alert">{errors.cuisine.message}</span>}
 
-                <label htmlFor="recipe.public">make public?</label>
+                <label htmlFor="public">make public?</label>
                 <Controller
                     control={control}
-                    name="recipe.public"
+                    name="public"
                     render={({field: {onChange}}) => <Form.Check onChange={onChange} type="switch" />}
                 />
         </div>
