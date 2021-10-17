@@ -5,6 +5,8 @@ import Link from "next/link";
 import AlertMessage from "../Alert/AlertMessage";
 import ProvidersButtons from "../Login/ProvidersButtons";
 import styles from "./SignUpForm.module.css";
+
+import { postData } from "../../src/ApiCalls";
 import { SIGNUP_URL } from "../../config";
 
 const SignUp = () => {
@@ -22,16 +24,10 @@ const SignUp = () => {
     event.preventDefault();
     setDisabled(true);
 
-    const res = await fetch(SIGNUP_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await res.json();
+    const response = await postData(SIGNUP_URL, data);
+    const result = await response.json();
 
-    if (res.status !== 200) {
+    if (response.status !== 200) {
       setWarning({
         show: true,
         messages: result.message,
@@ -43,7 +39,7 @@ const SignUp = () => {
   return (
     <div className={styles.signup__container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.signup__form}>
-        <h1>Create an account</h1>
+        <h1>Start. Explore. Share.</h1>
         <p>Fill in your details below to create an account.</p>
         {warning.show && (
           <AlertMessage

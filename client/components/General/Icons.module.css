@@ -1,0 +1,13 @@
+.icon__background {
+  background-color: #cbcbce;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon__label {
+  color: white;
+  font-weight: bold;
+}

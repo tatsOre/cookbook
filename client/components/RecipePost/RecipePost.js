@@ -1,18 +1,15 @@
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
 import { userContext } from "../../src/UserContext";
-
-import ButtonFavorites from "../Buttons/ButtonFavorites";
 import RecipeInstructions from "./RecipeInstructions";
 import RecipeIngredients from "./RecipeIngredients";
 import Tabs from "./Tabs";
-
+import UserActions from "../User/UserActions";
 import styles from "./RecipePost.module.css";
+import { ButtonOutlined } from "../Buttons/Buttons";
 
 const RecipePost = ({ recipe }) => {
   const { user } = useContext(userContext);
-  const userRecipes = user?.recipes || [];
-
   const [openTabs, setOpenTabs] = useState(false);
   const handleOpenTabs = () => setOpenTabs(true);
 
@@ -28,31 +25,25 @@ const RecipePost = ({ recipe }) => {
     instructions,
     author,
     comments,
+    public: isPublic,
   } = recipe;
 
   return (
     <>
       <article className={styles.recipe}>
-        <h1 className={styles.recipe__title}>{title}</h1>
-        <p className={styles.recipe__author}>
-          <span>By </span>
-          <Link href="/">
-            <a>{author.name}</a>
-          </Link>
-        </p>
-        {userRecipes.includes(_id) ? (
-          <div>
-            <button type="button" onClick={() => alert("Edit your recipe!")}>
-              Edit
-            </button>
-            <button type="button" onClick={() => alert("Are you sure?")}>
-              Delete
-            </button>
-          </div>
-        ) : (
-          <ButtonFavorites id={_id} />
-        )}
+        <div className={styles.recipe__header}>
+          <h1 className={styles.recipe__title}>{title}</h1>
+          {!user?.recipes.includes(_id) && (
+            <p className={styles.recipe__author}>
+              <span>By </span>
+              <Link href="/">
+                <a>{author?.name}</a>
+              </Link>
+            </p>
+          )}
 
+          <UserActions recipeID={_id} isPublic={isPublic} />
+        </div>
         <div className={styles.recipe__image_container}>
           <img className={styles.recipe__image} src={photo} alt={title} />
         </div>
@@ -88,7 +79,7 @@ const RecipePost = ({ recipe }) => {
             min="1"
             defaultValue={servings}
           />
-          <button type="button">Adjust</button>
+          <ButtonOutlined type="button">Adjust</ButtonOutlined>
           <button type="button" onClick={handleOpenTabs}>
             Expand
           </button>

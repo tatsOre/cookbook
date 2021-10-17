@@ -9,6 +9,12 @@
   padding: 1rem 3rem 3rem;
 }
 
+.signup__form h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #9cccf7;
+}
+
 .form__input {
   width: 100%;
   border: 1px solid gray;

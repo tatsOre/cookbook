@@ -53,7 +53,11 @@ const Login = () => {
   return (
     <div className={styles.login_container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.login_form}>
-        <h1>Welcome back!</h1>
+        <h1>
+          Hey, you!
+          <br />
+          Welcome back.
+        </h1>
         <p>If you have an account, sign in with your email address:</p>
         {warning.show && (
           <AlertMessage
@@ -113,10 +117,16 @@ const Login = () => {
       </form>
 
       <div className={styles.block}>
-        Don't have an account?
+        or Create your account
         <Link href="/signup">
-          <a className={styles.form__link}> Sign up</a>
+          <a className={styles.form__link}>Register now</a>
         </Link>
+        <p>Registered members can:</p>
+        <ul>
+          <li>Create and share recipes with the world!</li>
+          <li>Save recipes to their favorites list</li>
+          <li>Create and save shopping lists</li>
+        </ul>
       </div>
     </div>
   );

@@ -1,52 +1,59 @@
 /* Modal Top Navigation for Desktop */
-.topnav__container {
-  color: var(--color-light);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.topnav__usermenu {
-  color: var(--color-light);
-  display: flex;
-  align-items: center;
-}
-
-.topnav__usermenu p {
-  margin: 0;
-}
-
-.topnav__container {
+.navigation__top {
+  color: black;
   display: block;
 }
 
+.navigation__top__menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation__top p {
+  margin: 0;
+}
+
 /* Modal Side Navigation for Mobile Devices */
-.sidenav__container {
+.navigation__mobile {
   display: none;
 }
 
-.sidenav__header {
+.side__header {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 2rem 3rem;
   border-bottom: 1px solid var(--color-neutral);
 }
 
-.sidenav__header > button {
+.side__header > button {
   align-self: flex-end;
 }
 
-.sidenav__body {
-  padding: 2rem;
+.side__header > h3 {
+  margin-top: 1.5rem;
+  font-size: 3rem;
+}
+
+.side__body {
+  padding: 2rem 3rem;
+}
+
+.side__body nav a {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: black;
 }
 
 @media screen and (max-width: 768px) {
-  .sidenav__container {
+  .navigation__mobile {
     display: block;
   }
 
-  .topnav__container {
+  .navigation__top {
     display: none;
   }
 }

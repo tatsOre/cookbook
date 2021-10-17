@@ -1,17 +1,39 @@
-import { useContext } from "react";
-import { userContext } from "../src/UserContext";
-
 import Layout from "../components/Layout/Layout";
+import RecipeSection from "../components/RecipesSections/RecipesSection";
 
-export default function Home() {
-  const { user } = useContext(userContext);
+export default function Home({ latest = [] }) {
   return (
     <Layout>
-      <h1>Hello World</h1>
-      <div>
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-      </div>
-      ;
+      <RecipeSection
+        title={
+          <>
+            <span>Explore</span>
+            <br />
+            the latest recipes
+          </>
+        }
+        recipes={latest}
+      />
+      <RecipeSection
+        title={
+          <>
+            <span>Featured</span>
+            <br />
+            of the month
+          </>
+        }
+        recipes={latest}
+      />
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const response = await fetch("http://localhost:3000/api/v1/recipes/latest");
+  const result = await response.json();
+  return {
+    props: {
+      latest: result?.recipes,
+    },
+  };
 }

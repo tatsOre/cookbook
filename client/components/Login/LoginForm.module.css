@@ -1,12 +1,19 @@
 .login_container {
-  max-width: 420px;
+  max-width: 1100px;
   margin: auto;
-  padding: 4rem 1.5rem 0rem;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .login_form {
   background-color: white;
   padding: 1rem 3rem 3rem;
+}
+
+.login_form h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #9cccf7;
 }
 
 .form__input {
