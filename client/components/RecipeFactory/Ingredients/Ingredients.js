@@ -1,36 +1,8 @@
 
-import { ToggleButtonGroup, Button, Dropdown, DropdownButton, ToggleButton, Form } from "react-bootstrap";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { Wizard, useWizard } from "react-use-wizard";
+import { ToggleButtonGroup, Button, Dropdown, DropdownButton, ToggleButton } from "react-bootstrap";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
 import styles from "./Ingredients.module.css";
-
-
-
-const Footer = () => {
-    const {
-      nextStep,
-      previousStep,
-      isLastStep,
-      isFirstStep,
-    } = useWizard();
-  
-    return (
-      <code>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <button
-            onClick={() => previousStep()}
-            disabled={isFirstStep}
-          >
-            Previous
-          </button>
-          <button onClick={() => nextStep()} disabled={isLastStep}>
-            Next
-          </button>
-        </div>
-      </code>
-    );
-  };
 
 const Ingredients = () => {
 
@@ -38,26 +10,8 @@ const Ingredients = () => {
     const fractionOptions= ["0", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"]
     const measurementOptions = ["Teaspoon", "Tablespoon", "Cup", "Gallon", "Grams", "Kilograms", "Ounces", "Litres", "None"];
     const categoriesOptions = ["Lunch", "Dinner", "Dessert", "Appetizer", "Beverage", "Miscellaneous"];
-    const cuisineOptions = ["Vegan", "Vegetarian", "Gluten Free", "Quick", "Kosher", "For Two", "Make Ahead"];
-    const cloudinaryURL = "https://api.cloudinary.com/v1_1/dshl3pgv4/upload"
+    
 
-
-    const defaultValues = {
-        recipe: {
-            title: "",
-            description: "",
-            ingredients: [
-                {fraction: fractionOptions[0], unit: "1", measurement: measurementOptions[0]}
-            ],
-            instructions: [""],
-            thumbnail: ""
-        }
-    }
-
-
-    const { register, handleSubmit, control } = useForm({
-        defaultValues: {...defaultValues}
-    });
     const fractionSelection = fractionOptions.map((option) => 
         <Dropdown.Item eventKey={option} key={option}>{option}</Dropdown.Item>
     );
@@ -66,57 +20,34 @@ const Ingredients = () => {
         <Dropdown.Item eventKey={option} key={option}>{option}</Dropdown.Item>
     );
 
+    const { register, control, formState: { errors }, defaultValues } = useFormContext();
+
     const {
         fields: ingredientsFields, 
         append: ingredientsAppend,
         remove: ingredientsRemove
     } = useFieldArray({control, name: "recipe.ingredients"});
 
-    const {
-        fields: instructionsFields,
-        append: instructionsAppend,
-        remove: instructionsRemove
-    } = useFieldArray({control, name:"recipe.instructions"})
-
-    async function onFormSubmit(formResult) {
-        console.log(formResult);
-
-        if(FormResult.recipe.thumbnail.length > 0) {
-            const imageUploadData = new FormData();
-            imageUploadData.append("file", formResult.recipe.thumbnail[0]);
-
-
-            //@TODO: make this an env
-            imageUploadData.append("upload_preset", "xw6p5o5v");
-
-            const response = await fetch(cloudinaryURL, {
-                method: "POST",
-                body: imageUploadData
-            });
-            const imageURL = await response.json();
-            formResult.recipe.thumbnail = await imageURL.url;
-        }
-    };
-
-    const IngredientsStep = () => {
-        return (
+    return (
         <div className={styles.ingredients__container}>
             <h2>Create your New Recipe!</h2>
-
-            <form>
-                <label htmlFor="title">Title for your recipe</label>
-                <input {...register("recipe.title")} className={styles.ingredients__input} type="text" />
+                <label htmlFor="recipe.title">Title for your recipe</label>
+                <input {...register("recipe.title", {required: "Title is needed"})} className={styles.ingredients__input} type="text" />
+                {errors?.recipe?.title && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.title.message}</span>}
 
                 <label htmlFor="Description">Description</label>
-                <textarea {...register("recipe.description")} className={styles.ingredients__inputArea} type="text" />
+                <textarea {...register("recipe.description", {required: "A description is required"})} className={styles.ingredients__inputArea} type="text" />
+                {errors?.recipe?.description && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.description.message}</span>}
 
-                <label>Recipe for <input {...register("recipe.servings")} className={styles.ingredients__inputNumber} type="number" /> sevings</label>
+                <label>Recipe for <input {...register("recipe.servings", {required: "Number of servings is required"})} className={styles.ingredients__inputNumber} type="number" /> sevings</label>
+                {errors?.recipe?.servings && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.servings.message}</span>}
 
                 <div className={styles.ingredients__categories}>
                 <Controller
                     control={control}
                     name="recipe.categories"
                     defaultValue={[]}
+                    rules={{required:"At least one category is needed"}}
                     render={({field: {onChange, value}}) =>
                     <ToggleButtonGroup 
                     className={styles.ingredients__categories}
@@ -127,7 +58,8 @@ const Ingredients = () => {
                         {categoriesOptions.map(option => <ToggleButton id={`cat-btn-${option}`} key={option} value={option}>{option}</ToggleButton>)}
                     </ToggleButtonGroup> 
                     }
-                />          
+                />
+                {errors?.recipe?.categories && <span className={styles.ingredients__error} role="alert">{errors?.recipe?.categories.message}</span>}          
                 </div>
 
                 <section className={styles.ingredients__addIngredient}>
@@ -136,26 +68,28 @@ const Ingredients = () => {
                 <ul className={styles.ingredients__list}>
                     {ingredientsFields.map((item, index) => (
                         <li key={item.id}>
-                            <input {...register(`recipe.ingredients.${index}.unit`)} className={styles.ingredients__inputUnit} type="number" />
+                            <input {...register(`recipe.ingredients.${index}.unit`, {required: "At least one ingredient is required"})} className={styles.ingredients__inputUnit} type="number" />
                             <Controller 
                                 control={control}
                                 name={`recipe.ingredients.${index}.fraction`}
+                                rules={{required:"At least one ingredient is needed"}}
                                 defaultValue={fractionOptions[0]}
                                 render={({field: {onChange, value}}) => 
                                 <DropdownButton
                                 className={styles.ingredients__dropdown} 
                                 title={value}
                                 onSelect={onChange}
+                                rules={{required: true}}
                                 > 
                                     {fractionSelection}
                                 </DropdownButton>
                                 }
                             />      
-            
                             <Controller 
                                 control={control}
                                 name={`recipe.ingredients.${index}.measurement`}
                                 defaultValue={measurementOptions[0]}
+                                rules={{required:"A measurement is needed"}}
                                 render={({field: {onChange, value}}) => 
                                 <DropdownButton
                                 className={styles.ingredients__dropdown} 
@@ -166,69 +100,16 @@ const Ingredients = () => {
                                 </DropdownButton>
                                 }
                             />
-                                <input  {...register(`recipe.ingredients.${index}.name`)} className={styles.ingredients__inputIngredient} type="text" />
+                                <input  {...register(`recipe.ingredients.${index}.name`, {required: "ingredient name is required"})} className={styles.ingredients__inputIngredient} type="text" />
                                 <Button onClick={() => ingredientsRemove(index)}>Delete</Button>
                         </li>
                     ))}
                 </ul>
                 <Button onClick={() => ingredientsAppend(defaultValues.recipe.ingredients[0])}className={styles.ingredients__add}>Add New Ingredient</Button>
+                {errors?.recipe?.ingredients && <span className={styles.ingredients__error} role="alert">Add at least one ingredient</span>}
                 </section>
-            </form>
         </div>
-        )
-    }
-
-    const InstructionsStep = () => {
-        return(
-            <div className={styles.ingredients__container}>
-                <h2>Add the instructions:</h2>
-                <form onSubmit={handleSubmit(onFormSubmit)}>
-                    {instructionsFields.map((field, index) => (
-                        <div key={field.id}>
-                            <h3>{index+1}</h3>
-                            <textarea {...register(`recipe.instructions.${index}.instruction`)} className={styles.ingredients__inputArea} type="text" />
-                            <Button onClick={() => instructionsRemove(index)}>Delete</Button>
-                        </div>
-                    ))}
-                    <Button onClick={() => instructionsAppend("")}>Add Instruction</Button>
-                    
-                    <div className={styles.ingredients__categories}>
-                        <Controller
-                            control={control}
-                            name="recipe.cuisine"
-                            defaultValue={[]}
-                            render={({field: {onChange, value}}) =>
-                            <ToggleButtonGroup 
-                            className={styles.ingredients__categories}
-                            onChange={onChange}
-                            type="checkbox"
-                            value={value}
-                            >
-                                {cuisineOptions.map(option => <ToggleButton id={`cui-btn-${option}`} key={option} value={option}>{option}</ToggleButton>)}
-                            </ToggleButtonGroup> 
-                            }
-                        />          
-                    </div>
-                    <Button type="submit">Save</Button>
-
-                    <input type="file" {...register(`recipe.thumbnail`)}/>
-                    <label htmlFor="recipe.public">make public?</label>
-                    <Controller
-                        control={control}
-                        name="recipe.public"
-                        render={({field: {ref, value, onChange}}) => <Form.Check onChange={onChange} type="switch" />}
-                    />
-                </form>
-            </div>
-        );
-    }
-
-    return (
-        <Wizard startIndex={0} footer={<Footer />}>
-            <IngredientsStep />
-            <InstructionsStep />
-        </Wizard> 
-  );
+    )
 };
 
 export default Ingredients;
