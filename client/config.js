@@ -1,4 +1,4 @@
-export const BASE_URL = `https://tats-cookbook-api.herokuapp.com`;
+export const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000": process.env.PROD_ADDR;
 
 export const LOGIN_URL = `${BASE_URL}/api/v1/auth/login`;
 
