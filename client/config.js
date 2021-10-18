@@ -1,4 +1,5 @@
-export const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000": process.env.PROD_ADDR;
+const dev = process.env.NEXT_PUBLIC_NODE_ENV_FE === "development";
+export const BASE_URL = dev ? "http://localhost:3000": process.env.NEXT_PUBLIC_PROD_ADDR;;
 
 export const LOGIN_URL = `${BASE_URL}/api/v1/auth/login`;
 
