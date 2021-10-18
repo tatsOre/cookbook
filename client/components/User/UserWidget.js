@@ -7,14 +7,11 @@ function WithWidget(Component) {
     const [state, setState] = useState({ data: [], isLoading: false });
     const URL = `${CURRENT_USER_URL}/${field}`;
 
-    const title = field.replace("_", " ");
-
     useEffect(() => {
       const getUserData = async () => {
         try {
           setState({ ...state, isLoading: true });
-          const response = await getData(URL);
-          const result = await response.json();
+          const result = await getData(URL);
           setState({ data: result[field], isLoading: false });
         } catch (error) {
           console.log(error);
@@ -25,20 +22,17 @@ function WithWidget(Component) {
     }, []);
 
     return (
-      <>
-        <h2>My {title}</h2>
-        <div>
-          {state.data.length ? (
-            state.data.map((item) => (
-              <div>
-                <Component data={item} />
-              </div>
-            ))
-          ) : (
-            <p>{fallback}</p>
-          )}
-        </div>
-      </>
+      <div>
+        {state.data.length ? (
+          state.data.map((item) => (
+            <div>
+              <Component data={item} />
+            </div>
+          ))
+        ) : (
+          <p>{fallback}</p>
+        )}
+      </div>
     );
   };
 }

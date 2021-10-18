@@ -5,10 +5,7 @@ export const fetchCurrentUser = async () => {
     method: "GET",
     credentials: "include",
   });
-  if (response.status !== 200) {
-    // console.log({ status: response.status, text: response.statusText });
-    return null;
-  }
+  if (response.status !== 200) return null;
   return response.json();
 };
 
@@ -35,12 +32,8 @@ export const logout = async () => {
   });
 };
 
-export const getData = async (url) => {
-  return await fetch(url, {
-    method: "GET",
-    credentials: "include",
-  });
-};
+export const getData = (url) =>
+  fetch(url, { credentials: "include" }).then((res) => res.json());
 
 export const postData = async (url = "", data = {}) => {
   return await fetch(url, {

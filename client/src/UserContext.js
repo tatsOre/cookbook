@@ -8,7 +8,6 @@ export const UserProvider = ({ children }) => {
   const [alert, setAlert] = useState(false);
 
   useEffect(() => {
-    console.log("First time in use effect");
     fetchCurrentUser()
       .then((res) => setUser(res))
       .catch((err) => console.log("err:", err));

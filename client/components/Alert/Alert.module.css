@@ -1,5 +1,13 @@
 .alert-success {
+  background-color: #dbefd3;
+  text-align: center;
 }
 
 .alert-danger {
+}
+
+.alert-success a {
+  color: var(--color-accent);
+  font-size: 1.4rem;
+  font-weight: bold;
 }

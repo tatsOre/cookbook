@@ -13,7 +13,7 @@ const AlertMessage = ({ variant, label, messages = [], children }) => {
     <Alert className={`${themes[variant]}`} variant={variant}>
       <Alert.Heading>{label}</Alert.Heading>
       {children}
-      <ul>{content}</ul>
+      {content.length ? <ul>{content}</ul> : null}
     </Alert>
   );
 };

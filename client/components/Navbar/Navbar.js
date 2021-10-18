@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { useContext, useState } from "react";
-import { userContext } from "../../src/UserContext";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 import CloseButton from "react-bootstrap/CloseButton";
@@ -10,9 +9,11 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 
 import { AVATAR_DEFAULT } from "../../config";
 import ButtonMenuMobile from "../Buttons/ButtonMenuMobile";
+import { LinkFilled, LinkOutlined } from "../Buttons/Buttons";
 
 import { logout } from "../../src/ApiCalls";
 import styles from "./Navbar.module.css";
+import useUser from "../../src/useUser";
 
 const TopNavBar = ({ user, handleLogout }) => {
   return (
@@ -85,11 +86,11 @@ const SideNavBar = ({ user, handleLogout }) => {
 };
 
 const Navigation = () => {
-  const { user, setUser } = useContext(userContext);
   const router = useRouter();
+  const { user } = useUser();
+
   const handleClickLogout = () => {
     logout();
-    setUser(null);
     router.push("/");
   };
 
@@ -102,10 +103,15 @@ const Navigation = () => {
         </>
       )}
       {!user && (
-        <>
-          <a href="/login">Login</a>
-          <a href="/signup">Sign Up</a>
-        </>
+        <div>
+          <Link href="/login" passHref>
+            <LinkFilled>Login</LinkFilled>
+          </Link>
+
+          <Link href="/signup" passHref>
+            <LinkOutlined>Sign Up</LinkOutlined>
+          </Link>
+        </div>
       )}
     </nav>
   );

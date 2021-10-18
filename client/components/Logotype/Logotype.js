@@ -6,8 +6,8 @@ const Logotype = () => {
     <div className={styles.logotype}>
       <Image
         aria-hidden="true"
-        width="35"
-        height="35"
+        width="30"
+        height="30"
         src="/icons/logo-icon.svg"
       />
     </div>

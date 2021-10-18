@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { userContext } from "../../src/UserContext";
 import { useRouter } from "next/router";
 import ButtonFavorites from "../Buttons/ButtonFavorites";
 import {
@@ -7,16 +5,17 @@ import {
   ButtonEditRecipe,
   ButtonTogglePublic,
 } from "../Buttons/Buttons";
+import useUser from "../../src/useUser";
 
 const UserActions = ({ recipeID, isPublic }) => {
-  const { user } = useContext(userContext);
+  const { user } = useUser();
   const router = useRouter();
-
+  const userRecipes = user?.recipes || [];
   const recipePage = router.pathname.startsWith("/recipes/");
 
   return (
     <>
-      {user?.recipes.includes(recipeID) ? (
+      {userRecipes.includes(recipeID) ? (
         <>
           <ButtonTogglePublic id={recipeID} isPublic={isPublic} />
           <ButtonEditRecipe id={recipeID} />

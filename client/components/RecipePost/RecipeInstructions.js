@@ -3,7 +3,7 @@ import styles from "./RecipeInstructions.module.css";
 const RecipeInstructions = ({ instructions, comments }) => {
   return (
     <>
-      <ul>
+      <ul className={styles.instructions__list}>
         {Object.values(instructions).map((step, index) => (
           <li key={`step-${index + 1}`}>
             <div className={styles.instructions__item}>

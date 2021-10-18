@@ -1,6 +1,10 @@
+/* Login / SignUp Buttons */
+.navigation div:last-child a {
+  margin-right: 1rem;
+}
 /* Modal Top Navigation for Desktop */
 .navigation__top {
-  color: black;
+  color: var(--color-dark);
   display: block;
 }
 
@@ -45,7 +49,7 @@
   text-decoration: none;
   text-transform: uppercase;
   margin-bottom: 1rem;
-  color: black;
+  color: var(--color-dark);
 }
 
 @media screen and (max-width: 768px) {

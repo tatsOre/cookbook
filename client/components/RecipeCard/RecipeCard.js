@@ -1,8 +1,10 @@
-import UserActions from "../User/UserActions";
+import Link from "next/link";
+import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
+import RecipeImage from "../RecipeAssets/RecipeImage";
+import ButtonFavorites from "../Buttons/ButtonFavorites";
 import styles from "./RecipeCard.module.css";
 
 const RecipeCard = ({ recipe }) => {
-  console.log(recipe);
   const {
     _id,
     title,
@@ -12,40 +14,31 @@ const RecipeCard = ({ recipe }) => {
     photo,
     author,
     servings,
-    public: isPublic,
   } = recipe;
-
-  const categoriesContent = categories?.length
-    ? categories.map((c) => <li>{c}</li>)
-    : null;
-
-  const cuisineContent = cuisine?.length
-    ? cuisine.map((c) => <li>{c}</li>)
-    : null;
 
   return (
     <div className={styles.card__container}>
       <div className={styles.card__header}>
-        <div className={styles.card__image}>
-          <a href={`/recipes/${_id}`}>
-            <img src={photo} alt={title} />
-          </a>
-        </div>
-
+        <a href={`/recipes/${_id}`}>
+          <div className={styles.card__photo}>
+            <RecipeImage photo={photo} title={title} />
+          </div>
+        </a>
         <div className={styles.card__details}>
-          {categoriesContent && (
+          {categories.length ? (
             <div className={styles.card__categories}>
-              <h4>Categories</h4>
-              <ul>{categoriesContent}</ul>
+              <RecipeCategoriesLabels
+                title="categories"
+                category={categories}
+              />
             </div>
-          )}
+          ) : null}
 
-          {cuisineContent && (
+          {cuisine.length ? (
             <div className={styles.card__cuisine}>
-              <h4>Cuisine</h4>
-              <ul>{cuisineContent}</ul>
+              <RecipeCategoriesLabels title="cuisine" category={cuisine} />
             </div>
-          )}
+          ) : null}
 
           <div className={styles.card__servings}>
             <h4>Servings:</h4>
@@ -65,7 +58,7 @@ const RecipeCard = ({ recipe }) => {
         </p>
 
         <div className={styles.card__user__actions}>
-          <UserActions recipeID={_id} isPublic={isPublic} />
+          <ButtonFavorites id={_id} addTooltip="true" />
         </div>
       </div>
     </div>

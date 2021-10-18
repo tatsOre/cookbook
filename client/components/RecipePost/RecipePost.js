@@ -1,12 +1,13 @@
 import { useState, useContext } from "react";
 import Link from "next/link";
 import { userContext } from "../../src/UserContext";
+import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
+import RecipeImage from "../RecipeAssets/RecipeImage";
 import RecipeInstructions from "./RecipeInstructions";
 import RecipeIngredients from "./RecipeIngredients";
 import Tabs from "./Tabs";
 import UserActions from "../User/UserActions";
 import styles from "./RecipePost.module.css";
-import { ButtonOutlined } from "../Buttons/Buttons";
 
 const RecipePost = ({ recipe }) => {
   const { user } = useContext(userContext);
@@ -32,60 +33,63 @@ const RecipePost = ({ recipe }) => {
     <>
       <article className={styles.recipe}>
         <div className={styles.recipe__header}>
-          <h1 className={styles.recipe__title}>{title}</h1>
-          {!user?.recipes.includes(_id) && (
-            <p className={styles.recipe__author}>
-              <span>By </span>
-              <Link href="/">
-                <a>{author?.name}</a>
-              </Link>
+          <h1 className={styles.recipe__title__responsive}>{title}</h1>
+          <div className={styles.recipe__photo}>
+            <RecipeImage photo={photo} title={title} />
+          </div>
+
+          <div>
+            <h1 className={styles.recipe__title}>{title}</h1>
+            <p className={styles.recipe__description}>
+              <span className={styles.firstcharacter}>
+                {description.charAt(0)}
+              </span>
+              {description.slice(1, -1)}
             </p>
-          )}
 
-          <UserActions recipeID={_id} isPublic={isPublic} />
+            <div className={styles.recipe__details}>
+              {categories.length ? (
+                <div className={styles.recipe__categories}>
+                  <RecipeCategoriesLabels
+                    title="categories"
+                    category={categories}
+                  />
+                </div>
+              ) : null}
+
+              {cuisine.length ? (
+                <div className={styles.recipe__cuisine}>
+                  <RecipeCategoriesLabels title="cuisine" category={cuisine} />
+                </div>
+              ) : null}
+
+              <div className={styles.recipe__servings}>
+                <h4>Servings:</h4> <p>{servings}</p>
+              </div>
+            </div>
+
+            {!user?.recipes.includes(_id) && (
+              <span className={styles.recipe__author}>
+                By
+                <Link href="/">
+                  <a>{author?.name}</a>
+                </Link>
+              </span>
+            )}
+            <div className={styles.recipe__user__actions}>
+              <UserActions recipeID={_id} isPublic={isPublic} />
+            </div>
+          </div>
         </div>
-        <div className={styles.recipe__image_container}>
-          <img className={styles.recipe__image} src={photo} alt={title} />
-        </div>
-
-        <div className={styles.recipe__categories}>
-          <p className={styles.TESTTWO}>Cuisine</p>
-          <ul>
-            {cuisine.map((item) => (
-              <li key={item} className={styles.TEST}>
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <p className={styles.TESTTWO}>Categories</p>
-          <ul>
-            {categories.map((item) => (
-              <li key={item} className={styles.TEST}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <p className={styles.recipe__description}>{description}</p>
-
-        <div className={styles.recipe__servings}>
-          <label htmlFor="servings">Servings:</label>
-          <input
-            type="number"
-            id="servings"
-            name="servings"
-            min="1"
-            defaultValue={servings}
-          />
-          <ButtonOutlined type="button">Adjust</ButtonOutlined>
-          <button type="button" onClick={handleOpenTabs}>
+        <hr />
+        <div className={styles.recipe__ingredients_container}>
+          <button
+            className={styles.recipes__btn__expand}
+            type="button"
+            onClick={handleOpenTabs}
+          >
             Expand
           </button>
-        </div>
-
-        <div className={styles.article__ingredients_container}>
           <div className={styles.recipe__ingredients}>
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>
             <RecipeIngredients ingredients={ingredients} recipe={_id} />

@@ -1,6 +1,7 @@
 .recipes__section {
   max-width: 1100px;
   margin: 0 auto;
+  padding: 1.25rem 1.5rem 0.5rem;
 }
 
 .section__recipes__container {
@@ -11,7 +12,8 @@
 .section__recipes__title {
   font-size: 3rem;
   font-weight: 700;
-  color: rgb(174, 206, 255);
+  margin-bottom: 2rem;
+  color: var(--color-neutral);
 }
 
 .section__recipes__title span {

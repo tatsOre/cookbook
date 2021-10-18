@@ -89,6 +89,22 @@ exports.setJWTcookie = async (req, res) => {
     .json({ message: ["successfully logged in"] });
 };
 
+exports.getUserFromJWT = (req) => {
+  let token = "";
+  if (req && req.cookies) {
+    token = req.cookies[process.env.COOKIE_SECRET];
+  }
+  const decoded = jwt.verify(
+    token,
+    process.env.JWT_SECRET,
+    (error, decoded) => {
+      if (error) return null;
+      return decoded;
+    }
+  );
+  return decoded;
+};
+
 /**
  * GET /api/v1/auth/logout
  */

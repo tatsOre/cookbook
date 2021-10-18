@@ -9,6 +9,7 @@
   overflow-x: hidden;
   opacity: 0;
   transform: scale(0);
+  z-index: 3;
 }
 
 .tabs__container ul {
@@ -24,12 +25,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 3rem 0.5rem;
-  background-color: var(--color-accent);
+  background-color: var(--color-dark);
   color: var(--color-light);
 }
 
 .tabs__header > p {
-  font-size: 2.5rem;
+  font-weight: 300;
+  font-size: 3.5rem;
 }
 
 .tabs__container.active {
@@ -38,7 +40,7 @@
 }
 
 .tab__link {
-  background-color: var(--color-primary);
+  background-color: var(--color-neutral);
   color: white;
   border: none;
   outline: none;
@@ -53,13 +55,13 @@
 }
 
 .tab__link.active {
-  background-color: var(--color-accent);
+  background-color: var(--color-dark);
   color: var(--color-light);
 }
 
 .tab__content {
   display: none;
-  padding: 2rem 3rem;
+  padding: 3rem;
   font-size: 1.8rem;
   font-weight: normal;
 }

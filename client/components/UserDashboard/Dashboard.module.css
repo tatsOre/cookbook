@@ -1,0 +1,11 @@
+.dashboard__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 0.5rem;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.dashboard__widget {
+  width: 50%;
+}

@@ -1,23 +1,14 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
-@import url("https://fonts.googleapis.com/css?family=Roboto+Slab");
-@import url("https://fonts.googleapis.com/css?family=Merriweather");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
-
-/* font-family: 'Unna', serif; */
 
 /* Color variables
   ============================= */
 :root {
-  --color-primary: #000000;
-  --color-accent: #1db609;
-  --color-base: #3a4553;
+  --color-dark: #132020;
+  --color-accent: #2b5252;
+  --color-base: #182828;
   --color-neutral: #1c3b415e;
-  --color-light: white;
+  --color-light: #f1f1f1;
+  --color-alert: tomato;
 }
 
 /* Global
@@ -40,6 +31,7 @@ body,
 #__next {
   font-family: "Poppins";
   color: var(--color-base);
+  background-color: rgb(247, 247, 247);
   font-size: 1.6rem;
   min-height: 100vh;
   width: 100%;

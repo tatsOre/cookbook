@@ -4,28 +4,15 @@ const UserModel = mongoose.model("User");
 const RecipeModel = mongoose.model("Recipe");
 
 const { NotFoundError } = require("../lib/errorHandlers");
+const { getUserFromJWT } = require("./authController");
 
 /**
  * GET /api/v1/recipes
- * Retrieve the list of all public recipe items with optional pagination.
+ * Retrieve the list of all recipe items
  */
 exports.getRecipes = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
-  const skip = page * limit - limit;
-
-  const recipesPromise = RecipeModel.find({ public: true })
-    .skip(skip)
-    .limit(limit)
-    .sort({ createdAt: "desc" });
-
-  const countPromise = RecipeModel.find({ public: true }).count();
-
-  const [recipes, count] = await Promise.all([recipesPromise, countPromise]);
-
-  const totalPages = Math.ceil(count / limit);
-
-  res.json({ total: count, pages: totalPages, page, recipes });
+  const recipes = await RecipeModel.find();
+  res.json({ total: recipes.length, recipes });
 };
 
 /**
@@ -46,11 +33,24 @@ exports.getRecipesByQuery = async (req, res) => {
  * GET /api/v1/recipes/latest
  */
 exports.getLatestRecipes = async (req, res) => {
-  const recipes = await RecipeModel.find({ public: true })
-    .limit(6)
-    .sort({ updatedAt: "desc" });
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 6;
+  const skip = page * limit - limit;
 
-  res.json({ total: recipes.length, recipes });
+  const decoded = getUserFromJWT(req);
+  const query = !decoded
+    ? { public: true }
+    : { public: true, author: { $ne: decoded.user._id } };
+
+  const recipesPromise = RecipeModel.find(query)
+    .skip(skip)
+    .limit(limit)
+    .sort({ createdAt: "desc" });
+
+  const countPromise = RecipeModel.find({ public: true }).count();
+  const [recipes, count] = await Promise.all([recipesPromise, countPromise]);
+  const totalPages = Math.ceil(count / limit);
+  res.json({ total: count, pages: totalPages, page, recipes });
 };
 
 /**
