@@ -1,0 +1,24 @@
+.instructions__container {
+    max-width: 420px;
+    margin: auto;
+    padding: 4rem 1.5rem 0rem;
+  }
+
+  .instructions__inputArea {
+    width: 100%;
+    border: 1px solid gray;
+    padding: 1rem;
+    margin: 0.75rem 0;
+    height: 10rem;
+  }
+
+  .instructions__categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .instructions__error {
+    display: block;
+  }

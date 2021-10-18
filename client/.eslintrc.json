@@ -1,3 +1,4 @@
 {
-  "extends": ["next/babel", "prettier"]
+  "extends": ["prettier"],
+  "parser": "babel-eslint"
 }
