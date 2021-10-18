@@ -73,10 +73,14 @@
     padding: 0;
   }
 
-  .ingredients__list > li {
+.ingredients__list > li {
     display: flex;
   }
 .testcheckbox {
   background-color: blue;
 
+}
+
+.ingredients__error { 
+display: block;
 }
