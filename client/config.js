@@ -1,4 +1,4 @@
-export const BASE_URL = `http://localhost:3000`;
+export const BASE_URL = `https://tats-cookbook-api.herokuapp.com`;
 
 export const LOGIN_URL = `${BASE_URL}/api/v1/auth/login`;
 
