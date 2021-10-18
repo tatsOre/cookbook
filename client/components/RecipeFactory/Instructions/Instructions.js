@@ -46,9 +46,9 @@ const Instructions = () => {
                 
                 <Controller
                     control={control}
-                    name="thumbnail"
+                    name="photo"
                     defaultvalue=""
-                    rules={{required: "You must select a thumbnail"}}
+                    rules={{required: "You must select a photo"}}
                     render={({field: {onChange}}) => <input onChange={onChange} type="file" />} 
                 />
                 {errors?.cuisine && <span className={styles.instructions__error} role="alert">{errors.cuisine.message}</span>}
@@ -59,6 +59,8 @@ const Instructions = () => {
                     name="public"
                     render={({field: {onChange}}) => <Form.Check onChange={onChange} type="switch" />}
                 />
+                <label htmlFor="comments">Add additional comments</label>
+                <textarea {...register("comments")} className={styles.instructions__inputArea} type="text" />
         </div>
     );
 }

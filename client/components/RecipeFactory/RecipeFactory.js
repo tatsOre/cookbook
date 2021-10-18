@@ -15,7 +15,7 @@ const defaultValues = {
       instructions: [
         ""
       ],
-      thumbnail: "",
+      photo: "",
       ingredients: [
         {fraction: fractionOptions[0], unit: "1", measurement: measurementOptions[0]}
     ],
@@ -26,15 +26,13 @@ function onError(errors) {
 }
 
 async function onFormSubmit(formResult) {
-        
-  if(formResult.thumbnail.length > 0) {
+  if(formResult.photo.length > 0) {
     const normalizedFormResult = {
       ...formResult,
       instructions: formResult.instructions.reduce((previous, current, idx) => ({...previous, [idx]: current.instruction}), {})
     }
-    console.log(JSON.stringify(formResult))
-      /* const imageUploadData = new FormData();
-      imageUploadData.append("file", formResult.thumbnail[0]);
+    const imageUploadData = new FormData();
+      imageUploadData.append("file", formResult.photo[0]);
 
       //@TODO: make this an env
       imageUploadData.append("upload_preset", "xw6p5o5v");
@@ -44,7 +42,7 @@ async function onFormSubmit(formResult) {
           body: imageUploadData
       });
       const imageURL = await response.json();
-      formResult.thumbnail = await imageURL.url; */
+      normalizedFormResult.photo = await imageURL.url;
   }
 };
 
