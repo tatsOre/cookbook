@@ -1,7 +1,8 @@
 export const BASE_URL = `http://localhost:3000`;
-export const prodEndpoint = `fill me in when we deploy`;
 
 export const LOGIN_URL = `${BASE_URL}/api/v1/auth/login`;
+
+export const LOGIN_WITH_GOOGLE_URL = `${BASE_URL}/api/v1/auth/google`;
 
 export const LOGOUT_URL = `${BASE_URL}/api/v1/auth/logout`;
 
@@ -20,6 +21,8 @@ export const INGR_ASSET_URL = (field) =>
   `${BASE_URL}/api/assets/ingredients?field=${field}`;
 
 export const SHOP_LIST_BASE_URL = `${BASE_URL}/api/v1/me/shopping_lists`;
+
+export const LATEST_RECIPES_URL = `${BASE_URL}/api/v1/recipes/latest`;
 
 export const AVATAR_DEFAULT =
   "https://thumbs.dreamstime.com/z/default-avatar-profile-flat-icon-social-media-user-vector-portrait-unknown-human-image-default-avatar-profile-flat-icon-184330869.jpg";

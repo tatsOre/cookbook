@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./ProvidersButtons.module.css";
-import { endpoint } from "../../config";
+import { LOGIN_WITH_GOOGLE_URL } from "../../config";
 
 const ProvidersButtons = () => {
   return (
@@ -10,7 +10,7 @@ const ProvidersButtons = () => {
         <div className={styles.divider__line}></div>
         <p className={styles.divider__text}>or</p>
       </div>
-      <Link href={`${endpoint}/api/v1/auth/google`}>
+      <Link href={LOGIN_WITH_GOOGLE_URL}>
         <div className={styles.google__auth}>
           <Image
             aria-hidden="true"

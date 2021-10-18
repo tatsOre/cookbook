@@ -1,13 +1,11 @@
 import useSWR from "swr";
 import { getData } from "../../src/ApiCalls";
+import { LATEST_RECIPES_URL } from "../../config";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import styles from "./RecipesSection.module.css";
 
 const RecipeSection = () => {
-  const { data, error } = useSWR(
-    "http://localhost:3000/api/v1/recipes/latest",
-    getData
-  );
+  const { data, error } = useSWR(LATEST_RECIPES_URL, getData);
   if (error) return <div>Failed to load.</div>;
   if (!data) return <div>Loading...</div>;
 
