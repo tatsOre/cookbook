@@ -26,7 +26,7 @@ exports.getRecipesByQuery = async (req, res) => {
     public: true,
     [field]: query,
   });
-  res.json({ total: recipes.length, recipes });
+  res.json(recipes);
 };
 
 /**
