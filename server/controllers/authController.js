@@ -85,6 +85,7 @@ exports.setJWTcookie = async (req, res) => {
     .cookie(process.env.COOKIE_SECRET, token, {
       expires: new Date(Date.now() + 7 * 24 * 3600000), // 7 days
       httpOnly: true,
+      sameSite: "lax",
     })
     .json({ message: ["successfully logged in"] });
 };
