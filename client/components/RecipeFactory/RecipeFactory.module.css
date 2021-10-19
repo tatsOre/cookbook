@@ -1,0 +1,140 @@
+/* Wizard Styles
+  ============================= */
+.create__form {
+  max-width: 1000px;
+  margin: auto;
+  padding: 4rem 3rem 0rem;
+  background-color: white;
+}
+
+.btn__outlined,
+.btn__filled {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.025rem;
+  text-decoration: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn__filled {
+  background-color: var(--color-accent);
+  color: var(--color-light);
+  border: 1px solid var(--color-accent);
+}
+
+.btn__filled:hover {
+  background-color: var(--color-light);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+/* Step 1. Ingredients
+  ============================= */
+
+.ingredients__step {
+}
+
+.ingredients__step h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+  margin-bottom: 1.5rem;
+}
+
+.ingredients__categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.ingredients__dropdown > button,
+.ingredients__categories > label {
+  background-color: var(--color-light);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.025rem;
+  text-decoration: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.ingredients__dropdown > button:hover,
+.ingredients__categories > label:hover,
+.ingredients__add:hover {
+  background-color: var(--color-accent);
+  color: var(--color-light);
+  border: 1px solid var(--color-accent);
+}
+
+.create__ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.ingredients__list input[type="number"] {
+  width: 5rem;
+  padding: 1rem;
+}
+
+.ingredients__addIngredient > h2 {
+  width: 100%;
+}
+
+.ingredients__dropdown > button {
+  padding: 1rem;
+}
+
+.ingredients__add {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ingredients__inputIngredient {
+  width: 80%;
+  padding: 1rem;
+}
+
+.ingredients__list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ingredients__list > li {
+  display: flex;
+}
+
+.testcheckbox {
+  background-color: var(--color-neutral);
+}
+
+.ingredients__container [role="alert"] {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.025rem;
+  color: tomato;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Step 2. Instructions
+  ============================= */
+.instructions__step {
+  max-width: 420px;
+  margin: auto;
+  padding: 4rem 1.5rem 0rem;
+}
+
+.create__categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}

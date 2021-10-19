@@ -3,9 +3,9 @@ import Link from "next/link";
 import { userContext } from "../../src/UserContext";
 import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
 import RecipeImage from "../RecipeAssets/RecipeImage";
-import RecipeInstructions from "./RecipeInstructions";
-import RecipeIngredients from "./RecipeIngredients";
-import Tabs from "./Tabs";
+import Instructions from "./Instructions";
+import Ingredients from "./Ingredients";
+import Tabs from "./Tabs/FullViewTabs";
 import UserActions from "../User/UserActions";
 import styles from "./RecipePost.module.css";
 
@@ -92,14 +92,11 @@ const RecipePost = ({ recipe }) => {
           </button>
           <div className={styles.recipe__ingredients}>
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>
-            <RecipeIngredients ingredients={ingredients} recipe={_id} />
+            <Ingredients ingredients={ingredients} recipe={_id} />
           </div>
           <div className={styles.recipe__instructions}>
             <h2 className={styles.recipe__subtitle}>Instructions</h2>
-            <RecipeInstructions
-              instructions={instructions}
-              comments={comments}
-            />
+            <Instructions instructions={instructions} comments={comments} />
           </div>
         </div>
       </article>
@@ -109,7 +106,7 @@ const RecipePost = ({ recipe }) => {
         openTabs={setOpenTabs}
         ingredients={ingredients}
         instructions={
-          <RecipeInstructions instructions={instructions} comments={comments} />
+          <Instructions instructions={instructions} comments={comments} />
         }
       />
     </>

@@ -1,9 +1,11 @@
-const ShopListCard = ({ data }) => {
+const ShopListPill = ({ data }) => {
   const { _id, recipe, items } = data;
   console.log(data);
   return (
     <div>
-      <h3>Shopping List for {recipe.title}</h3>
+      <h3>
+        Shopping List for <a href={`/recipes/${_id}`}>{recipe.title}</a>
+      </h3>
       <ul>
         {items.map((li) => (
           <li key={li}>{li}</li>
@@ -13,4 +15,4 @@ const ShopListCard = ({ data }) => {
   );
 };
 
-export default ShopListCard;
+export default ShopListPill;

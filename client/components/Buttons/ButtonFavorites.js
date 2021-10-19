@@ -1,10 +1,9 @@
-import { useContext, useState, useRef } from "react";
-import { userContext } from "../../src/UserContext";
-
+import { useState, useRef } from "react";
+import useUser from "../../src/useUser";
 import Overlay from "react-bootstrap/Overlay";
 
 import { EDIT_FAVORITES_URL } from "../../config";
-import { postData } from "../../src/ApiCalls";
+import { fetchAPI } from "../../src/ApiCalls";
 import styles from "./Buttons.module.css";
 
 const IconFavorites = ({ className }) => {
@@ -22,25 +21,24 @@ const IconFavorites = ({ className }) => {
 };
 
 const ButtonFavorites = ({ id, addTooltip }) => {
-  const { user, setUser } = useContext(userContext);
+  const { user } = useUser();
   const [tooltip, setTooltip] = useState({
     active: false,
     message: "",
   });
+  const [isFav, setFav] = useState(user?.favorites.includes(id) || false);
   const target = useRef(null);
-  const userFavorites = user?.favorites || [];
-  const iconStyles = userFavorites.includes(id)
-    ? styles.icon__active
-    : styles.icon__inactive;
+  const className = isFav ? styles.icon__active : styles.icon__inactive;
 
   const handleClickFavorite = async (id) => {
-    postData(EDIT_FAVORITES_URL, { recipe: id })
+    fetchAPI("POST", EDIT_FAVORITES_URL, { recipe: id })
       .then((response) => response.json())
       .then((result) => {
-        setUser(result);
-        const message = result?.favorites.includes(id)
+        const isFav = result?.favorites.includes(id);
+        const message = isFav
           ? "Added to your favorites"
           : "Removed from your favorites";
+        setFav(isFav);
         setTooltip({ active: true, message });
         setTimeout(() => {
           setTooltip({ active: false, message: "" });
@@ -48,6 +46,7 @@ const ButtonFavorites = ({ id, addTooltip }) => {
       })
       .catch((error) => console.log(error));
   };
+
   return (
     <>
       <button
@@ -56,7 +55,7 @@ const ButtonFavorites = ({ id, addTooltip }) => {
         type="button"
         onClick={() => handleClickFavorite(id)}
       >
-        <IconFavorites className={iconStyles} />
+        <IconFavorites className={className} />
       </button>
       {addTooltip && (
         <Overlay target={target.current} show={tooltip.active} placement="left">

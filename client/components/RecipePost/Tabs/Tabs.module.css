@@ -1,5 +1,5 @@
 .tabs__container {
-  background-color: var(--color-light);
+  background-color: white;
   top: 0;
   bottom: 0;
   left: 0;
@@ -26,7 +26,7 @@
   align-items: center;
   padding: 1.5rem 3rem 0.5rem;
   background-color: var(--color-dark);
-  color: var(--color-light);
+  color: white;
 }
 
 .tabs__header > p {

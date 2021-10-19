@@ -2,18 +2,12 @@ import Link from "next/link";
 import { forwardRef } from "react";
 import styles from "./Buttons.module.css";
 import { RECIPE_BASE_URL } from "../../config";
+import { fetchAPI } from "../../src/ApiCalls";
 
 const ButtonDeleteRecipe = ({ id }) => {
   const handleClickDelete = async (id) => {
     const URL = `${RECIPE_BASE_URL}/${id}`;
-    const response = await fetch(URL, {
-      method: "DELETE",
-      headers: {
-        "Access-Control-Allow-Credentials": true,
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
+    fetchAPI("DELETE", URL);
     // TODO: HANDLE ERRORS
   };
 

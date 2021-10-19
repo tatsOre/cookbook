@@ -7,12 +7,9 @@ import AlertMessage from "../Alert/AlertMessage";
 import ProvidersButtons from "./ProvidersButtons";
 import styles from "./LoginForm.module.css";
 import { LOGIN_URL } from "../../config";
-
-import { useContext } from "react";
-import { userContext } from "../../src/UserContext";
+import { fetchAPI } from "../../src/ApiCalls";
 
 const Login = () => {
-  const { alert, setAlert } = useContext(userContext);
   const {
     register,
     formState: { errors },
@@ -28,25 +25,16 @@ const Login = () => {
     event.preventDefault();
     setDisabled(true);
 
-    const res = await fetch(LOGIN_URL, {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Credentials": true,
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
-    });
-    const result = await res.json();
+    const response = await fetchAPI("POST", LOGIN_URL, data);
 
-    if (res.status !== 200) {
+    if (response.status !== 200) {
+      const content = await response.json();
       setWarning({
         show: true,
-        messages: result.message,
+        messages: content.message,
       });
       return setDisabled(false);
     }
-    setAlert(!alert);
     router.push("/");
   };
 

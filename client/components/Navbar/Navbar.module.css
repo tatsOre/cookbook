@@ -16,6 +16,14 @@
 
 .navigation__top p {
   margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.navigation__top__dropdown a {
+  font-size: 1.5rem;
+  color: var(--color-accent);
 }
 
 /* Modal Side Navigation for Mobile Devices */
