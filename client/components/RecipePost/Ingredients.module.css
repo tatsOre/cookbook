@@ -1,0 +1,24 @@
+.ingredients__list fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.ingredients__list label {
+  margin-bottom: 0.75rem;
+  margin-left: 0.2rem;
+}
+
+.ingredients__list input {
+  color: white;
+  accent-color: var(--color-light);
+  margin-right: 1rem;
+}
+
+.ingredients__list button {
+  width: 100%;
+  font-size: 1.4rem;
+  padding: 1.25rem 0;
+  margin-bottom: 2rem;
+}

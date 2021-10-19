@@ -1,19 +1,17 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-
+import { logout } from "../../src/ApiCalls";
+import useUser from "../../src/useUser";
 import CloseButton from "react-bootstrap/CloseButton";
 import Image from "react-bootstrap/Image";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-
 import { AVATAR_DEFAULT } from "../../config";
 import ButtonMenuMobile from "../Buttons/ButtonMenuMobile";
 import { LinkFilled, LinkOutlined } from "../Buttons/Buttons";
 
-import { logout } from "../../src/ApiCalls";
 import styles from "./Navbar.module.css";
-import useUser from "../../src/useUser";
 
 const TopNavBar = ({ user, handleLogout }) => {
   return (
@@ -21,6 +19,7 @@ const TopNavBar = ({ user, handleLogout }) => {
       <div className={styles.navigation__top__menu}>
         <p>Signed in as: </p>
         <NavDropdown
+          className={styles.navigation__top__dropdown}
           title={user?.name}
           id="collasible-nav-dropdown"
           align="end"
@@ -56,7 +55,7 @@ const SideNavBar = ({ user, handleLogout }) => {
             height={50}
             width={50}
             src={`${photo || AVATAR_DEFAULT}`}
-            altText={name || ""}
+            alt={name || ""}
             roundedCircle
           />
           <h3>Hello{name && `, ${name.split(" ")[0]}.`}</h3>

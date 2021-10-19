@@ -3,7 +3,7 @@ import { CURRENT_USER_URL } from "../../config";
 
 import useSWR from "swr";
 
-const FETCHER = (URL, callback) => {
+const fetcher = (URL, callback) => {
   const { data, error } = useSWR(URL, callback);
   return {
     data,
@@ -15,7 +15,7 @@ const FETCHER = (URL, callback) => {
 function WithWidget(Component) {
   return function WithUserWidget({ field, fallback }) {
     const URL = `${CURRENT_USER_URL}/${field}`;
-    const { data, isLoading, isError } = FETCHER(URL, getData);
+    const { data, isLoading, isError } = fetcher(URL, getData);
     if (isLoading) return null;
     if (isError) return null;
 

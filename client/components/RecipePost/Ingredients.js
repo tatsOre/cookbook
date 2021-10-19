@@ -4,6 +4,8 @@ import { ButtonOutlined } from "../Buttons/Buttons";
 import { postData } from "../../src/ApiCalls";
 import { SHOP_LIST_BASE_URL } from "../../config";
 
+import styles from "./Ingredients.module.css";
+
 const RecipeIngredients = ({ ingredients, recipe }) => {
   const recipeIngrsInitial = ingredients.map((ingr) => ({
     ...ingr,
@@ -43,7 +45,7 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
     const addToShopList = count ? selected : ingredients;
     const items = addToShopList.map(
       ({ unit, fraction, measurement, name }) =>
-        `${unit} ${fraction} ${measurement} ${name}`
+        `${unit ? unit : ""} ${fraction} ${measurement} ${name}`
     );
 
     postData(SHOP_LIST_BASE_URL, { recipe, items })
@@ -56,20 +58,22 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
   };
 
   return (
-    <form onSubmit={handleAddToShopList}>
+    <form onSubmit={handleAddToShopList} className={styles.ingredients__list}>
       <fieldset>
-        {ingrState.map((ingr, index) => (
-          <label key={`ingr-${index}`}>
-            <input
-              type="checkbox"
-              value={index}
-              onChange={handleInputChange}
-              checked={!!ingr.checked}
-              readOnly
-            />
-            {ingr.unit} {ingr.fraction} {ingr.measurement} {ingr.name}
-          </label>
-        ))}
+        {ingrState.map(
+          ({ unit, fraction, measurement, name, checked }, index) => (
+            <label key={`ingr-${index}`}>
+              <input
+                type="checkbox"
+                value={index}
+                onChange={handleInputChange}
+                checked={!!checked}
+                readOnly
+              />
+              {unit ? unit : ""} {fraction} {measurement} {name}
+            </label>
+          )
+        )}
       </fieldset>
       {alertMessage && (
         <AlertMessage variant="success" label={`Added to your shopping lists!`}>

@@ -1,4 +1,4 @@
-import styles from "./RecipeInstructions.module.css";
+import styles from "./Instructions.module.css";
 
 const RecipeInstructions = ({ instructions, comments }) => {
   return (
@@ -7,7 +7,7 @@ const RecipeInstructions = ({ instructions, comments }) => {
         {Object.values(instructions).map((step, index) => (
           <li key={`step-${index + 1}`}>
             <div className={styles.instructions__item}>
-              <p className={styles.instructions__label}>{index + 1}.</p>
+              <p className={styles.instructions__label}>STEP {index + 1}</p>
               <p className={styles.instructions__step}>{step}</p>
             </div>
           </li>

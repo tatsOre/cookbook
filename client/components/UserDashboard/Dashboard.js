@@ -1,13 +1,13 @@
 import WithWidget from "../User/userSWR";
 import RecipePill from "../RecipeCard/RecipePill";
-import RecipeCard from "../RecipeCard/RecipeCard";
-import ShopListCard from "../ShoppingLists/ShopListCard";
+import FavoritePill from "../RecipeCard/FavoritePill";
+import ShopListPill from "../ShoppingLists/ShopListPill";
 
 import styles from "./Dashboard.module.css";
 
 const RecipesWidget = WithWidget(RecipePill);
-const FavoritesWidget = WithWidget(RecipeCard);
-const ShopListsWidget = WithWidget(ShopListCard);
+const FavoritesWidget = WithWidget(FavoritePill);
+const ShopListsWidget = WithWidget(ShopListPill);
 
 const Dashboard = () => {
   return (

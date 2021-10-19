@@ -1,8 +1,6 @@
 .card__pill {
   background-color: white;
-  width: max-content;
   display: flex;
-  flex-flow: row wrap;
   padding: 1.25rem;
   margin-bottom: 1rem;
   border-radius: 0px 15px 0px 15px;
@@ -21,6 +19,7 @@
   text-decoration: none;
   font-weight: 400;
   font-size: 2rem;
+  text-transform: capitalize;
 }
 
 .card__title a:hover {
@@ -36,4 +35,15 @@
 
 .card__userActions button:not(:last-child) {
   margin-right: 1rem;
+}
+
+/* Recipe Pill for Favorites */
+.card__favs__body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card__favs__body h3 {
+  width: 100%;
 }

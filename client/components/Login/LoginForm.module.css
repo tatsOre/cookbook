@@ -37,7 +37,9 @@
 
 .login_form span[role="alert"] {
   font-size: 1.2rem;
+  font-weight: 500;
   color: tomato;
+  display: block;
 }
 
 .form__link {
