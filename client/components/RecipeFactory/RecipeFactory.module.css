@@ -3,12 +3,20 @@
 .create__form {
   max-width: 1000px;
   margin: auto;
-  padding: 4rem 3rem 0rem;
+  padding: 4rem 4rem 0rem;
   background-color: white;
+  font-weight: 400;
+  color: var(--color-dark);
+}
+
+.create__form h2 {
+  width: 100%;
+  margin: 2rem 0rem 1rem;
 }
 
 .btn__outlined,
-.btn__filled {
+.btn__filled,
+.create__categories label {
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.025rem;
@@ -18,10 +26,29 @@
   cursor: pointer;
 }
 
+.btn__outlined,
+.create__categories label {
+  background-color: var(--color-light);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.btn__outlined,
+.create__categories label:hover {
+  background-color: var(--color-accent);
+  color: var(--color-light);
+  border: 1px solid var(--color-accent);
+}
+
+.create__categories input[id^="cat-btn"]:checked + label,
 .btn__filled {
   background-color: var(--color-accent);
   color: var(--color-light);
   border: 1px solid var(--color-accent);
+}
+
+.create__categories input[id^="cat-btn"]:checked + label:focus {
+  box-shadow: 0 0 0 0.25rem rgb(189, 189, 189);
 }
 
 .btn__filled:hover {
@@ -30,12 +57,45 @@
   border: 1px solid var(--color-accent);
 }
 
-/* Step 1. Ingredients
-  ============================= */
-
-.ingredients__step {
+.ingredients__step,
+.instructions__step {
+  display: flex;
+  flex-direction: column;
 }
 
+.create__form input[type="text"],
+.create__form textarea {
+  font-size: 1.4rem;
+  padding: 1rem;
+  margin: 0.25rem 0rem 1rem;
+  font-size: 1.4rem;
+  border-radius: 2px;
+  border: 1px solid var(--color-neutral);
+}
+
+.create__form textarea {
+  width: 100%;
+}
+
+.create__categories div[role="group"] {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.create__form span[role="alert"] {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.025rem;
+  color: tomato;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Step 1. Ingredients
+  ============================= */
 .ingredients__step h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -43,15 +103,22 @@
   margin-bottom: 1.5rem;
 }
 
-.ingredients__categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 0.5rem;
+.create__servings input {
+  max-width: 7rem;
+  padding: 1rem;
+  border-radius: 2px;
+  border: 1px solid var(--color-neutral);
 }
 
-.ingredients__dropdown > button,
-.ingredients__categories > label {
+.ingredients__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.ingredients__dropdown > button {
   background-color: var(--color-light);
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
@@ -63,78 +130,59 @@
   border-radius: 2px;
   cursor: pointer;
 }
-.ingredients__dropdown > button:hover,
-.ingredients__categories > label:hover,
-.ingredients__add:hover {
+
+.ingredients__dropdown > button:hover {
   background-color: var(--color-accent);
   color: var(--color-light);
   border: 1px solid var(--color-accent);
 }
 
-.create__ingredients {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 2rem;
+.ingredients__dropdown > .dropdown-menu.show {
 }
 
-.ingredients__list input[type="number"] {
-  width: 5rem;
-  padding: 1rem;
-}
-
-.ingredients__addIngredient > h2 {
+.ingredients__item {
   width: 100%;
-}
-
-.ingredients__dropdown > button {
-  padding: 1rem;
-}
-
-.ingredients__add {
-  width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.ingredients__inputIngredient {
-  width: 80%;
-  padding: 1rem;
-}
-
-.ingredients__list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.ingredients__list > li {
   display: flex;
+  flex-flow: row wrap;
+  gap: 0.5rem;
 }
 
-.testcheckbox {
-  background-color: var(--color-neutral);
+.ingredients__item input[type="number"] {
+  width: 8rem;
+  padding: 0rem 1rem;
 }
 
-.ingredients__container [role="alert"] {
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0.025rem;
-  color: tomato;
-  margin-bottom: 1rem;
-  display: block;
+.ingredients__item input[type="text"] {
+  margin: 0;
+}
+
+.create__ingredients > button {
+  padding: 1rem;
 }
 
 /* Step 2. Instructions
   ============================= */
-.instructions__step {
-  max-width: 420px;
-  margin: auto;
-  padding: 4rem 1.5rem 0rem;
+.create__photo {
+  margin-top: 2rem;
+  font-size: 1.4rem;
 }
 
-.create__categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 0.5rem;
+.create__photo label {
+  margin-right: 1rem;
+}
+
+.create__comments {
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 599px) {
+  .create__form {
+    padding: 1rem 2rem;
+  }
+
+  .create__ingredients > button {
+    width: 100%;
+  }
+  .ingredients__item input[type="text"] {
+  }
 }

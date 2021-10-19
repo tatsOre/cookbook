@@ -31,11 +31,11 @@ const Instructions = () => {
       {instructionsFields.map((field, index) => (
         <div key={field.id}>
           <h3>{index + 1}</h3>
+          <Button onClick={() => instructionsRemove(index)}>Delete</Button>
           <textarea
             {...register(`instructions.${index}.instruction`)}
             type="text"
           />
-          <Button onClick={() => instructionsRemove(index)}>Delete</Button>
         </div>
       ))}
       <Button
@@ -45,6 +45,7 @@ const Instructions = () => {
         Add New Instruction
       </Button>
 
+      <h2>Cuisine categories:</h2>
       <div className={styles.create__categories}>
         <Controller
           control={control}
@@ -72,6 +73,7 @@ const Instructions = () => {
         {errors?.cuisine && <span role="alert">{errors.cuisine.message}</span>}
       </div>
 
+      <h2>Add a photo:</h2>
       <Controller
         control={control}
         name="photo"
@@ -83,18 +85,23 @@ const Instructions = () => {
       />
       {errors?.cuisine && <span role="alert"> {errors.cuisine.message}</span>}
 
-      <label htmlFor="public">make public?</label>
-      <Controller
-        control={control}
-        name="public"
-        render={({ field: { onChange } }) => (
-          <Form.Check onChange={onChange} type="switch" />
-        )}
-      />
-      <label htmlFor="comments">
-        Add additional comments <span>(Optional)</span>
-      </label>
-      <textarea {...register("comments")} type="text" />
+      <div className={styles.create__photo}>
+        <label htmlFor="public">Do you want your recipe to be private?</label>
+        <Controller
+          control={control}
+          name="public"
+          render={({ field: { onChange } }) => (
+            <Form.Check inline={true} onChange={onChange} type="switch" />
+          )}
+        />
+      </div>
+
+      <div className={styles.create__comments}>
+        <label htmlFor="comments">
+          Additional comments <span>(Optional):</span>
+        </label>
+        <textarea {...register("comments")} type="text" />
+      </div>
     </div>
   );
 };
