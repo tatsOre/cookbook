@@ -43,6 +43,7 @@ body,
 
 main {
   width: 100%;
+  height: 100%;
   flex: 1 0 auto;
 }
 
@@ -72,8 +73,12 @@ main {
 
 /* Top nav bar dropdown container: */
 .dropdown-menu.show {
+}
+
+.ingredients__list .dropdown-menu.show {
   font-size: 1.6rem;
   min-width: 22rem;
+  background-color: gold !important;
 }
 
 /* Dropdown toggle arrow */

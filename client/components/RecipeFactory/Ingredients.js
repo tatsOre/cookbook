@@ -75,7 +75,7 @@ const Ingredients = () => {
         <span role="alert">{errors?.description.message}</span>
       )}
 
-      <label>
+      <label className={styles.create__servings}>
         Recipe for{" "}
         <input
           {...register("servings", {
@@ -89,6 +89,7 @@ const Ingredients = () => {
       {errors?.servings && <span role="alert">{errors?.servings.message}</span>}
 
       <div className={styles.create__categories}>
+        <h2>Add categories:</h2>
         <Controller
           control={control}
           name="categories"
@@ -102,6 +103,7 @@ const Ingredients = () => {
             >
               {categoriesOptions.map((option) => (
                 <ToggleButton
+                  variant="secondary"
                   id={`cat-btn-${option}`}
                   key={option}
                   value={option}
@@ -136,6 +138,7 @@ const Ingredients = () => {
                 defaultValue={fractionOptions[0]}
                 render={({ field: { onChange, value } }) => (
                   <DropdownButton
+                    variant="secondary"
                     className={styles.ingredients__dropdown}
                     title={value}
                     onSelect={onChange}
@@ -152,6 +155,7 @@ const Ingredients = () => {
                 rules={{ required: "A measurement is needed" }}
                 render={({ field: { onChange, value } }) => (
                   <DropdownButton
+                    variant="secondary"
                     className={styles.ingredients__dropdown}
                     onSelect={onChange}
                     title={value}
@@ -160,6 +164,7 @@ const Ingredients = () => {
                   </DropdownButton>
                 )}
               />
+
               <input
                 {...register(`ingredients.${index}.name`, {
                   required: "ingredient name is required",
@@ -167,10 +172,10 @@ const Ingredients = () => {
                 type="text"
               />
               <Button
-                className={styles.delete__ingredient}
+                className={styles.btn__remove__ingredient}
                 onClick={() => ingredientsRemove(index)}
               >
-                Delete
+                D
               </Button>
             </li>
           ))}
