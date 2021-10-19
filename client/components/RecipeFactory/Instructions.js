@@ -79,8 +79,8 @@ const Instructions = () => {
         name="photo"
         defaultvalue=""
         rules={{ required: "You must select a photo" }}
-        render={({ field: { onChange } }) => (
-          <input onChange={onChange} type="file" />
+        render={({ field }) => (
+          <input onChange={e => field.onChange(e.target.files)} type="file" />
         )}
       />
       {errors?.cuisine && <span role="alert"> {errors.cuisine.message}</span>}
@@ -101,6 +101,9 @@ const Instructions = () => {
           Additional comments <span>(Optional):</span>
         </label>
         <textarea {...register("comments")} type="text" />
+        <Button className={styles.btn__filled} type="submit">
+          Save
+        </Button>
       </div>
     </div>
 
