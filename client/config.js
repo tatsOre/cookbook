@@ -1,5 +1,8 @@
-export const BASE_URL = `http://localhost:3000`;
-//export const BASE_URL = `https://tats-cookbook-api.herokuapp.com`;
+const dev = process.env.NEXT_PUBLIC_NODE_ENV_FE === "development";
+export const BASE_URL = dev
+  ? "http://localhost:3000"
+  : process.env.NEXT_PUBLIC_PROD_ADDR;
+
 export const LOGIN_URL = `${BASE_URL}/api/v1/auth/login`;
 
 export const LOGIN_WITH_GOOGLE_URL = `${BASE_URL}/api/v1/auth/google`;
