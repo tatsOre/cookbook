@@ -87,7 +87,6 @@ const RecipeFactory = () => {
               <Ingredients />
               <Instructions />
           </Wizard>
-          <Button type="submit">Save</Button> 
       </form>
     </FormProvider> 
   );

@@ -61,6 +61,7 @@ const Instructions = () => {
                 />
                 <label htmlFor="comments">Add additional comments</label>
                 <textarea {...register("comments")} className={styles.instructions__inputArea} type="text" />
+                <Button type="submit">Save</Button> 
         </div>
     );
 }
