@@ -100,7 +100,14 @@ const Ingredients = () => {
                                 </DropdownButton>
                                 }
                             />
-                                <input  {...register(`ingredients.${index}.name`, {required: "ingredient name is required"})} className={styles.ingredients__inputIngredient} type="text" />
+                            <Controller
+                                control={control}
+                                name={`ingredients.${index}.name`}
+                                rules={{required:"ingredient name is required"}}
+                                render={({field: {onChange, value}}) =>
+                                <input value={value} onChange={onChange} className={styles.ingredients__inputIngredient} type="text" />
+                            }
+                            />
                                 <Button onClick={() => ingredientsRemove(index)}>Delete</Button>
                         </li>
                     ))}

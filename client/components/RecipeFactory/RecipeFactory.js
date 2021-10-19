@@ -48,7 +48,9 @@ async function onFormSubmit(formResult) {
 
 const RecipeFactory = () => {
 
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: defaultValues
+  });
 
   const Footer = () => {
     const {
