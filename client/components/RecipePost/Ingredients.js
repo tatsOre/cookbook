@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AlertMessage from "../Alert/AlertMessage";
 import { ButtonOutlined } from "../Buttons/Buttons";
-import { postData } from "../../src/ApiCalls";
+import { fetchAPI } from "../../src/ApiCalls";
 import { SHOP_LIST_BASE_URL } from "../../config";
 
 import styles from "./Ingredients.module.css";
@@ -47,8 +47,7 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
       ({ unit, fraction, measurement, name }) =>
         `${unit ? unit : ""} ${fraction} ${measurement} ${name}`
     );
-
-    postData(SHOP_LIST_BASE_URL, { recipe, items })
+    fetchAPI("POST", SHOP_LIST_BASE_URL, { recipe, items })
       .then((response) => {
         if (response.status === 200) {
           setAlertMessage(true);
