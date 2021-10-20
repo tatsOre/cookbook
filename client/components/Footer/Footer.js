@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Logotype from "../Logotype/Logotype";
 import styles from "./Footer.module.css";
 
 const Footer = () => {
@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footer__container}>
         <div>
-          <nav>Some links</nav>
+          <Logotype />
         </div>
 
         <div className={styles.footer__text}>

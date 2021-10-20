@@ -30,10 +30,6 @@
   background-position: 0 center;
 }
 
-.header__cta__link {
-  order: 3;
-}
-
 @media screen and (max-width: 768px) {
   .header__container {
     gap: 1rem;

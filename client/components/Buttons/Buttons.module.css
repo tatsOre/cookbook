@@ -72,9 +72,10 @@
 
 .button__mobile__icon div {
   background-color: var(--color-neutral);
-  height: 3px;
+  height: 2px;
   margin-bottom: 5px;
 }
+
 .button__mobile__icon div:nth-child(1) {
   width: 50%;
 }

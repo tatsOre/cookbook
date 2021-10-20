@@ -48,8 +48,8 @@ const Tabs = ({ open, openTabs, data }) => {
 
       <TabContent active={activeTab === "Ingredients"}>
         <ul>
-          {ingredients.map((item) => (
-            <li key={item._id}>
+          {ingredients.map((item, index) => (
+            <li key={`${index}-${item._id}`}>
               <div className={styles.ingredients__item}>
                 <input id={item._id} type="checkbox" />
                 <label htmlFor={item._id} className={styles.ingredients__label}>

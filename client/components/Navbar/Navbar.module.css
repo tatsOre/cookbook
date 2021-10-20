@@ -1,7 +1,14 @@
+.navigation {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+}
+
 /* Login / SignUp Buttons */
 .navigation div:last-child a {
   margin-right: 1rem;
 }
+
 /* Modal Top Navigation for Desktop */
 .navigation__top {
   color: var(--color-dark);

@@ -76,7 +76,7 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
       </fieldset>
       {alertMessage && (
         <AlertMessage variant="success" label={`Added to your shopping lists!`}>
-          <a href="/">Go to my shopping lists.</a>
+          <a href="/me">Go to my shopping lists.</a>
         </AlertMessage>
       )}
       <ButtonOutlined type="submit">{buttonLabel}</ButtonOutlined>

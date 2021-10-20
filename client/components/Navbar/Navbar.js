@@ -7,6 +7,7 @@ import CloseButton from "react-bootstrap/CloseButton";
 import Image from "react-bootstrap/Image";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Logotype from "../Logotype/Logotype";
 import { AVATAR_DEFAULT } from "../../config";
 import ButtonMenuMobile from "../Buttons/ButtonMenuMobile";
 import { LinkFilled, LinkOutlined } from "../Buttons/Buttons";
@@ -103,21 +104,25 @@ const Navigation = () => {
         <>
           <TopNavBar user={user} handleLogout={handleClickLogout} />
           <SideNavBar user={user} handleLogout={handleClickLogout} />
+          <Logotype />
         </>
       )}
       {!user && (
-        <div>
-          {!router.pathname.startsWith("/login") && (
-            <Link href="/login" passHref>
-              <LinkFilled>Login</LinkFilled>
-            </Link>
-          )}
-          {!router.pathname.startsWith("/signup") && (
-            <Link href="/signup" passHref>
-              <LinkOutlined>Sign Up</LinkOutlined>
-            </Link>
-          )}
-        </div>
+        <>
+          <Logotype />
+          <div>
+            {!router.pathname.startsWith("/login") && (
+              <Link href="/login" passHref>
+                <LinkFilled>Login</LinkFilled>
+              </Link>
+            )}
+            {!router.pathname.startsWith("/signup") && (
+              <Link href="/signup" passHref>
+                <LinkOutlined>Sign Up</LinkOutlined>
+              </Link>
+            )}
+          </div>
+        </>
       )}
     </nav>
   );

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LinkFilled } from "../Buttons/Buttons";
-import Logotype from "../Logotype/Logotype";
 import Navigation from "../Navbar/Navbar";
 import SearchBar from "../Search/SearchDownshift";
 import useUser from "../../src/useUser";
@@ -16,7 +15,6 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.header__container}>
-        <Logotype />
         {show && (
           <SearchBar
             placeholder="Search and explore recipes..."
