@@ -60,7 +60,11 @@ router.post(
  * GET /api/v1/me/search?field=:field&q=:queryParam
  * EX: http://localhost:3000/api/v1/me/search?field=recipes&q=pasta
  */
-router.get("/me/search", userController.searchUserRecipes);
+router.get(
+  "/me/search",
+  passport.authenticate("jwt", { session: false }),
+  catchErrors(userController.searchUserRecipes)
+);
 
 /**
  * GET /api/v1/user/:id

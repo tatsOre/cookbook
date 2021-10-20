@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Tabs.module.css";
 import CloseButton from "react-bootstrap/CloseButton";
+import Instructions from "../Instructions";
 
 const TabLink = ({ label, active, setActiveTab }) => {
   const handleItemClick = () => setActiveTab(label);
@@ -22,9 +23,9 @@ const TabContent = ({ active, children }) => {
   );
 };
 
-const Tabs = ({ open, openTabs, ingredients, instructions }) => {
+const Tabs = ({ open, openTabs, data }) => {
   const [activeTab, setActiveTab] = useState("Ingredients");
-
+  const { ingredients, instructions, comments } = data;
   const handleItemClick = () => openTabs(false);
 
   return (
@@ -60,7 +61,7 @@ const Tabs = ({ open, openTabs, ingredients, instructions }) => {
         </ul>
       </TabContent>
       <TabContent active={activeTab === "Instructions"}>
-        {instructions}
+        <Instructions instructions={instructions} comments={comments} />
       </TabContent>
     </div>
   );

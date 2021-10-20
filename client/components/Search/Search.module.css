@@ -1,6 +1,5 @@
 .search__container {
   font-size: 1.4rem;
-  padding: 1rem 0rem;
   position: relative;
 }
 
@@ -28,7 +27,7 @@
 
 .item__active {
   background-color: #f7f7f7;
-  border-left: 5px solid gainsboro;
+  border-left: 5px solid var(--color-accent);
 }
 
 .item__inactive {
@@ -41,11 +40,29 @@
     width: 100%;
     order: 4;
   }
+
+  .search__bar input {
+    padding: 1.5rem;
+  }
 }
 
 @media screen and (min-width: 769px) {
   .search__container {
     flex: 1;
-    margin: 0 3rem;
   }
+}
+
+.backdrop {
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(255, 255, 255, 0) 20%
+  );
+  content: "";
+  z-index: 1;
 }

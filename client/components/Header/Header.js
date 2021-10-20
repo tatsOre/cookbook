@@ -1,22 +1,36 @@
-import { IconPlaceholder } from "../General/Icons";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { LinkFilled } from "../Buttons/Buttons";
 import Logotype from "../Logotype/Logotype";
 import Navigation from "../Navbar/Navbar";
-import SearchDownshift from "../Search/SearchDownshift";
+import SearchBar from "../Search/SearchDownshift";
 import useUser from "../../src/useUser";
+
 import styles from "./Header.module.css";
 
 const Header = () => {
   const { user } = useUser();
+  const router = useRouter();
+  const show = !router.pathname.startsWith("/create") && user;
+
   return (
     <header className={styles.header}>
       <div className={styles.header__container}>
         <Logotype />
-        <SearchDownshift />
+        {show && (
+          <SearchBar
+            placeholder="Search and explore recipes..."
+            URL="http://localhost:3000/api/v1/recipes/search?q="
+          />
+        )}
+
         <Navigation />
-        {user && (
-          <button className={styles.button__useraccount}>
-            <IconPlaceholder iconlabel="U" />
-          </button>
+        {show && (
+          <span className={styles.header__cta__link}>
+            <Link href="/create" passHref>
+              <LinkFilled>Create Recipe</LinkFilled>
+            </Link>
+          </span>
         )}
       </div>
     </header>

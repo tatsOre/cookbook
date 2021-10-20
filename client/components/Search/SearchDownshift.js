@@ -1,24 +1,22 @@
-const { useState } = require("react");
+import { useState } from "react";
 import { useRouter } from "next/router";
 import debounce from "lodash.debounce";
 import { resetIdCounter, useCombobox } from "downshift";
-
+import { getData } from "../../src/ApiCalls";
 import styles from "./Search.module.css";
 
-const url = `http://localhost:3000/api/v1/recipes/search?q=`;
-
-const fetchData = async (query, callback) => {
+const fetchData = async (url, query, callback) => {
   if (!query) return;
-  const response = await fetch(`${url}${query}`);
-  const data = await response.json();
+  const data = await getData(`${url}${query}`);
+  console.log({ data });
   callback(data);
 };
 
-const chill = debounce((query, callback) => {
-  fetchData(query, callback);
+const chill = debounce((url, query, callback) => {
+  fetchData(url, query, callback);
 }, 500);
 
-const SearchDownshift = () => {
+const SearchBar = ({ placeholder, URL, withBackdrop }) => {
   const router = useRouter();
   const [results, setResults] = useState([]);
   resetIdCounter();
@@ -34,7 +32,7 @@ const SearchDownshift = () => {
     items: results,
     onInputValueChange: ({ inputValue }) => {
       setResults([]);
-      chill(inputValue, (res) => {
+      chill(URL, inputValue, (res) => {
         setResults(res);
       });
     },
@@ -45,38 +43,45 @@ const SearchDownshift = () => {
   });
 
   return (
-    <div className={styles.search__container}>
-      <div className={styles.search__bar} {...getComboboxProps()}>
-        <input
-          {...getInputProps({
-            type: "search",
-            placeholder: "Search",
-            id: "search",
-            "aria-labelledby": "search",
-          })}
-        />
-      </div>
-      <ul className={styles.search__results} {...getMenuProps()}>
-        {isOpen &&
-          results.map((item, index) => (
-            <li
-              {...getItemProps({ item, index })}
-              key={item.id}
-              className={`${styles.results__items} ${
-                highlightedIndex === index
-                  ? styles.item__active
-                  : styles.item__inactive
-              }`}
-            >
-              {item.title}
+    <>
+      <div className={styles.search__container}>
+        <div className={styles.search__bar} {...getComboboxProps()}>
+          <input
+            {...getInputProps({
+              type: "search",
+              placeholder,
+              id: "search",
+              "aria-labelledby": "search",
+            })}
+          />
+        </div>
+        <ul className={styles.search__results} {...getMenuProps()}>
+          {isOpen &&
+            results.map((item, index) => (
+              <li
+                {...getItemProps({ item, index })}
+                key={item._id}
+                className={`${styles.results__items} ${
+                  highlightedIndex === index
+                    ? styles.item__active
+                    : styles.item__inactive
+                }`}
+              >
+                <b>{item.title}</b>
+              </li>
+            ))}
+          {isOpen && !results.length && inputValue && (
+            <li>
+              Sorry, No items found for <b>{inputValue}</b>
             </li>
-          ))}
-        {isOpen && !results.length && inputValue && (
-          <li>Sorry, No items found for {inputValue}</li>
-        )}
-      </ul>
-    </div>
+          )}
+        </ul>
+      </div>
+      {isOpen && withBackdrop && inputValue && (
+        <div className={styles.backdrop}></div>
+      )}
+    </>
   );
 };
 
-export default SearchDownshift;
+export default SearchBar;

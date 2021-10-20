@@ -1,11 +1,10 @@
 const router = require("express").Router();
 
 const cuisine = [
-  "brazilian",
-  "british",
-  "cajun creole",
+  "african",
+  "asian",
+  "caribbean",
   "chinese",
-  "filipino",
   "french",
   "greek",
   "indian",
@@ -14,13 +13,15 @@ const cuisine = [
   "jamaican",
   "japanese",
   "korean",
+  "latin american",
   "mexican",
-  "moroccan",
+  "mediterranean",
   "russian",
   "southern US",
   "spanish",
   "thai",
   "vietnamese",
+  "other",
 ];
 
 const equivalences = [
@@ -42,15 +43,15 @@ router.get("/ingredients", (req, res) => {
   const options = {
     fraction: ["0", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"],
     measurement: [
-      "Teaspoon",
-      "Tablespoon",
-      "Cup",
-      "Gallon",
-      "Grams",
-      "Kilograms",
-      "Ounces",
-      "Litres",
-      "None",
+      "teaspoon",
+      "tablespoon",
+      "cup",
+      "gallon",
+      "grams",
+      "kilograms",
+      "ounces",
+      "litres",
+      "none",
     ],
   };
   if (!Object.keys(options).includes(field)) {

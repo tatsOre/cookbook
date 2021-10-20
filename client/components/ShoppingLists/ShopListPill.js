@@ -1,6 +1,5 @@
 const ShopListPill = ({ data }) => {
   const { _id, recipe, items } = data;
-  console.log(data);
   return (
     <div>
       <h3>

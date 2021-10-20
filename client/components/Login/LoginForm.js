@@ -5,18 +5,19 @@ import Link from "next/link";
 
 import AlertMessage from "../Alert/AlertMessage";
 import ProvidersButtons from "./ProvidersButtons";
-import styles from "./LoginForm.module.css";
+
 import { LOGIN_URL } from "../../config";
 import { fetchAPI } from "../../src/ApiCalls";
 
+import styles from "./LoginForm.module.css";
+
 const Login = () => {
+  const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const router = useRouter();
 
   const [warning, setWarning] = useState({ show: false, messages: [] });
   const [disabled, setDisabled] = useState(false);

@@ -24,10 +24,11 @@ const TopNavBar = ({ user, handleLogout }) => {
           id="collasible-nav-dropdown"
           align="end"
         >
-          <NavDropdown.Item href="/">Account</NavDropdown.Item>
-          <NavDropdown.Item href="/">Recipes</NavDropdown.Item>
-          <NavDropdown.Item href="/">Favorites</NavDropdown.Item>
-          <NavDropdown.Item href="/">Shopping Lists</NavDropdown.Item>
+          <NavDropdown.Item href="/create">Create Recipe</NavDropdown.Item>
+          <NavDropdown.Item href="/me/account">Account</NavDropdown.Item>
+          <NavDropdown.Item href="/me">Recipes</NavDropdown.Item>
+          <NavDropdown.Item href="/me">Favorites</NavDropdown.Item>
+          <NavDropdown.Item href="/me">Shopping Lists</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item href="/" onClick={handleLogout}>
             Logout
@@ -62,16 +63,19 @@ const SideNavBar = ({ user, handleLogout }) => {
         </div>
         <div className={styles.side__body}>
           <nav>
-            <Link href="/">
+            <Link href="/create">
+              <a>create recipe</a>
+            </Link>
+            <Link href="/me/account">
               <a>Account</a>
             </Link>
-            <Link href="/">
-              <a>Recipes</a>
+            <Link href="/me">
+              <a>my recipes</a>
             </Link>
-            <Link href="/">
+            <Link href="/me">
               <a>Favorites</a>
             </Link>
-            <Link href="/">
+            <Link href="/me">
               <a>Shopping Lists</a>
             </Link>
             <a href="/" onClick={handleLogout}>
@@ -85,8 +89,8 @@ const SideNavBar = ({ user, handleLogout }) => {
 };
 
 const Navigation = () => {
-  const router = useRouter();
   const { user } = useUser();
+  const router = useRouter();
 
   const handleClickLogout = () => {
     logout();
@@ -103,13 +107,16 @@ const Navigation = () => {
       )}
       {!user && (
         <div>
-          <Link href="/login" passHref>
-            <LinkFilled>Login</LinkFilled>
-          </Link>
-
-          <Link href="/signup" passHref>
-            <LinkOutlined>Sign Up</LinkOutlined>
-          </Link>
+          {!router.pathname.startsWith("/login") && (
+            <Link href="/login" passHref>
+              <LinkFilled>Login</LinkFilled>
+            </Link>
+          )}
+          {!router.pathname.startsWith("/signup") && (
+            <Link href="/signup" passHref>
+              <LinkOutlined>Sign Up</LinkOutlined>
+            </Link>
+          )}
         </div>
       )}
     </nav>

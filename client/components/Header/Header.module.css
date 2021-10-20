@@ -9,8 +9,8 @@
   padding: 1.25rem 1.5rem 0.5rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .header__divider {
@@ -30,14 +30,20 @@
   background-position: 0 center;
 }
 
-.button__useraccount {
+.header__cta__link {
   order: 3;
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 768px) {
+  .header__container {
+    gap: 1rem;
+  }
 }
 
 @media screen and (min-width: 769px) {
+  .header__container {
+    gap: 3rem;
+  }
   .button__useraccount {
     display: none;
   }

@@ -24,11 +24,7 @@ function WithWidget(Component) {
     return (
       <div>
         {state.data.length ? (
-          state.data.map((item) => (
-            <div>
-              <Component data={item} />
-            </div>
-          ))
+          state.data.map((item) => <Component data={item} />)
         ) : (
           <p>{fallback}</p>
         )}

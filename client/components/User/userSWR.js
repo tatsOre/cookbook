@@ -20,17 +20,13 @@ function WithWidget(Component) {
     if (isError) return null;
 
     return (
-      <div>
+      <>
         {data[field].length ? (
-          data[field].map((item) => (
-            <div>
-              <Component data={item} />
-            </div>
-          ))
+          data[field].map((item) => <Component data={item} />)
         ) : (
           <p>{fallback}</p>
         )}
-      </div>
+      </>
     );
   };
 }

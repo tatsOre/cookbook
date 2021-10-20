@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { forwardRef } from "react";
 import styles from "./Buttons.module.css";
 import { RECIPE_BASE_URL } from "../../config";
@@ -19,14 +18,6 @@ const ButtonDeleteRecipe = ({ id }) => {
     >
       Delete
     </button>
-  );
-};
-
-const ButtonEditRecipe = ({ id }) => {
-  return (
-    <Link href="/">
-      <button className={styles.btn__edit__recipe}>Edit</button>
-    </Link>
   );
 };
 
@@ -59,13 +50,22 @@ const ButtonFilled = ({ type, children }) => {
   );
 };
 
-const LinkOutlined = forwardRef(({ onClick, href, children }, ref) => {
-  return (
-    <a href={href} onClick={onClick} ref={ref} className={styles.btn__outlined}>
-      {children}
-    </a>
-  );
-});
+const LinkOutlined = forwardRef(
+  ({ onClick, href, children, className }, ref) => {
+    return (
+      <a
+        href={href}
+        onClick={onClick}
+        ref={ref}
+        className={`${styles.btn__outlined} ${
+          className ? styles[className] : ""
+        }`}
+      >
+        {children}
+      </a>
+    );
+  }
+);
 
 const LinkFilled = forwardRef(({ onClick, href, children }, ref) => {
   return (
@@ -78,7 +78,6 @@ const LinkFilled = forwardRef(({ onClick, href, children }, ref) => {
 export {
   ButtonFilled,
   ButtonDeleteRecipe,
-  ButtonEditRecipe,
   ButtonOutlined,
   ButtonTogglePublic,
   LinkFilled,

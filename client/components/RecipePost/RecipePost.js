@@ -76,6 +76,7 @@ const RecipePost = ({ recipe }) => {
                 </Link>
               </span>
             )}
+
             <div className={styles.recipe__user__actions}>
               <UserActions recipeID={_id} isPublic={isPublic} />
             </div>
@@ -102,12 +103,9 @@ const RecipePost = ({ recipe }) => {
       </article>
 
       <Tabs
+        data={{ ingredients, instructions, comments }}
         open={openTabs}
         openTabs={setOpenTabs}
-        ingredients={ingredients}
-        instructions={
-          <Instructions instructions={instructions} comments={comments} />
-        }
       />
     </>
   );

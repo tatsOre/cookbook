@@ -1,5 +1,4 @@
 .btn__publish__recipe,
-.btn__edit__recipe,
 .btn__delete__recipe,
 .btn__outlined,
 .btn__filled {
@@ -20,7 +19,6 @@
 }
 
 .btn__publish__recipe,
-.btn__edit__recipe,
 .btn__outlined {
   background-color: var(--color-light);
   color: var(--color-accent);
@@ -41,7 +39,6 @@
 }
 
 .btn__publish__recipe:hover,
-.btn__edit__recipe:hover,
 .btn__outlined:hover {
   background-color: var(--color-accent);
   color: var(--color-light);
@@ -54,7 +51,17 @@
   border: 1px solid var(--color-accent);
 }
 
+/* Style for edit link to match group height */
+.btn__edit__recipe {
+  padding: 0.4rem 1.25rem;
+}
+
 /* Button Mobile */
+.button__mobile {
+  background-color: transparent;
+  border: none;
+}
+
 .button__mobile__icon {
   height: 30px;
   width: 25px;
@@ -89,7 +96,6 @@
   font-weight: 600;
   letter-spacing: 0.025rem;
   text-decoration: none;
-  padding: 0.6rem 1.25rem;
   border-radius: 2px;
   cursor: pointer;
 }
