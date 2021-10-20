@@ -1,8 +1,8 @@
 .card__pill {
   background-color: white;
   display: flex;
+  width: calc(50% - 2rem);
   padding: 1.25rem;
-  margin-bottom: 1rem;
   border-radius: 0px 15px 0px 15px;
   box-shadow: 0px 0px 10px 0px rgb(231, 231, 231);
 }
@@ -33,6 +33,7 @@
   margin: 0.5rem;
 }
 
+.card__userActions a,
 .card__userActions button:not(:last-child) {
   margin-right: 1rem;
 }
@@ -46,4 +47,10 @@
 
 .card__favs__body h3 {
   width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .card__pill {
+    width: 100%;
+  }
 }

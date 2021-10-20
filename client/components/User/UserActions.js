@@ -1,9 +1,10 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import ButtonFavorites from "../Buttons/ButtonFavorites";
 import {
   ButtonDeleteRecipe,
-  ButtonEditRecipe,
   ButtonTogglePublic,
+  LinkOutlined,
 } from "../Buttons/Buttons";
 import useUser from "../../src/useUser";
 
@@ -18,7 +19,9 @@ const UserActions = ({ recipeID, isPublic }) => {
       {userRecipes.includes(recipeID) ? (
         <>
           <ButtonTogglePublic id={recipeID} isPublic={isPublic} />
-          <ButtonEditRecipe id={recipeID} />
+          <Link href={`/edit/${recipeID}`} passHref>
+            <LinkOutlined className="btn__edit__recipe">Edit</LinkOutlined>
+          </Link>
           <ButtonDeleteRecipe id={recipeID} />
         </>
       ) : (

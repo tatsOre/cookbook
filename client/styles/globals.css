@@ -6,7 +6,7 @@
   --color-dark: #132020;
   --color-accent: #2b5252;
   --color-base: #182828;
-  --color-neutral: #1c3f4691;
+  --color-neutral: #688085;
   --color-light: #f1f1f1;
   --color-alert: tomato;
 }
@@ -73,6 +73,8 @@ main {
 
 /* Top nav bar dropdown container: */
 .dropdown-menu.show {
+  font-size: 1.6rem;
+  min-width: 22rem;
 }
 
 .ingredients__list .dropdown-menu.show {

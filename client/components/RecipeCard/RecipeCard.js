@@ -19,11 +19,14 @@ const RecipeCard = ({ recipe }) => {
   return (
     <div className={styles.card__container}>
       <div className={styles.card__header}>
-        <a href={`/recipes/${_id}`}>
-          <div className={styles.card__photo}>
-            <RecipeImage photo={photo} title={title} />
-          </div>
-        </a>
+        <Link href={`/recipes/${_id}`}>
+          <a>
+            <div className={styles.card__photo}>
+              <RecipeImage photo={photo} title={title} />{" "}
+            </div>
+          </a>
+        </Link>
+
         <div className={styles.card__details}>
           {categories.length ? (
             <div className={styles.card__categories}>

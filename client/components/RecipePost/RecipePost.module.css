@@ -29,7 +29,6 @@
 }
 
 .recipe__author {
-  width: 50%;
 }
 
 .recipe__author a {
@@ -72,10 +71,6 @@
 .recipe__servings p {
   font-size: 1.3rem;
   color: var(--color-neutral);
-}
-
-.recipe__user__actions button {
-  margin-right: 1rem;
 }
 
 .recipes__btn__expand {

@@ -13,6 +13,10 @@ export const SIGNUP_URL = `${BASE_URL}/api/v1/auth/register`;
 
 export const CURRENT_USER_URL = `${BASE_URL}/api/v1/me`;
 
+("http://localhost:3000/api/v1/me/search?field=recipes&q=");
+export const SEARCH_IN_CURRENT_USER_URL = (field) =>
+  `${BASE_URL}/api/v1/me/search?field=${field}&q=`;
+
 export const ALL_RECIPES_URL = `${BASE_URL}/api/v1/recipes`;
 
 export const EDIT_FAVORITES_URL = `${BASE_URL}/api/v1/me/favorites`;
