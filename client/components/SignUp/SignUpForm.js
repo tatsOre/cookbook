@@ -6,7 +6,7 @@ import AlertMessage from "../Alert/AlertMessage";
 import ProvidersButtons from "../Login/ProvidersButtons";
 import styles from "./SignUpForm.module.css";
 
-import { postData } from "../../src/ApiCalls";
+import { fetchAPI } from "../../src/ApiCalls";
 import { SIGNUP_URL } from "../../config";
 
 const SignUp = () => {
@@ -24,7 +24,7 @@ const SignUp = () => {
     event.preventDefault();
     setDisabled(true);
 
-    const response = await postData(SIGNUP_URL, data);
+    const response = await fetchAPI('POST', SIGNUP_URL, data);
     const result = await response.json();
 
     if (response.status !== 200) {
