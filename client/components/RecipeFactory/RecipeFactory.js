@@ -3,6 +3,9 @@ import Instructions from "./Instructions";
 import { Button } from "react-bootstrap";
 import { FormProvider, useForm } from "react-hook-form";
 import { Wizard, useWizard } from "react-use-wizard";
+import { RECIPE_BASE_URL } from "../../config.js";
+import { fetchAPI } from "../../src/ApiCalls";
+
 
 import styles from "./RecipeFactory.module.css";
 
@@ -46,34 +49,53 @@ function onError(errors) {
 }
 
 async function onFormSubmit(formResult) {
+  console.log(formResult); 
   if (formResult.photo.length > 0) {
     const normalizedFormResult = {
       ...formResult,
+      ingredients: formResult.ingredients.map(ingredient => {
+        ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
+        ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+      }),
       instructions: formResult.instructions.reduce(
         (previous, current, idx) => ({
           ...previous,
           [idx]: current.instruction,
         }),
-        {}
       ),
     };
+    
     const imageUploadData = new FormData();
+    
     imageUploadData.append("file", formResult.photo[0]);
 
     //@TODO: make this an env
     imageUploadData.append("upload_preset", "xw6p5o5v");
 
-    const response = await fetch(cloudinaryURL, {
+    const cloudinaryResponse = await fetch(cloudinaryURL, {
       method: "POST",
       body: imageUploadData,
     });
-    const imageURL = await response.json();
+    const imageURL = await cloudinaryResponse.json();
     normalizedFormResult.photo = await imageURL.url;
+
+    const response = await fetchAPI("POST", RECIPE_BASE_URL, normalizedFormResult);
+    if (response.status !== 200) {
+      const content = await response.json();
+      setWarning({
+        show: true,
+        messages: content.message,
+      });
+      return setDisabled(false);
+    }
   }
 }
 
 const RecipeFactory = () => {
-  const methods = useForm();
+
+  const methods = useForm({
+    defaultValues: defaultValues
+  });
 
   const Footer = () => {
     const { nextStep, previousStep, isLastStep, isFirstStep } = useWizard();
@@ -86,10 +108,10 @@ const RecipeFactory = () => {
     return (
       <code>
         <>
-          <button onClick={() => previousStep()} disabled={isFirstStep}>
+          <button className={styles.btn__filled} onClick={() => previousStep()} disabled={isFirstStep}>
             Previous
           </button>
-          <button onClick={handleStepValidation} disabled={isLastStep}>
+          <button className={styles.btn__filled} onClick={handleStepValidation} disabled={isLastStep}>
             Next
           </button>
         </>
@@ -111,9 +133,6 @@ const RecipeFactory = () => {
           <Ingredients />
           <Instructions />
         </Wizard>
-        <Button className={styles.btn__filled} type="submit">
-          Save
-        </Button>
       </form>
     </FormProvider>
   );
