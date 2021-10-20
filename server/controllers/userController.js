@@ -114,5 +114,5 @@ exports.searchUserRecipes = async (req, res) => {
     },
   });
 
-  res.json(user.recipes);
+  res.json(user[field]);
 };
