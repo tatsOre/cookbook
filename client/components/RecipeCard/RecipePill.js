@@ -16,14 +16,14 @@ const RecipePill = ({ data }) => {
         </a>
       </Link>
 
-      <div>
+      <div className={styles.card__title}>
         <h3 className={styles.card__title}>
-          <a href={`/recipes/${_id}`}>{title}&nbsp;&nbsp;&nbsp;➜</a>
+          <a href={`/recipes/${_id}`}>{title}</a>
         </h3>
         <p className={styles.card__date}>Last updated: {date.toDateString()}</p>
-        <div className={styles.card__userActions}>
-          <UserActions recipeID={_id} isPublic={isPublic} />
-        </div>
+      </div>
+      <div className={styles.card__userActions}>
+        <UserActions recipeID={_id} isPublic={isPublic} />
       </div>
     </div>
   );

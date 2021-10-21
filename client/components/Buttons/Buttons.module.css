@@ -2,13 +2,18 @@
 .btn__delete__recipe,
 .btn__outlined,
 .btn__filled {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: 0.025rem;
   text-decoration: none;
-  padding: 0.6rem 1.25rem;
+  padding: 0.75rem 1.2rem;
   border-radius: 2px;
   cursor: pointer;
+}
+
+/* Style for edit link to match group height */
+.btn__edit__recipe {
+  padding: 0.5rem 1.2rem;
 }
 
 /* Delete Recipe Button */
@@ -49,11 +54,6 @@
   background-color: var(--color-light);
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
-}
-
-/* Style for edit link to match group height */
-.btn__edit__recipe {
-  padding: 0.4rem 1.25rem;
 }
 
 /* Button Mobile */

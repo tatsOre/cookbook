@@ -13,14 +13,13 @@
 }
 
 .dashboard__header .tab__link {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 500;
   text-transform: capitalize;
-  padding: 1rem 0rem;
+  padding: 1rem 1.6rem;
   border: none;
   outline: none;
   cursor: pointer;
-  width: 33%;
   color: white;
   background-color: var(--color-neutral);
 }

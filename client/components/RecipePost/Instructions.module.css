@@ -5,12 +5,12 @@
 }
 
 .instructions__step {
-  line-height: 2.5rem;
+  line-height: calc(100% + 8px);
 }
 
 .instructions__comments {
   white-space: pre-line;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   line-height: 2.3rem;
 }
 
@@ -20,5 +20,5 @@
 
 .instructions__list li {
   list-style: none;
-  margin-bottom: 0.35rem;
+  margin-bottom: 2rem;
 }

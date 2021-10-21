@@ -99,7 +99,7 @@
 
   .recipe__title__responsive {
     font-size: 3.3rem;
-    font-weight: 300;
+    font-weight: 400;
     display: block;
   }
 
@@ -156,5 +156,33 @@
 
   .recipe__instructions {
     padding-left: 3rem;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .firstcharacter {
+    font-weight: 300;
+    font-size: 60px;
+    line-height: 40px;
+    padding-top: 10px;
+    padding-right: 5px;
+    margin-left: -4px;
+  }
+
+  .recipe__title__responsive {
+    font-size: 3rem;
+  }
+
+  .recipe__details {
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+  }
+
+  .recipe__user__actions {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
   }
 }
