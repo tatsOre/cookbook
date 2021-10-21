@@ -49,13 +49,13 @@ function onError(errors) {
 }
 
 async function onFormSubmit(formResult) {
-  console.log(formResult); 
   if (formResult.photo.length > 0) {
     const normalizedFormResult = {
       ...formResult,
       ingredients: formResult.ingredients.map(ingredient => {
         ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
         ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+        return ingredient;
       }),
       instructions: formResult.instructions.reduce(
         (previous, current, idx) => ({
@@ -64,7 +64,6 @@ async function onFormSubmit(formResult) {
         }),
       ),
     };
-    
     const imageUploadData = new FormData();
     
     imageUploadData.append("file", formResult.photo[0]);
