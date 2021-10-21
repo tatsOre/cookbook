@@ -3,23 +3,19 @@
   display: flex;
   flex-flow: row wrap;
   width: calc(50% - 2rem);
-  padding: 1rem 0rem 0rem 1rem;
+  padding: 1.5rem;
   border-radius: 0px 15px 0px 15px;
   box-shadow: 0px 0px 10px 0px rgb(231, 231, 231);
 }
 
 .card__photo {
-  min-height: 70px;
-  width: 70px;
-  height: 70px;
+  min-height: 60px;
+  width: 60px;
+  height: 60px;
   margin-right: 1rem;
 }
 
-.card__title {
-  max-width: 74%;
-}
-
-.card__title h3 a {
+.card__title a {
   color: var(--color-accent);
   text-decoration: none;
   font-weight: 400;
@@ -40,7 +36,7 @@
 
 .card__userActions {
   width: 100%;
-  padding: 1rem 0rem;
+  margin-top: 1rem;
 }
 
 .card__userActions a,
@@ -59,7 +55,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
   .card__pill {
     width: 100%;
   }

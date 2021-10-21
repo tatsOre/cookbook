@@ -87,8 +87,12 @@
   width: 100%;
   text-decoration: none;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   color: var(--color-dark);
+}
+
+.offcanvas__body nav a:last-child {
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 768px) {

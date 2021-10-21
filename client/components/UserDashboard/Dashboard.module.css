@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-neutral);
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .dashboard__header .tab__link {
@@ -47,22 +47,26 @@
 
 .dashboard__body .tab__results {
   width: 100%;
-  margin: 3rem 0rem;
+  margin: 1.5rem 0rem;
   display: flex;
   flex-flow: row wrap;
   gap: 2rem;
 }
 
-@media screen and (max-width: 740px) {
-  .dashboard__header {
-    margin-bottom: 1.5rem;
+@media screen and (min-width: 440px) {
+  .dashboard__header .tab__link {
+    width: 33%;
+  }
+}
+
+@media screen and (min-width: 441px) and (max-width: 900px) {
+  .dashboard__body .tab__results {
+    margin: 2rem 0rem;
+    gap: 1.5rem;
   }
 }
 
 @media screen and (max-width: 900px) {
   .dashboard__body .tab__results {
-    margin: 2rem 0rem;
-    flex-flow: column nowrap;
-    gap: 1.5rem;
   }
 }
