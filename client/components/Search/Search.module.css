@@ -39,6 +39,7 @@
   .search__container {
     width: 100%;
     order: 4;
+    padding: 0.5rem 0rem;
   }
 
   .search__bar input {

@@ -74,6 +74,7 @@
   background-color: var(--color-neutral);
   height: 2px;
   margin-bottom: 5px;
+  border-radius: 10px;
 }
 
 .button__mobile__icon div:nth-child(1) {
