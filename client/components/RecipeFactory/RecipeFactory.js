@@ -49,7 +49,6 @@ function onError(errors) {
 }
 
 async function onFormSubmit(formResult) {
-  console.log("initial", formResult);
   if (formResult.photo.length > 0) {
     const normalizedFormResult = {
       ...formResult,
@@ -65,7 +64,6 @@ async function onFormSubmit(formResult) {
         }),
       ),
     };
-    console.log("normalized", normalizedFormResult); 
     const imageUploadData = new FormData();
     
     imageUploadData.append("file", formResult.photo[0]);
