@@ -1,54 +1,108 @@
-.login_container {
+.form__container {
   max-width: 1100px;
   margin: auto;
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.login_form {
   background-color: white;
-  padding: 1rem 3rem 3rem;
+  font-weight: 400;
+  color: var(--color-dark);
+  display: flex;
+  font-size: 1.5rem;
+  letter-spacing: 0.025rem;
 }
 
-.login_form h1 {
+.form h1 {
   font-size: 3rem;
   font-weight: 700;
-  color: #9cccf7;
+  color: var(--color-neutral);
+  margin-bottom: 1.5rem;
 }
 
-.form__input {
+.form input {
   width: 100%;
-  border: 1px solid gray;
-  padding: 1rem;
-  margin-top: 1rem;
+  font-size: 1.4rem;
+  padding: 1.5rem;
+  margin: 0.25rem 0rem 1.5rem;
+  border-radius: 2px;
+  border: 1px solid var(--color-neutral);
 }
 
-.form__input:focus {
-  outline: none;
-  border: 1px solid blueviolet;
-}
-
-.form__submit {
+.form button[type="submit"] {
+  font-size: 1.5rem;
+  padding: 1.5rem 4rem;
+  margin: 2rem 0rem;
   width: 100%;
-  margin: 1.5rem 0;
-  padding: 0.75rem;
-  cursor: pointer;
-}
-
-.login_form span[role="alert"] {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: tomato;
-  display: block;
 }
 
 .form__link {
+  display: inline-block;
   text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 500;
 }
 
-.block {
-  background-color: white;
+.form span[role="alert"] {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.025rem;
+  color: tomato;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.signup__block {
   text-align: center;
-  border-top: 1px solid rgba(180, 180, 180, 0.24);
-  padding: 2rem 3rem;
+}
+
+.signup__block ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.signup__block a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup__block p {
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.signup__block li {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .form__container {
+    flex-direction: column;
+    padding: 0rem 3rem;
+  }
+
+  .signup__block {
+    padding-top: 4rem;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 999px) {
+  .form {
+    width: 50%;
+    padding: 2rem;
+  }
+
+  .signup__block {
+    padding: 4rem 2rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .form {
+    width: 50%;
+    padding: 4rem 6rem;
+  }
+
+  .signup__block {
+    padding: 7rem;
+  }
 }

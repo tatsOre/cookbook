@@ -10,6 +10,7 @@ import { LOGIN_URL } from "../../config";
 import { fetchAPI } from "../../src/ApiCalls";
 
 import styles from "./LoginForm.module.css";
+import { ButtonFilled } from "../Buttons/Buttons";
 
 const Login = () => {
   const router = useRouter();
@@ -40,8 +41,8 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.login_container}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.login_form}>
+    <div className={styles.form__container}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h1>
           Hey, you!
           <br />
@@ -60,7 +61,6 @@ const Login = () => {
             Email
           </label>
           <input
-            className={styles.form__input}
             id="email"
             type="email"
             placeholder="Email"
@@ -78,7 +78,6 @@ const Login = () => {
             Password
           </label>
           <input
-            className={styles.form__input}
             id="password"
             type="password"
             placeholder="Password"
@@ -95,21 +94,22 @@ const Login = () => {
           </Link>
         </div>
 
-        <button
-          type="submit"
-          disabled={disabled}
-          className={styles.form__submit}
-        >
-          Log In
-        </button>
+        <ButtonFilled type="submit" disabled={disabled}>
+          Log in
+        </ButtonFilled>
+
         <ProvidersButtons />
       </form>
 
-      <div className={styles.block}>
-        or Create your account
-        <Link href="/signup">
-          <a className={styles.form__link}>Register now</a>
-        </Link>
+      <div className={styles.signup__block}>
+        <span>
+          {" "}
+          or Create your account.
+          <Link href="/signup">
+            <a> Register now</a>
+          </Link>
+        </span>
+
         <p>Registered members can:</p>
         <ul>
           <li>Create and share recipes with the world!</li>

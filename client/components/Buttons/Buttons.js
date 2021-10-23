@@ -34,17 +34,17 @@ const ButtonTogglePublic = ({ id, isPublic }) => {
   );
 };
 
-const ButtonOutlined = ({ type, children }) => {
+const ButtonOutlined = ({ type, children, disabled }) => {
   return (
-    <button className={styles.btn__outlined} type={type}>
+    <button className={styles.btn__outlined} type={type} disabled={disabled}>
       {children}
     </button>
   );
 };
 
-const ButtonFilled = ({ type, children }) => {
+const ButtonFilled = ({ type, children, disabled }) => {
   return (
-    <button className={styles.btn__filled} type={type}>
+    <button className={styles.btn__filled} type={type} disabled={disabled}>
       {children}
     </button>
   );

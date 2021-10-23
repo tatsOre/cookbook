@@ -8,6 +8,7 @@ import styles from "./SignUpForm.module.css";
 
 import { fetchAPI } from "../../src/ApiCalls";
 import { SIGNUP_URL } from "../../config";
+import { ButtonFilled } from "../Buttons/Buttons";
 
 const SignUp = () => {
   const {
@@ -24,7 +25,7 @@ const SignUp = () => {
     event.preventDefault();
     setDisabled(true);
 
-    const response = await fetchAPI('POST', SIGNUP_URL, data);
+    const response = await fetchAPI("POST", SIGNUP_URL, data);
     const result = await response.json();
 
     if (response.status !== 200) {
@@ -37,8 +38,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className={styles.signup__container}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.signup__form}>
+    <div className={styles.form__container}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h1>Start. Explore. Share.</h1>
         <p>Fill in your details below to create an account.</p>
         {warning.show && (
@@ -53,7 +54,6 @@ const SignUp = () => {
           Name
         </label>
         <input
-          className={styles.form__input}
           id="name"
           type="text"
           placeholder="Name"
@@ -68,7 +68,6 @@ const SignUp = () => {
           Email
         </label>
         <input
-          className={styles.form__input}
           id="email"
           type="email"
           placeholder="Email"
@@ -86,7 +85,6 @@ const SignUp = () => {
           Password
         </label>
         <input
-          className={styles.form__input}
           id="password"
           type="password"
           placeholder="Password"
@@ -104,7 +102,6 @@ const SignUp = () => {
           Confirm password
         </label>
         <input
-          className={styles.form__input}
           id="confirm_password"
           type="password"
           placeholder="Confirm Password"
@@ -122,25 +119,21 @@ const SignUp = () => {
           <span role="alert">{errors.confirm_password.message}</span>
         )}
 
-        <button
-          type="submit"
-          disabled={disabled}
-          className={styles.form__submit}
-        >
+        <ButtonFilled type="submit" disabled={disabled}>
           Create account
-        </button>
+        </ButtonFilled>
         <ProvidersButtons />
       </form>
 
-      <div className={styles.signup__links}>
+      <div className={styles.login__block}>
         <p>
           Have an account?
           <Link href="/login">
-            <a className={styles.form__link}> Log in</a>
+            <a> Log in</a>
           </Link>
         </p>
         <Link href="/">
-          <a className={styles.form__link}>Forgot your password?</a>
+          <a>Forgot your password?</a>
         </Link>
       </div>
     </div>
