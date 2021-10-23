@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatIngr } from "../Ingredients";
 import styles from "./Tabs.module.css";
 import CloseButton from "react-bootstrap/CloseButton";
 import Instructions from "../Instructions";
@@ -53,7 +54,7 @@ const Tabs = ({ open, openTabs, data }) => {
               <div className={styles.ingredients__item}>
                 <input id={item._id} type="checkbox" />
                 <label htmlFor={item._id} className={styles.ingredients__label}>
-                  {item.metric_quantity} {item.unit} {item.name}
+                  {formatIngr(item)}
                 </label>
               </div>
             </li>

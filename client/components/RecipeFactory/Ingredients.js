@@ -17,10 +17,11 @@ const Ingredients = () => {
     "Tablespoon",
     "Cup",
     "Gallon",
-    "Grams",
-    "Kilograms",
-    "Ounces",
-    "Litres",
+    "Gram",
+    "Pound",
+    "Kilogram",
+    "Ounce",
+    "Litre",
     "None",
   ];
   const categoriesOptions = [

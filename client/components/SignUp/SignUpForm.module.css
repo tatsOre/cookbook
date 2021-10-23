@@ -52,3 +52,13 @@
   text-decoration: none;
   font-weight: 500;
 }
+
+@media screen and (max-width: 768px) {
+  .form__container {
+    padding-bottom: 3rem;
+  }
+
+  .form {
+    padding: 2rem;
+  }
+}

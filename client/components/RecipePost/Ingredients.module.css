@@ -10,6 +10,11 @@
   margin-left: 0.2rem;
 }
 
+.ingredients__list label span {
+  font-variant-numeric: diagonal-fractions;
+  color: red;
+}
+
 .ingredients__list input {
   color: white;
   accent-color: var(--color-light);

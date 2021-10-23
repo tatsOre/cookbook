@@ -1,7 +1,12 @@
 /* Login / SignUp Buttons */
 .login__nav {
   display: flex;
-  gap: 1.5rem;
+}
+
+.login__nav a {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-left: 2rem;
 }
 
 /* Modal Top Navigation for Desktop */
@@ -21,8 +26,11 @@
 
 .top__nav__dropdown a {
   font-size: 1.5rem;
-  padding: 0.5rem 2rem;
   color: var(--color-dark);
+}
+
+.top__nav__list a {
+  padding: 0.5rem 2rem;
 }
 
 .top__nav__dropdown a:active {

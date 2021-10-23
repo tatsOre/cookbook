@@ -18,7 +18,11 @@
 .recipe__title {
   font-weight: 300;
   font-size: 4rem;
-  margin-top: 0;
+  margin: 0;
+}
+
+.recipe__user__actions {
+  margin: 1rem 0rem;
 }
 
 .recipe__subtitle {
@@ -26,9 +30,6 @@
   font-size: 3rem;
   line-height: 4rem;
   margin-bottom: 1rem;
-}
-
-.recipe__author {
 }
 
 .recipe__author a {
@@ -73,9 +74,31 @@
   color: var(--color-neutral);
 }
 
+.recipe__user__actions {
+  display: flex;
+  align-items: center;
+}
+
+.recipe__user__actions button {
+  padding: 0.8rem 2rem;
+}
+
+.recipe__user__actions button:first-child {
+  margin-right: 1rem;
+}
+
+.recipe__user__actions a {
+  padding: 0.55rem 2rem;
+  margin-right: 1rem;
+}
+
 .recipes__btn__expand {
   position: absolute;
   right: 0;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  opacity: 0.6;
 }
 
 .recipe__ingredients_container {
@@ -106,7 +129,10 @@
   .recipe__photo {
     height: 300px;
     width: 100%;
-    margin-bottom: 2rem;
+  }
+
+  .recipe__user__actions {
+    margin: 1.5rem 0rem;
   }
 
   .firstcharacter {
@@ -120,13 +146,14 @@
     padding-left: 3px;
   }
 
-  .recipe__description {
-    margin-bottom: 2rem;
-  }
-
   .recipe__details {
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin: 1.5rem 0rem 1rem;
+  }
+
+  .recipe__servings h4,
+  .recipe__servings p {
+    font-size: 1.4rem;
   }
 }
 
@@ -180,9 +207,11 @@
     gap: 0.5rem;
   }
 
-  .recipe__user__actions {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
+  .recipe__user__actions button {
+    padding: 0.8rem 2.5rem;
+  }
+
+  .recipe__user__actions a {
+    padding: 0.55rem 2.5rem;
   }
 }

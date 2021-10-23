@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { userContext } from "../../src/UserContext";
 import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
@@ -40,12 +41,24 @@ const RecipePost = ({ recipe }) => {
 
           <div>
             <h1 className={styles.recipe__title}>{title}</h1>
+            <div className={styles.recipe__user__actions}>
+              <UserActions recipeID={_id} isPublic={isPublic} />
+            </div>
             <p className={styles.recipe__description}>
               <span className={styles.firstcharacter}>
                 {description.charAt(0)}
               </span>
               {description.slice(1, -1)}
             </p>
+
+            {!user?.recipes.includes(_id) && (
+              <span className={styles.recipe__author}>
+                By
+                <Link href="/">
+                  <a>{author?.name}</a>
+                </Link>
+              </span>
+            )}
 
             <div className={styles.recipe__details}>
               {categories.length ? (
@@ -67,19 +80,6 @@ const RecipePost = ({ recipe }) => {
                 <h4>Servings:</h4> <p>{servings}</p>
               </div>
             </div>
-
-            {!user?.recipes.includes(_id) && (
-              <span className={styles.recipe__author}>
-                By
-                <Link href="/">
-                  <a>{author?.name}</a>
-                </Link>
-              </span>
-            )}
-
-            <div className={styles.recipe__user__actions}>
-              <UserActions recipeID={_id} isPublic={isPublic} />
-            </div>
           </div>
         </div>
         <hr />
@@ -89,7 +89,12 @@ const RecipePost = ({ recipe }) => {
             type="button"
             onClick={handleOpenTabs}
           >
-            Expand
+            <Image
+              aria-hidden="true"
+              width="20"
+              height="20"
+              src="/icons/expand-icon.svg"
+            />
           </button>
           <div className={styles.recipe__ingredients}>
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>

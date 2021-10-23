@@ -6,6 +6,11 @@ import { SHOP_LIST_BASE_URL } from "../../config";
 
 import styles from "./Ingredients.module.css";
 
+export const formatIngr = ({ unit, fraction, measurement, name }) =>
+  `${unit ? unit : ""} ${fraction} ${measurement}${
+    parseInt(unit) > 1 && measurement ? "s" : ""
+  } ${name}`;
+
 const RecipeIngredients = ({ ingredients, recipe }) => {
   const recipeIngrsInitial = ingredients.map((ingr) => ({
     ...ingr,
@@ -43,10 +48,9 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
     event.preventDefault();
     // count 0 === Add? = all ingrs to shop list:
     const addToShopList = count ? selected : ingredients;
-    const items = addToShopList.map(
-      ({ unit, fraction, measurement, name }) =>
-        `${unit ? unit : ""} ${fraction} ${measurement} ${name}`
-    );
+
+    const items = addToShopList.map((obj) => formatIngr(obj));
+
     fetchAPI("POST", SHOP_LIST_BASE_URL, { recipe, items })
       .then((response) => {
         if (response.status === 200) {
@@ -59,20 +63,18 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
   return (
     <form onSubmit={handleAddToShopList} className={styles.ingredients__list}>
       <fieldset>
-        {ingrState.map(
-          ({ unit, fraction, measurement, name, checked }, index) => (
-            <label key={`ingr-${index}`}>
-              <input
-                type="checkbox"
-                value={index}
-                onChange={handleInputChange}
-                checked={!!checked}
-                readOnly
-              />
-              {unit ? unit : ""} {fraction} {measurement} {name}
-            </label>
-          )
-        )}
+        {ingrState.map((item, index) => (
+          <label key={`ingr-${index}`}>
+            <input
+              type="checkbox"
+              value={index}
+              onChange={handleInputChange}
+              checked={!!item.checked}
+              readOnly
+            />
+            {formatIngr(item)}
+          </label>
+        ))}
       </fieldset>
       {alertMessage && (
         <AlertMessage variant="success" label={`Added to your shopping lists!`}>
