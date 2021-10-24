@@ -6,7 +6,6 @@ import { Wizard, useWizard } from "react-use-wizard";
 import { RECIPE_BASE_URL } from "../../config.js";
 import { fetchAPI } from "../../src/ApiCalls";
 
-
 import styles from "./RecipeFactory.module.css";
 
 const cloudinaryURL = "https://api.cloudinary.com/v1_1/dshl3pgv4/upload";
@@ -52,20 +51,22 @@ async function onFormSubmit(formResult) {
   if (formResult.photo.length > 0) {
     const normalizedFormResult = {
       ...formResult,
-      ingredients: formResult.ingredients.map(ingredient => {
-        ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
-        ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+      ingredients: formResult.ingredients.map((ingredient) => {
+        ingredient.fraction =
+          ingredient.fraction === "0" ? "" : ingredient.fraction;
+        ingredient.measurement =
+          ingredient.measurement === "None" ? "" : ingredient.fraction;
         return ingredient;
       }),
       instructions: formResult.instructions.reduce(
         (previous, current, idx) => ({
           ...previous,
           [idx]: current.instruction,
-        }),
+        })
       ),
     };
     const imageUploadData = new FormData();
-    
+
     imageUploadData.append("file", formResult.photo[0]);
 
     //@TODO: make this an env
@@ -78,7 +79,11 @@ async function onFormSubmit(formResult) {
     const imageURL = await cloudinaryResponse.json();
     normalizedFormResult.photo = await imageURL.url;
 
-    const response = await fetchAPI("POST", RECIPE_BASE_URL, normalizedFormResult);
+    const response = await fetchAPI(
+      "POST",
+      RECIPE_BASE_URL,
+      normalizedFormResult
+    );
     if (response.status !== 200) {
       const content = await response.json();
       setWarning({
@@ -91,12 +96,11 @@ async function onFormSubmit(formResult) {
 }
 
 const RecipeFactory = () => {
-
   const methods = useForm({
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
 
-  const Footer = () => {
+  const WizardControls = () => {
     const { nextStep, previousStep, isLastStep, isFirstStep } = useWizard();
 
     const handleStepValidation = async () => {
@@ -105,16 +109,24 @@ const RecipeFactory = () => {
     };
 
     return (
-      <code>
-        <>
-          <button className={styles.btn__filled} onClick={() => previousStep()} disabled={isFirstStep}>
-            Previous
-          </button>
-          <button className={styles.btn__filled} onClick={handleStepValidation} disabled={isLastStep}>
-            Next
-          </button>
-        </>
-      </code>
+      <>
+        <button
+          className={`${styles.btn__filled} ${
+            isFirstStep ? styles.btn__hide : styles.btn__display
+          }`}
+          onClick={() => previousStep()}
+        >
+          Previous
+        </button>
+        <button
+          className={`${styles.btn__filled} ${
+            isLastStep ? styles.btn__hide : styles.btn__display
+          }`}
+          onClick={handleStepValidation}
+        >
+          Next
+        </button>
+      </>
     );
   };
 
@@ -126,7 +138,7 @@ const RecipeFactory = () => {
       >
         <Wizard
           startIndex={0}
-          footer={<Footer />}
+          footer={<WizardControls />}
           className={styles.create__wizard}
         >
           <Ingredients />

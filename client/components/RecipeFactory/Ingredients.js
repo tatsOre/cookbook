@@ -60,15 +60,18 @@ const Ingredients = () => {
 
   return (
     <div className={styles.ingredients__step}>
-      <h1>Create your New Recipe!</h1>
-      <label htmlFor="title">Title for your recipe</label>
+      <h1 className={styles.form__title}>Create New Recipe</h1>
+
+      <h2 htmlFor="title">Recipe Title</h2>
+
+      <p>Add a short, descriptive headline</p>
       <input
         {...register("title", { required: "A title is required" })}
         type="text"
       />
       {errors?.title && <span role="alert">{errors?.title.message}</span>}
 
-      <label htmlFor="Description">Add a description</label>
+      <h2 htmlFor="Description">Add a description</h2>
       <textarea
         {...register("description", { required: "A description is required" })}
       />
@@ -76,7 +79,7 @@ const Ingredients = () => {
         <span role="alert">{errors?.description.message}</span>
       )}
 
-      <label className={styles.create__servings}>
+      <label>
         Recipe for{" "}
         <input
           {...register("servings", {
@@ -90,7 +93,8 @@ const Ingredients = () => {
       {errors?.servings && <span role="alert">{errors?.servings.message}</span>}
 
       <div className={styles.create__categories}>
-        <h2>Add categories:</h2>
+        <h2>Category:</h2>
+        <p>Choose a category for your recipe</p>
         <Controller
           control={control}
           name="categories"
@@ -122,7 +126,6 @@ const Ingredients = () => {
 
       <section className={styles.create__ingredients}>
         <h2>Add the ingredients:</h2>
-
         <ul className={styles.ingredients__list}>
           {ingredientsFields.map((item, index) => (
             <li key={item.id} className={styles.ingredients__item}>
