@@ -86,7 +86,7 @@ const Instructions = () => {
       {errors?.cuisine && <span role="alert"> {errors.cuisine.message}</span>}
 
       <div className={styles.create__photo}>
-        <label htmlFor="public">Do you want your recipe to be private?</label>
+        <label htmlFor="public">Do you want your recipe to be public?</label>
         <Controller
           control={control}
           name="public"

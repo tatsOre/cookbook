@@ -1,10 +1,11 @@
 import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
-import { Button } from "react-bootstrap";
 import { FormProvider, useForm } from "react-hook-form";
 import { Wizard, useWizard } from "react-use-wizard";
 import { RECIPE_BASE_URL } from "../../config.js";
-import { fetchAPI } from "../../src/ApiCalls";
+import { fetchAPI, getData } from "../../src/ApiCalls";
+import { useRouter } from "next/router";
+import useSWR, {mutate} from "swr";
 
 
 import styles from "./RecipeFactory.module.css";
@@ -48,23 +49,46 @@ function onError(errors) {
   console.log(errors);
 }
 
-async function onFormSubmit(formResult) {
-  if (formResult.photo.length > 0) {
-    const normalizedFormResult = {
-      ...formResult,
-      ingredients: formResult.ingredients.map(ingredient => {
-        ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
-        ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
-        return ingredient;
+function normalizeFormData(data) { 
+  return {
+    ...data,
+    ingredients: data.ingredients.map(ingredient => {
+      ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
+      ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+      return ingredient;
+    }),
+    instructions: data.instructions.reduce(
+      (previous, current, idx) => ({
+        ...previous,
+        [idx]: current.instruction,
       }),
-      instructions: formResult.instructions.reduce(
-        (previous, current, idx) => ({
-          ...previous,
-          [idx]: current.instruction,
-        }),
-      ),
-    };
-    const imageUploadData = new FormData();
+    ),
+  };
+}
+
+function deNormalizeFormData(data) { 
+  return {
+    ...data,
+    ingredients: data.ingredients.map(ingredient => {
+      ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
+      ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+      return ingredient;
+    }),
+    instructions: data.instructions.reduce(
+      (previous, current, idx) => ({
+        ...previous,
+        [idx]: current.instruction,
+      }),
+    ),
+  };
+}
+
+async function onFormSubmit(formResult) {
+  console.log(formResult);
+  if (formResult.photo.length > 0) {
+    const normalizedFormResult = normalizeFormData(formResult);
+
+    /* const imageUploadData = new FormData();
     
     imageUploadData.append("file", formResult.photo[0]);
 
@@ -86,15 +110,18 @@ async function onFormSubmit(formResult) {
         messages: content.message,
       });
       return setDisabled(false);
-    }
-  }
+    } */
+  } 
 }
 
-const RecipeFactory = () => {
+const RecipeFactory = (props) => {
 
-  const methods = useForm({
-    defaultValues: defaultValues
-  });
+  const { mode, recipeID } = props;
+
+  const { data: recipeData } = useSWR(recipeID ? `${RECIPE_BASE_URL}/${recipeID}`: null, getData);
+  console.log(recipeData);
+
+  const methods = mode === "edit" ? useForm({defaultValues: defaultValues}) : useForm({defaultValues: defaultValues});
 
   const Footer = () => {
     const { nextStep, previousStep, isLastStep, isFirstStep } = useWizard();
