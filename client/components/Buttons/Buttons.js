@@ -2,17 +2,23 @@ import { forwardRef, useState } from "react";
 import styles from "./Buttons.module.css";
 import { SHOP_LIST_BASE_URL, RECIPE_BASE_URL } from "../../config";
 import { fetchAPI } from "../../src/ApiCalls";
+import { useRouter } from "next/dist/client/router";
 
 const ButtonDelete = ({ id, item }) => {
-  const routes = {
+  const router = useRouter();
+  const recipePage = router.pathname.startsWith("/recipes/");
+
+  const endpoints = {
     shoppingList: `${SHOP_LIST_BASE_URL}`,
     recipe: `${RECIPE_BASE_URL}`,
   };
 
   const handleDelete = async (id) => {
-    const URL = `${routes[item]}/${id}`;
+    const URL = `${endpoints[item]}/${id}`;
     fetchAPI("DELETE", URL);
     // TODO: HANDLE ERRORS
+
+    if (recipePage) router.push("/me");
   };
 
   return (

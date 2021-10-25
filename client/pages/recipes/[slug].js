@@ -1,10 +1,15 @@
+import Head from "next/head";
 import Layout from "../../components/Layout/Layout";
 import RecipePost from "../../components/RecipePost/RecipePost";
+import { capitalizeStr } from "../../src/utils";
 import { ALL_RECIPES_URL, RECIPE_BASE_URL } from "../../config";
 
 export default function RecipePage({ recipe }) {
   return (
     <Layout>
+      <Head>
+        <title>{`${capitalizeStr(recipe.title)} | MyCookBook`}</title>
+      </Head>
       <RecipePost recipe={recipe} />
     </Layout>
   );
@@ -17,8 +22,6 @@ export async function getStaticPaths() {
   const paths = data.recipes.map((post) => ({
     params: { slug: post._id },
   }));
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
   return { paths, fallback: false };
 }
 
