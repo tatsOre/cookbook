@@ -9,24 +9,43 @@
   display: none;
 }
 
+/* General Styles
+  ============================= */
+
 .create__form {
   max-width: 1000px;
   margin: auto;
-  padding: 4rem 4rem 0rem;
+  padding: 4rem 4rem 8rem;
   background-color: white;
   font-weight: 400;
   color: var(--color-dark);
 }
 
-.create__form h2,
-.create__form label,
-.create__ingredients > span {
-  font-weight: bold;
+.create__form h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+}
+
+.create__form h2 {
+  margin-bottom: 1rem;
   font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.create__form h3 {
+  margin-right: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.create__form__controls button {
+  padding: 1rem 3rem;
 }
 
 .btn__outlined,
 .btn__filled,
+.ingredients__dropdown > button,
 .create__categories div[role="group"] label {
   font-size: 1.2rem;
   font-weight: 600;
@@ -38,13 +57,14 @@
 }
 
 .btn__outlined,
+.ingredients__dropdown > button,
 .create__categories div[role="group"] label {
   background-color: var(--color-light);
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
 }
 
-.btn__outlined,
+.ingredients__dropdown > button:hover,
 .create__categories div[role="group"] label:hover {
   background-color: var(--color-accent);
   color: var(--color-light);
@@ -79,15 +99,12 @@
 .create__form textarea {
   font-size: 1.4rem;
   padding: 1rem;
-  font-size: 1.4rem;
   border-radius: 2px;
   border: 1px solid var(--color-neutral);
+  width: 100%;
 }
 
-.create__categories {
-  margin-top: 2rem;
-}
-
+/* Categories and cuisine: */
 .create__categories div[role="group"] {
   display: flex;
   flex-flow: row wrap;
@@ -96,6 +113,13 @@
 
 .create__categories div[role="group"] label {
   margin: 0.3rem 0.75rem;
+}
+
+.form__section,
+.create__categories,
+.create__ingredients,
+.create__instructions {
+  margin-bottom: 2rem;
 }
 
 .create__form span[role="alert"] {
@@ -110,13 +134,6 @@
 
 /* Step 1. Ingredients
   ============================= */
-.ingredients__step h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--color-neutral);
-  margin-bottom: 1.5rem;
-}
-
 .ingredients__step input[type="number"] {
   max-width: 7rem;
   padding: 1rem;
@@ -124,37 +141,17 @@
   border: 1px solid var(--color-neutral);
 }
 
-.create__ingredients {
-  margin-top: 3rem;
-}
-
 .ingredients__list {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   list-style-type: none;
-  margin-top: 1.5rem;
   padding: 0;
 }
 
 .ingredients__dropdown > button {
-  background-color: var(--color-light);
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.025rem;
-  text-decoration: none;
   padding: 1rem 1.25rem;
   margin-right: 0.5rem;
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-.ingredients__dropdown > button:hover {
-  background-color: var(--color-accent);
-  color: var(--color-light);
-  border: 1px solid var(--color-accent);
 }
 
 .ingredients__item {
@@ -162,6 +159,8 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  position: relative;
+  margin-bottom: 1rem;
 }
 
 .ingredients__item input[type="number"] {
@@ -171,40 +170,25 @@
 
 .ingredients__item input[type="text"] {
   margin-right: 0.5rem;
+  width: 50%;
 }
 
-.create__ingredients > button {
+.create__instructions > button,
+.create__ingredients > button,
+.create__form button[type="submit"] {
   padding: 1rem;
 }
 
 /* Step 2. Instructions
   ============================= */
-.instructions__step textarea {
-  width: 100%;
+.step__item textarea {
+  width: 90%;
 }
 
-.create__instructions .step__item {
+.step__item {
   display: flex;
+  position: relative;
   margin-bottom: 1rem;
-}
-
-.create__instructions h3 {
-  margin-right: 1rem;
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-.create__photo {
-  margin-top: 2rem;
-  font-size: 1.4rem;
-}
-
-.create__photo label {
-  margin-right: 1rem;
-}
-
-.create__comments {
-  margin-top: 2rem;
 }
 
 @media screen and (max-width: 599px) {
@@ -212,7 +196,23 @@
     padding: 1rem 2rem;
   }
 
+  .ingredients__item input[type="number"] {
+    width: 10rem;
+  }
+
+  .create__instructions > button,
   .create__ingredients > button {
     width: 100%;
+  }
+
+  .ingredients__item input[type="text"] {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  .step__item > button,
+  .ingredients__item > button {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }

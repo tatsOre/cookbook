@@ -5,6 +5,7 @@ import {
   DropdownButton,
   ToggleButton,
 } from "react-bootstrap";
+import CloseButton from "react-bootstrap/CloseButton";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
 import styles from "./RecipeFactory.module.css";
@@ -62,35 +63,44 @@ const Ingredients = () => {
     <div className={styles.ingredients__step}>
       <h1 className={styles.form__title}>Create New Recipe</h1>
 
-      <h2 htmlFor="title">Recipe Title</h2>
-
-      <p>Add a short, descriptive headline</p>
-      <input
-        {...register("title", { required: "A title is required" })}
-        type="text"
-      />
-      {errors?.title && <span role="alert">{errors?.title.message}</span>}
-
-      <h2 htmlFor="Description">Add a description</h2>
-      <textarea
-        {...register("description", { required: "A description is required" })}
-      />
-      {errors?.description && (
-        <span role="alert">{errors?.description.message}</span>
-      )}
-
-      <label>
-        Recipe for{" "}
+      <div className={styles.form__section}>
+        <h2 htmlFor="title">Recipe Title</h2>
+        <p>Add a short, descriptive headline</p>
         <input
-          {...register("servings", {
-            required: "Number of servings is required",
+          {...register("title", { required: "A title is required" })}
+          type="text"
+        />
+        {errors?.title && <span role="alert">{errors?.title.message}</span>}
+      </div>
+
+      <div className={styles.form__section}>
+        <h2 htmlFor="Description">Add a description</h2>
+        <textarea
+          {...register("description", {
+            required: "A description is required",
           })}
-          min="1"
-          type="number"
-        />{" "}
-        servings
-      </label>
-      {errors?.servings && <span role="alert">{errors?.servings.message}</span>}
+        />
+        {errors?.description && (
+          <span role="alert">{errors?.description.message}</span>
+        )}
+      </div>
+
+      <div className={styles.form__section}>
+        <label>
+          Recipe for{" "}
+          <input
+            {...register("servings", {
+              required: "Number of servings is required",
+            })}
+            min="1"
+            type="number"
+          />{" "}
+          servings
+        </label>
+        {errors?.servings && (
+          <span role="alert">{errors?.servings.message}</span>
+        )}
+      </div>
 
       <div className={styles.create__categories}>
         <h2>Category:</h2>
@@ -123,7 +133,7 @@ const Ingredients = () => {
         )}
       </div>
 
-      <section className={styles.create__ingredients}>
+      <div className={styles.create__ingredients}>
         <h2>Add the ingredients:</h2>
         <ul className={styles.ingredients__list}>
           {ingredientsFields.map((item, index) => (
@@ -174,25 +184,24 @@ const Ingredients = () => {
                 })}
                 type="text"
               />
-              <Button
-                className={styles.btn__remove__ingredient}
+
+              <CloseButton
+                variant="dark"
                 onClick={() => ingredientsRemove(index)}
-              >
-                D
-              </Button>
+              />
             </li>
           ))}
         </ul>
-        <Button
+        <button
           onClick={() => ingredientsAppend(defaultValues.ingredients[0])}
           className={styles.btn__filled}
         >
           Add New Ingredient
-        </Button>
+        </button>
         {errors?.ingredients && (
           <span role="alert">Add at least one ingredient</span>
         )}
-      </section>
+      </div>
     </div>
   );
 };

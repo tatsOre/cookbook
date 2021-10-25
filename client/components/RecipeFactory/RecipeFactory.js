@@ -83,7 +83,7 @@ async function onFormSubmit(formResult) {
   if (formResult.photo.length > 0) {
     const normalizedFormResult = normalizeFormData(formResult);
 
-    /* const imageUploadData = new FormData();
+    const imageUploadData = new FormData();
     
     imageUploadData.append("file", formResult.photo[0]);
 
@@ -109,7 +109,7 @@ async function onFormSubmit(formResult) {
         messages: content.message,
       });
       return setDisabled(false);
-    } */
+    }
   } 
 }
 
@@ -142,9 +142,9 @@ const RecipeFactory = (props) => {
     };
 
     return (
-      <>
+      <div className={styles.create__form__controls}>
         <button
-          className={`${styles.btn__filled} ${
+          className={`${styles.btn__outlined} ${
             isFirstStep ? styles.btn__hide : styles.btn__display
           }`}
           onClick={() => previousStep()}
@@ -152,14 +152,14 @@ const RecipeFactory = (props) => {
           Previous
         </button>
         <button
-          className={`${styles.btn__filled} ${
+          className={`${styles.btn__outlined} ${
             isLastStep ? styles.btn__hide : styles.btn__display
           }`}
           onClick={handleStepValidation}
         >
           Next
         </button>
-      </>
+      </div>
     );
   };
 
