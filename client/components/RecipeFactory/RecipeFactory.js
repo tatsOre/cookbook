@@ -109,9 +109,9 @@ const RecipeFactory = () => {
     };
 
     return (
-      <>
+      <div className={styles.create__form__controls}>
         <button
-          className={`${styles.btn__filled} ${
+          className={`${styles.btn__outlined} ${
             isFirstStep ? styles.btn__hide : styles.btn__display
           }`}
           onClick={() => previousStep()}
@@ -119,14 +119,14 @@ const RecipeFactory = () => {
           Previous
         </button>
         <button
-          className={`${styles.btn__filled} ${
+          className={`${styles.btn__outlined} ${
             isLastStep ? styles.btn__hide : styles.btn__display
           }`}
           onClick={handleStepValidation}
         >
           Next
         </button>
-      </>
+      </div>
     );
   };
 
