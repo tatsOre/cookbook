@@ -37,7 +37,7 @@ const Login = () => {
       });
       return setDisabled(false);
     }
-    router.push("/");
+    router.push("/me/recipes");
   };
 
   return (
