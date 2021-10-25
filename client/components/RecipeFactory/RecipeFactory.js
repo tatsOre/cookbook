@@ -34,7 +34,6 @@ const categoriesOptions = [
 ];
 
 let defaultValues = {
-  title: "asasd",
   instructions: [""],
   photo: "",
   ingredients: [
@@ -120,7 +119,9 @@ const RecipeFactory = (props) => {
   });
 
   const {data: recipeData} = props.mode === "edit" && useSWR(`${RECIPE_BASE_URL}/${props.recipeID}`, getData);
-
+  const deNormalizedData = recipeData ? deNormalizeFormData(recipeData) : recipeData;
+  console.log("first", recipeData)
+  console.log("second", deNormalizedData);
   //@TODO need to better solve this: https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524
   useEffect(() => {
     if (!recipeData) {
@@ -128,7 +129,7 @@ const RecipeFactory = (props) => {
     }
     methods.reset({
       ...methods.getValues(),
-      ...recipeData
+      ...deNormalizeFormData(recipeData)
     });
   }, [methods.reset, recipeData, methods.getValues]);
 
