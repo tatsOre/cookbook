@@ -1,11 +1,16 @@
 import { forwardRef, useState } from "react";
 import styles from "./Buttons.module.css";
-import { RECIPE_BASE_URL } from "../../config";
+import { SHOP_LIST_BASE_URL, RECIPE_BASE_URL } from "../../config";
 import { fetchAPI } from "../../src/ApiCalls";
 
-const ButtonDeleteRecipe = ({ id }) => {
-  const handleDeleteRecipe = async (id) => {
-    const URL = `${RECIPE_BASE_URL}/${id}`;
+const ButtonDelete = ({ id, item }) => {
+  const routes = {
+    shoppingList: `${SHOP_LIST_BASE_URL}`,
+    recipe: `${RECIPE_BASE_URL}`,
+  };
+
+  const handleDelete = async (id) => {
+    const URL = `${routes[item]}/${id}`;
     fetchAPI("DELETE", URL);
     // TODO: HANDLE ERRORS
   };
@@ -14,7 +19,7 @@ const ButtonDeleteRecipe = ({ id }) => {
     <button
       className={styles.btn__delete__recipe}
       type="button"
-      onClick={() => handleDeleteRecipe(id)}
+      onClick={() => handleDelete(id)}
     >
       Delete
     </button>
@@ -88,7 +93,7 @@ const LinkFilled = forwardRef(({ onClick, href, children }, ref) => {
 
 export {
   ButtonFilled,
-  ButtonDeleteRecipe,
+  ButtonDelete,
   ButtonOutlined,
   ButtonTogglePublic,
   LinkFilled,
