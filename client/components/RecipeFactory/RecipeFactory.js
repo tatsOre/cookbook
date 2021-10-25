@@ -7,7 +7,6 @@ import { fetchAPI, getData } from "../../src/ApiCalls";
 import { useRouter } from "next/router";
 import useSWR, {mutate} from "swr";
 
-
 import styles from "./RecipeFactory.module.css";
 
 const cloudinaryURL = "https://api.cloudinary.com/v1_1/dshl3pgv4/upload";
@@ -102,7 +101,11 @@ async function onFormSubmit(formResult) {
     const imageURL = await cloudinaryResponse.json();
     normalizedFormResult.photo = await imageURL.url;
 
-    const response = await fetchAPI("POST", RECIPE_BASE_URL, normalizedFormResult);
+    const response = await fetchAPI(
+      "POST",
+      RECIPE_BASE_URL,
+      normalizedFormResult
+    );
     if (response.status !== 200) {
       const content = await response.json();
       setWarning({
@@ -123,7 +126,7 @@ const RecipeFactory = (props) => {
 
   const methods = mode === "edit" ? useForm({defaultValues: defaultValues}) : useForm({defaultValues: defaultValues});
 
-  const Footer = () => {
+  const WizardControls = () => {
     const { nextStep, previousStep, isLastStep, isFirstStep } = useWizard();
 
     const handleStepValidation = async () => {
@@ -132,16 +135,24 @@ const RecipeFactory = (props) => {
     };
 
     return (
-      <code>
-        <>
-          <button className={styles.btn__filled} onClick={() => previousStep()} disabled={isFirstStep}>
-            Previous
-          </button>
-          <button className={styles.btn__filled} onClick={handleStepValidation} disabled={isLastStep}>
-            Next
-          </button>
-        </>
-      </code>
+      <>
+        <button
+          className={`${styles.btn__filled} ${
+            isFirstStep ? styles.btn__hide : styles.btn__display
+          }`}
+          onClick={() => previousStep()}
+        >
+          Previous
+        </button>
+        <button
+          className={`${styles.btn__filled} ${
+            isLastStep ? styles.btn__hide : styles.btn__display
+          }`}
+          onClick={handleStepValidation}
+        >
+          Next
+        </button>
+      </>
     );
   };
 
@@ -153,7 +164,7 @@ const RecipeFactory = (props) => {
       >
         <Wizard
           startIndex={0}
-          footer={<Footer />}
+          footer={<WizardControls />}
           className={styles.create__wizard}
         >
           <Ingredients />
