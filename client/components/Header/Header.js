@@ -20,7 +20,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    router.push("/");
+    // router.push("/");
   };
 
   return (
