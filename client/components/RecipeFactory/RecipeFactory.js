@@ -6,6 +6,7 @@ import { RECIPE_BASE_URL } from "../../config.js";
 import { fetchAPI, getData } from "../../src/ApiCalls";
 import { useRouter } from "next/router";
 import useSWR, {mutate} from "swr";
+import { useEffect } from "react";
 
 import styles from "./RecipeFactory.module.css";
 
@@ -32,7 +33,8 @@ const categoriesOptions = [
   "Miscellaneous",
 ];
 
-const defaultValues = {
+let defaultValues = {
+  title: "asasd",
   instructions: [""],
   photo: "",
   ingredients: [
@@ -69,16 +71,11 @@ function deNormalizeFormData(data) {
   return {
     ...data,
     ingredients: data.ingredients.map(ingredient => {
-      ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
-      ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+      ingredient.fraction = ingredient.fraction === "" ? "0" : ingredient.fraction;
+      ingredient.measurement = ingredient.measurement === "" ? "None" : ingredient.fraction;
       return ingredient;
     }),
-    instructions: data.instructions.reduce(
-      (previous, current, idx) => ({
-        ...previous,
-        [idx]: current.instruction,
-      }),
-    ),
+    instructions: Object.values(data.instructions).map((inst) => {return {instruction: inst}})
   };
 }
 
@@ -118,13 +115,22 @@ async function onFormSubmit(formResult) {
 }
 
 const RecipeFactory = (props) => {
+  const methods = useForm({
+    defaultValues: defaultValues,
+  });
 
-  const { mode, recipeID } = props;
+  const {data: recipeData} = props.mode === "edit" && useSWR(`${RECIPE_BASE_URL}/${props.recipeID}`, getData);
 
-  const { data: recipeData } = useSWR(recipeID ? `${RECIPE_BASE_URL}/${recipeID}`: null, getData);
-  console.log(recipeData);
-
-  const methods = mode === "edit" ? useForm({defaultValues: defaultValues}) : useForm({defaultValues: defaultValues});
+  //@TODO need to better solve this: https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524
+  useEffect(() => {
+    if (!recipeData) {
+      return;
+    }
+    methods.reset({
+      ...methods.getValues(),
+      ...recipeData
+    });
+  }, [methods.reset, recipeData, methods.getValues]);
 
   const WizardControls = () => {
     const { nextStep, previousStep, isLastStep, isFirstStep } = useWizard();
