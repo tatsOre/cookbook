@@ -17,16 +17,16 @@ const TopNavBar = ({ user, handleLogout }) => {
           <Link href="/create">
             <a>create recipe</a>
           </Link>
-          <Link href="/me/account">
+          <Link href="/me">
             <a>Account</a>
           </Link>
-          <Link href="/me">
+          <Link href="/me/recipes">
             <a>my recipes</a>
           </Link>
-          <Link href="/me">
+          <Link href="/me/favorites">
             <a>Favorites</a>
           </Link>
-          <Link href="/me">
+          <Link href="/me/shopping_lists">
             <a>Shopping Lists</a>
           </Link>
           <a href="/" onClick={handleLogout}>

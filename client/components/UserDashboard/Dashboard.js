@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import WithWidget from "../User/userSWR";
 import RecipePill from "../RecipeCard/RecipePill";
@@ -27,7 +27,7 @@ const TabLink = ({ label, active, setActiveTab }) => {
       className={` ${active && styles.active} ${styles.tab__link}`}
       onClick={handleItemClick}
     >
-      {label}
+      {label.replace("_", " ")}
     </button>
   );
 };
@@ -40,8 +40,13 @@ const TabContent = ({ active, children }) => {
   );
 };
 
-const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("recipes");
+const Dashboard = ({ tab }) => {
+  const [activeTab, setActiveTab] = useState(tab || "recipes");
+
+  useEffect(() => {
+    document.title = `Your ${activeTab}`;
+  }, [tab, activeTab]);
+
   return (
     <div className={`${styles.dashboard__container}`}>
       <div className={styles.dashboard__header}>
@@ -56,8 +61,8 @@ const Dashboard = () => {
           setActiveTab={setActiveTab}
         />
         <TabLink
-          label="shopping lists"
-          active={activeTab === "shopping lists"}
+          label="shopping_lists"
+          active={activeTab === "shopping_lists"}
           setActiveTab={setActiveTab}
         />
       </div>
@@ -87,11 +92,11 @@ const Dashboard = () => {
             />
           </div>
         </TabContent>
-        <TabContent active={activeTab === "shopping lists"}>
+        <TabContent active={activeTab === "shopping_lists"}>
           <div className={styles.tab__results}>
             <ShopListsWidget
               field="shopping_lists"
-              fallback="Ups, no favs here yet."
+              fallback="Ups, no shopping lists here yet."
             />
           </div>
         </TabContent>

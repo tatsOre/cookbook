@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import ButtonFavorites from "../Buttons/ButtonFavorites";
 import {
-  ButtonDeleteRecipe,
+  ButtonDelete,
   ButtonTogglePublic,
   LinkOutlined,
 } from "../Buttons/Buttons";
@@ -22,7 +22,7 @@ const UserActions = ({ recipeID, isPublic }) => {
           <Link href={`/edit/${recipeID}`} passHref>
             <LinkOutlined className="btn__edit__recipe">Edit</LinkOutlined>
           </Link>
-          <ButtonDeleteRecipe id={recipeID} />
+          <ButtonDelete id={recipeID} item="recipe" />
         </>
       ) : (
         <ButtonFavorites id={recipeID} addTooltip={recipePage ? false : true} />
