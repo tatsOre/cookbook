@@ -112,25 +112,27 @@ exports.deleteOneRecipe = async (req, res) => {
  * GET /api/v1/recipes/search?q=[query]
  */
 exports.searchRecipes = async (req, res) => {
-  // todo: implement partial search
-  const recipes = await RecipeModel.find(
+  const { q } = req.query;
+  let recipes = [];
+  recipes = await RecipeModel.find(
     {
       public: true,
-      $text: { $search: req.query.q },
+      $text: { $search: q },
     },
     { score: { $meta: "textScore" } }
   )
     .sort({ score: { $meta: "textScore" } })
     .limit(5);
 
+  if (!recipes.length) {
+    recipes = await RecipeModel.find({
+      public: true,
+      $or: [
+        { title: new RegExp(q, "gi") },
+        { categories: new RegExp(q, "gi") },
+        { cuisine: new RegExp(q, "gi") },
+      ],
+    }).limit(5);
+  }
   res.json(recipes);
-  /*
-    const searchRegex = new RegExp(req.query.q);
-  console.log(searchRegex);
-
-  const x = await RecipeModel.find({
-    title: { $regex: searchRegex, $options: "i" },
-  });
-
-  */
 };

@@ -1,17 +1,19 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { userContext } from "../../src/UserContext";
+
+import useUser from "../../src/useUser";
 import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
 import RecipeImage from "../RecipeAssets/RecipeImage";
 import Instructions from "./Instructions";
 import Ingredients from "./Ingredients";
 import Tabs from "./Tabs/FullViewTabs";
 import UserActions from "../User/UserActions";
+
 import styles from "./RecipePost.module.css";
 
 const RecipePost = ({ recipe }) => {
-  const { user } = useContext(userContext);
+  const { user } = useUser();
   const [openTabs, setOpenTabs] = useState(false);
   const handleOpenTabs = () => setOpenTabs(true);
 

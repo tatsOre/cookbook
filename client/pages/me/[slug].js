@@ -1,5 +1,3 @@
-//export { default } from "./index";
-
 import Layout from "../../components/Layout/Layout";
 import Dashboard from "../../components/UserDashboard/Dashboard";
 

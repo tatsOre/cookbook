@@ -7,6 +7,7 @@ import ShopListPill from "../ShoppingLists/ShopListPill";
 import SearchBar from "../Search/SearchDownshift";
 import { SEARCH_IN_CURRENT_USER_URL } from "../../config";
 import styles from "./Dashboard.module.css";
+import { capitalizeStr } from "../../src/utils";
 
 const RecipesWidget = WithWidget(RecipePill);
 const FavoritesWidget = WithWidget(FavoritePill);
@@ -14,11 +15,6 @@ const ShopListsWidget = WithWidget(ShopListPill);
 
 const SEARCH_IN_OWNED_URL = SEARCH_IN_CURRENT_USER_URL("recipes");
 const SEARCH_IN_FAVS_URL = SEARCH_IN_CURRENT_USER_URL("favorites");
-
-/**
- * GET /api/v1/me/search?field=:field&q=:queryParam
- * field: [recipes || favorites]
- */
 
 const TabLink = ({ label, active, setActiveTab }) => {
   const handleItemClick = () => setActiveTab(label);
@@ -44,7 +40,9 @@ const Dashboard = ({ tab }) => {
   const [activeTab, setActiveTab] = useState(tab || "recipes");
 
   useEffect(() => {
-    document.title = `Your ${activeTab}`;
+    document.title = `MyCookBook | Your ${capitalizeStr(
+      activeTab.replace("_", " ")
+    )}`;
   }, [tab, activeTab]);
 
   return (

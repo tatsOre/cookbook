@@ -14,7 +14,7 @@ const fetchData = async (url, query, callback) => {
 
 const chill = debounce((url, query, callback) => {
   fetchData(url, query, callback);
-}, 500);
+}, 750);
 
 const SearchBar = ({ placeholder, URL, withBackdrop }) => {
   const router = useRouter();

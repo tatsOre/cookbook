@@ -45,14 +45,18 @@
 }
 
 /* Recipe Pill for Favorites */
-.card__favs__body {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.favorite__card {
+  background-color: white;
+  padding: 1.5rem 1.5rem 0.5rem;
+  border-radius: 0px 15px 0px 15px;
+  box-shadow: 0px 0px 10px 0px rgb(231, 231, 231);
 }
 
-.card__favs__body h3 {
-  width: 100%;
+.card__favs__header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 768px) {

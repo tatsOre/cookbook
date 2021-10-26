@@ -48,9 +48,9 @@ const SideNav = ({ user, handleLogout }) => {
               <a>Shopping Lists</a>
             </Link>
             <hr />
-            <a href="/" onClick={handleLogout}>
-              Logout
-            </a>
+            <Link shallow={true} onClick={handleLogout}>
+              <a>Logout</a>
+            </Link>
           </nav>
         </div>
       </Offcanvas>
