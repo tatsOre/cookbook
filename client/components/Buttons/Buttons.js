@@ -64,6 +64,10 @@ const ButtonOutlined = ({ type, children, disabled }) => {
   );
 };
 
+const ButtonOutlinedTest = (props) => {
+  return <input className={styles.btn__outlined} {...props} />;
+};
+
 const ButtonFilled = ({ type, children, disabled }) => {
   return (
     <button className={styles.btn__filled} type={type} disabled={disabled}>
@@ -101,6 +105,7 @@ export {
   ButtonFilled,
   ButtonDelete,
   ButtonOutlined,
+  ButtonOutlinedTest,
   ButtonTogglePublic,
   LinkFilled,
   LinkOutlined,

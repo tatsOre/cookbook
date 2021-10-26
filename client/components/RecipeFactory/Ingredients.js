@@ -1,39 +1,18 @@
 import {
   ToggleButtonGroup,
-  Button,
   Dropdown,
   DropdownButton,
   ToggleButton,
 } from "react-bootstrap";
 import CloseButton from "react-bootstrap/CloseButton";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import useSWR from "swr";
+import { GET_CATEGORIES_URL } from "../../config";
+import { getData } from "../../src/ApiCalls";
 
 import styles from "./RecipeFactory.module.css";
 
-const Ingredients = () => {
-  /* TODO: Grab this data from the API*/
-  const fractionOptions = ["0", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"];
-  const measurementOptions = [
-    "Teaspoon",
-    "Tablespoon",
-    "Cup",
-    "Gallon",
-    "Gram",
-    "Pound",
-    "Kilogram",
-    "Ounce",
-    "Litre",
-    "None",
-  ];
-  const categoriesOptions = [
-    "Lunch",
-    "Dinner",
-    "Dessert",
-    "Appetizer",
-    "Beverage",
-    "Miscellaneous",
-  ];
-
+const Ingredients = ({ fractionOptions, measurementOptions }) => {
   const fractionSelection = fractionOptions.map((option) => (
     <Dropdown.Item eventKey={option} key={option}>
       {option}
@@ -58,6 +37,12 @@ const Ingredients = () => {
     append: ingredientsAppend,
     remove: ingredientsRemove,
   } = useFieldArray({ control, name: "ingredients" });
+
+  const { data: categoriesOptions, error } = useSWR(
+    GET_CATEGORIES_URL,
+    getData
+  );
+  if (!categoriesOptions) return null;
 
   return (
     <div className={styles.ingredients__step}>
@@ -186,10 +171,7 @@ const Ingredients = () => {
                 type="text"
               />
 
-              <CloseButton
-                variant="dark"
-                onClick={() => ingredientsRemove(index)}
-              />
+              <CloseButton onClick={() => ingredientsRemove(index)} />
             </li>
           ))}
         </ul>

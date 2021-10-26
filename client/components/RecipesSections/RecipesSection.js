@@ -11,11 +11,6 @@ const RecipeSection = () => {
 
   return (
     <section className={styles.recipes__section}>
-      <h2 className={styles.section__recipes__title}>
-        <span>Explore</span>
-        <br />
-        the latest recipes
-      </h2>
       <div className={styles.section__recipes__container}>
         {data.recipes.map((recipe) => (
           <RecipeCard recipe={recipe} />

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ButtonFavorites from "../Buttons/ButtonFavorites";
 import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
 import RecipeImage from "../RecipeAssets/RecipeImage";
@@ -6,9 +7,17 @@ import styles from "./RecipePill.module.css";
 const FavoritePill = ({ data }) => {
   const { _id, title, photo, categories, cuisine } = data;
   return (
-    <div className={styles.card__pill}>
-      <div className={styles.card__photo}>
-        <RecipeImage photo={photo} title={title} />
+    <div className={styles.favorite__card}>
+      <div className={styles.card__favs__header}>
+        <Link href={`/recipes/${_id}`}>
+          <a>
+            <div className={styles.card__photo}>
+              <RecipeImage photo={photo} title={title} />
+            </div>
+          </a>
+        </Link>
+
+        <ButtonFavorites id={_id} addTooltip={false} addLabel />
       </div>
 
       <div className={styles.card__favs__body}>
@@ -20,9 +29,6 @@ const FavoritePill = ({ data }) => {
         </div>
         <div>
           <RecipeCategoriesLabels title="Cuisine" category={cuisine} />
-        </div>
-        <div className={styles.card__userActions}>
-          <ButtonFavorites id={_id} addTooltip={false} addLabel />
         </div>
       </div>
     </div>

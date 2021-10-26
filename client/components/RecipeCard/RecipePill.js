@@ -11,7 +11,7 @@ const RecipePill = ({ data }) => {
       <Link href={`/recipes/${_id}`}>
         <a>
           <div className={styles.card__photo}>
-            <RecipeImage photo={photo} title={title} />{" "}
+            <RecipeImage photo={photo} title={title} />
           </div>
         </a>
       </Link>

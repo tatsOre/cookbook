@@ -1,4 +1,4 @@
-import { CURRENT_USER_URL, LOGOUT_URL } from "../config";
+import { CURRENT_USER_URL, LOGOUT_URL, CLIENT_ASSET_URL } from "../config";
 
 export const fetchCurrentUser = async () => {
   const response = await fetch(CURRENT_USER_URL, {
@@ -26,4 +26,11 @@ export const getData = (url) =>
 
 export const logout = () => {
   return getData(LOGOUT_URL);
+};
+
+export const getClientAsset = async (category, value) => {
+  const URL = CLIENT_ASSET_URL(category, value);
+
+  console.log({ URL });
+  return getData(URL);
 };

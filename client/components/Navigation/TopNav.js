@@ -29,9 +29,7 @@ const TopNavBar = ({ user, handleLogout }) => {
           <Link href="/me/shopping_lists">
             <a>Shopping Lists</a>
           </Link>
-          <a href="/" onClick={handleLogout}>
-            Logout
-          </a>
+          <a onClick={handleLogout}>Logout</a>
         </nav>
       </NavDropdown>
     </div>
