@@ -18,9 +18,12 @@ const Header = () => {
 
   const isCreatePage = router.pathname.startsWith("/create");
 
-  const handleLogout = () => {
-    logout();
-    // router.push("/");
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const response = await logout();
+    if (response.message) {
+      console.log('success');
+    }
   };
 
   return (

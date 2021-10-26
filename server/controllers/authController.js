@@ -111,7 +111,12 @@ exports.getUserFromJWT = (req) => {
  * GET /api/v1/auth/logout
  */
 exports.logout = async (req, res) => {
-  res.clearCookie(process.env.COOKIE_SECRET);
+  res.clearCookie(process.env.COOKIE_SECRET, {
+    expires: new Date(0), 
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === "development" ? "lax": "none",
+    secure: process.env.NODE_ENV === "development" ? false: true,
+  });
   res.json({ message: ["logout successful"] });
 };
 
