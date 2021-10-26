@@ -7,15 +7,12 @@ import {
 import CloseButton from "react-bootstrap/CloseButton";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import useSWR from "swr";
-import { CLIENT_ASSET_URL } from "../../config";
+import { GET_CATEGORIES_URL } from "../../config";
 import { getData } from "../../src/ApiCalls";
 
 import styles from "./RecipeFactory.module.css";
 
 const Ingredients = ({ fractionOptions, measurementOptions }) => {
-  const CATEGORIES = CLIENT_ASSET_URL("recipes", "categories");
-  const { data: categoriesOptions, error } = useSWR(CATEGORIES, getData);
-
   const fractionSelection = fractionOptions.map((option) => (
     <Dropdown.Item eventKey={option} key={option}>
       {option}
@@ -40,6 +37,12 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
     append: ingredientsAppend,
     remove: ingredientsRemove,
   } = useFieldArray({ control, name: "ingredients" });
+
+  const { data: categoriesOptions, error } = useSWR(
+    GET_CATEGORIES_URL,
+    getData
+  );
+  if (!categoriesOptions) return null;
 
   return (
     <div className={styles.ingredients__step}>
@@ -168,10 +171,7 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
                 type="text"
               />
 
-              <CloseButton
-                variant="dark"
-                onClick={() => ingredientsRemove(index)}
-              />
+              <CloseButton onClick={() => ingredientsRemove(index)} />
             </li>
           ))}
         </ul>

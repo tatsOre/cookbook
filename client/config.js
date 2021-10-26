@@ -22,13 +22,24 @@ export const EDIT_FAVORITES_URL = `${BASE_URL}/api/v1/me/favorites`;
 
 export const RECIPE_BASE_URL = `${BASE_URL}/api/v1/recipe`;
 
-// field can be 'fraction' | 'measurement';
-export const CLIENT_ASSET_URL = (category, value) =>
-  `${BASE_URL}/assets/${category}?field=${value}`;
-
 export const SHOP_LIST_BASE_URL = `${BASE_URL}/api/v1/me/shopping_lists`;
 
 export const LATEST_RECIPES_URL = `${BASE_URL}/api/v1/recipes/latest`;
 
+export const CLOUDINARY_URL =
+  "https://api.cloudinary.com/v1_1/dshl3pgv4/upload";
+
 export const AVATAR_DEFAULT =
   "https://thumbs.dreamstime.com/z/default-avatar-profile-flat-icon-social-media-user-vector-portrait-unknown-human-image-default-avatar-profile-flat-icon-184330869.jpg";
+
+// field can be 'fraction' | 'measurement';
+export const CLIENT_ASSET_URL = (category, value) =>
+  `${BASE_URL}/assets/${category}?field=${value}`;
+
+export const GET_CATEGORIES_URL = CLIENT_ASSET_URL("recipes", "categories");
+export const GET_CUISINE_URL = CLIENT_ASSET_URL("recipes", "cuisine");
+export const GET_FRACTIONS_URL = CLIENT_ASSET_URL("ingredients", "fraction");
+export const GET_MEASUREMENT_URL = CLIENT_ASSET_URL(
+  "ingredients",
+  "measurement"
+);

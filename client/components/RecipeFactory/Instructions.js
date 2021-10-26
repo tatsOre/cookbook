@@ -2,26 +2,28 @@ import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { ToggleButtonGroup, ToggleButton, Form } from "react-bootstrap";
 import CloseButton from "react-bootstrap/CloseButton";
 import useSWR from "swr";
-import { CLIENT_ASSET_URL } from "../../config";
+import { GET_CUISINE_URL } from "../../config";
 import { getData } from "../../src/ApiCalls";
 
 import styles from "./RecipeFactory.module.css";
 
 const Instructions = () => {
-  const CUISINE = CLIENT_ASSET_URL("recipes", "cuisine");
-  const { data: cuisineOptions, error } = useSWR(CUISINE, getData);
-
   const {
     register,
     control,
     formState: { errors },
     defaultValues,
   } = useFormContext();
+
   const {
     fields: instructionsFields,
     append: instructionsAppend,
     remove: instructionsRemove,
   } = useFieldArray({ control, name: "instructions" });
+
+  const { data: cuisineOptions, error } = useSWR(GET_CUISINE_URL, getData);
+  if (!cuisineOptions) return null;
+
   return (
     <div className={styles.instructions__step}>
       <div className={styles.create__instructions}>
@@ -34,10 +36,7 @@ const Instructions = () => {
               {...register(`instructions.${index}.instruction`)}
               type="text"
             />
-            <CloseButton
-              variant="dark"
-              onClick={() => instructionsRemove(index)}
-            />
+            <CloseButton onClick={() => instructionsRemove(index)} />
           </div>
         ))}
         <button
