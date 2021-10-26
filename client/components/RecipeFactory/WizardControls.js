@@ -13,6 +13,7 @@ const WizardControls = ({ methods }) => {
   return (
     <div className={styles.create__form__controls}>
       <button
+        type="button"
         className={`${styles.btn__outlined} ${
           isFirstStep ? styles.btn__hide : styles.btn__display
         }`}
@@ -21,6 +22,7 @@ const WizardControls = ({ methods }) => {
         Previous
       </button>
       <button
+        type="button"
         className={`${styles.btn__outlined} ${
           isLastStep ? styles.btn__hide : styles.btn__display
         }`}

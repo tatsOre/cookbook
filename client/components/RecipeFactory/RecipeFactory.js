@@ -1,4 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { Wizard } from "react-use-wizard";
 import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
@@ -19,9 +20,37 @@ function onError(errors) {
   console.log(errors);
 }
 
-const RecipeFactory = () => {
-  const router = useRouter();
+function normalizeFormData(data) { 
+  return {
+    ...data,
+    ingredients: data.ingredients.map(ingredient => {
+      ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
+      ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+      return ingredient;
+    }),
+    instructions: data.instructions.reduce(
+      (previous, current, idx) => ({
+        ...previous,
+        [idx]: current.instruction,
+      }),
+    ),
+  };
+}
 
+function deNormalizeFormData(data) { 
+  return {
+    ...data,
+    ingredients: data.ingredients.map(ingredient => {
+      ingredient.fraction = ingredient.fraction === "" ? "0" : ingredient.fraction;
+      ingredient.measurement = ingredient.measurement === "" ? "None" : ingredient.fraction;
+      return ingredient;
+    }),
+    instructions: Object.values(data.instructions).map((inst) => {return {instruction: inst}})
+  };
+}
+
+const RecipeFactory = (props) => {
+  const router = useRouter();
   const defaultValues = {
     instructions: [""],
     photo: "",
@@ -37,6 +66,19 @@ const RecipeFactory = () => {
   const methods = useForm({
     defaultValues: defaultValues,
   });
+
+  const {data: recipeData} = props.mode === "edit" && useSWR(`${RECIPE_BASE_URL}/${props.recipeID}`, getData);
+
+  //@TODO need to better solve this: https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524
+  useEffect(() => {
+    if (!recipeData) {
+      return;
+    }
+    methods.reset({
+      ...methods.getValues(),
+      ...deNormalizeFormData(recipeData)
+    });
+  }, [methods.reset, recipeData, methods.getValues]);
 
   const { data: fractionData, error: fractionError } = useSWR(
     GET_FRACTIONS_URL,
@@ -55,23 +97,10 @@ const RecipeFactory = () => {
   const measurementOptions = measurementData || [];
 
   async function onFormSubmit(formResult) {
+    
     if (formResult.photo.length > 0) {
-      const normalizedFormResult = {
-        ...formResult,
-        ingredients: formResult.ingredients.map((ingredient) => {
-          ingredient.fraction =
-            ingredient.fraction === "0" ? "" : ingredient.fraction;
-          ingredient.measurement =
-            ingredient.measurement === "none" ? "" : ingredient.fraction;
-          return ingredient;
-        }),
-        instructions: formResult.instructions.reduce(
-          (previous, current, idx) => ({
-            ...previous,
-            [idx]: current.instruction,
-          })
-        ),
-      };
+      const normalizedFormResult = normalizeFormData(formResult);
+      console.log(normalizedFormResult);
       const imageUploadData = new FormData();
 
       imageUploadData.append("file", formResult.photo[0]);
@@ -87,8 +116,8 @@ const RecipeFactory = () => {
       normalizedFormResult.photo = await imageURL.url;
 
       const response = await fetchAPI(
-        "POST",
-        RECIPE_BASE_URL,
+        props.mode === "edit" ? "PATCH" :  "POST",
+        props.mode === "edit" ? `${RECIPE_BASE_URL}/${props.recipeID}` : `${RECIPE_BASE_URL}`,
         normalizedFormResult
       );
 
@@ -99,16 +128,6 @@ const RecipeFactory = () => {
         console.log(result);
         router.push(`/recipes/${result._id}`);
       }
-      /*
-      if (response.status !== 200) {
-        const content = await response.json();
-        setWarning({
-          show: true,
-          messages: content.message,
-        });
-        return setDisabled(false);
-      }
-      */
     }
   }
 

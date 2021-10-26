@@ -93,7 +93,6 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
         <Controller
           control={control}
           name="categories"
-          defaultValue={[]}
           rules={{ required: "At least one category is needed" }}
           render={({ field: { onChange, value } }) => (
             <ToggleButtonGroup
