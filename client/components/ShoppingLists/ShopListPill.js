@@ -10,15 +10,15 @@ import styles from "./ShoppingLists.module.css";
 const ShopListPill = ({ data }) => {
   const { _id, recipe, items } = data;
   const [show, setShow] = useState(false);
-  /*
-  const { register, handleSubmit } = useForm({
+
+  const { control, register, handleSubmit } = useForm({
     defaultValues: items,
   });
 
   const { fields, append, remove } = useFieldArray({
+    control,
     name: "items",
   });
-  */
 
   return (
     <div className={styles.shopList__card}>
@@ -41,9 +41,14 @@ const ShopListPill = ({ data }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ul>
-            {items.map((li) => (
-              <li key={li}>{li}</li>
+          <ul className={styles.shopList__items}>
+            {items.map((item, index) => (
+              <li key={`${_id}-item-${index}`}>
+                <div>
+                  <input id={item} type="checkbox" />
+                  <label htmlFor={item}>{item}</label>
+                </div>
+              </li>
             ))}
           </ul>
         </Modal.Body>

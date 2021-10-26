@@ -1,20 +1,16 @@
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { ToggleButtonGroup, Button, ToggleButton, Form } from "react-bootstrap";
+import { ToggleButtonGroup, ToggleButton, Form } from "react-bootstrap";
 import CloseButton from "react-bootstrap/CloseButton";
+import useSWR from "swr";
+import { CLIENT_ASSET_URL } from "../../config";
+import { getData } from "../../src/ApiCalls";
 
 import styles from "./RecipeFactory.module.css";
 
-const cuisineOptions = [
-  "Vegan",
-  "Vegetarian",
-  "Gluten Free",
-  "Quick",
-  "Kosher",
-  "For Two",
-  "Make Ahead",
-];
-
 const Instructions = () => {
+  const CUISINE = CLIENT_ASSET_URL("recipes", "cuisine");
+  const { data: cuisineOptions, error } = useSWR(CUISINE, getData);
+
   const {
     register,
     control,

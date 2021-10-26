@@ -24,6 +24,29 @@
   margin-left: 1rem;
 }
 
+.shopList__items {
+  padding: 1rem 2rem;
+}
+
+.shopList__items li {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+.shopList__items label {
+  margin-left: 1rem;
+}
+
+.shopList__items input {
+  color: white;
+  accent-color: var(--color-light);
+}
+
+.shopList__items input:checked + label {
+  text-decoration-line: line-through;
+  text-decoration-thickness: 1px;
+}
+
 @media screen and (max-width: 768px) {
   .shopList__card {
     width: 100%;

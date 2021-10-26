@@ -6,32 +6,15 @@ import {
 } from "react-bootstrap";
 import CloseButton from "react-bootstrap/CloseButton";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import useSWR from "swr";
+import { CLIENT_ASSET_URL } from "../../config";
+import { getData } from "../../src/ApiCalls";
 
 import styles from "./RecipeFactory.module.css";
 
-const Ingredients = () => {
-  /* TODO: Grab this data from the API*/
-  const fractionOptions = ["0", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"];
-  const measurementOptions = [
-    "Teaspoon",
-    "Tablespoon",
-    "Cup",
-    "Gallon",
-    "Gram",
-    "Pound",
-    "Kilogram",
-    "Ounce",
-    "Litre",
-    "None",
-  ];
-  const categoriesOptions = [
-    "Lunch",
-    "Dinner",
-    "Dessert",
-    "Appetizer",
-    "Beverage",
-    "Miscellaneous",
-  ];
+const Ingredients = ({ fractionOptions, measurementOptions }) => {
+  const CATEGORIES = CLIENT_ASSET_URL("recipes", "categories");
+  const { data: categoriesOptions, error } = useSWR(CATEGORIES, getData);
 
   const fractionSelection = fractionOptions.map((option) => (
     <Dropdown.Item eventKey={option} key={option}>

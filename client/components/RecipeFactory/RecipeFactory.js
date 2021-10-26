@@ -1,47 +1,14 @@
-import Ingredients from "./Ingredients";
-import Instructions from "./Instructions";
-import { Button } from "react-bootstrap";
 import { FormProvider, useForm } from "react-hook-form";
 import { Wizard, useWizard } from "react-use-wizard";
-import { RECIPE_BASE_URL } from "../../config.js";
-import { fetchAPI } from "../../src/ApiCalls";
+import Ingredients from "./Ingredients";
+import Instructions from "./Instructions";
+import useSWR from "swr";
+import { CLIENT_ASSET_URL, RECIPE_BASE_URL } from "../../config.js";
+import { fetchAPI, getData } from "../../src/ApiCalls";
 
 import styles from "./RecipeFactory.module.css";
 
 const cloudinaryURL = "https://api.cloudinary.com/v1_1/dshl3pgv4/upload";
-
-const fractionOptions = ["0", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"];
-const measurementOptions = [
-  "Teaspoon",
-  "Tablespoon",
-  "Cup",
-  "Gallon",
-  "Grams",
-  "Kilograms",
-  "Ounces",
-  "Litres",
-  "None",
-];
-const categoriesOptions = [
-  "Lunch",
-  "Dinner",
-  "Dessert",
-  "Appetizer",
-  "Beverage",
-  "Miscellaneous",
-];
-
-const defaultValues = {
-  instructions: [""],
-  photo: "",
-  ingredients: [
-    {
-      fraction: fractionOptions[0],
-      unit: "1",
-      measurement: measurementOptions[0],
-    },
-  ],
-};
 
 function onError(errors) {
   console.log(errors);
@@ -84,6 +51,7 @@ async function onFormSubmit(formResult) {
       RECIPE_BASE_URL,
       normalizedFormResult
     );
+    /*
     if (response.status !== 200) {
       const content = await response.json();
       setWarning({
@@ -92,10 +60,35 @@ async function onFormSubmit(formResult) {
       });
       return setDisabled(false);
     }
+    */
   }
 }
 
 const RecipeFactory = () => {
+  const FRACTIONS = CLIENT_ASSET_URL("ingredients", "fraction");
+  const { data: fractionOptions, error: errorFractions } = useSWR(
+    FRACTIONS,
+    getData
+  );
+
+  const MEASUREMENT = CLIENT_ASSET_URL("ingredients", "measurement");
+  const { data: measurementOptions, error: errorMeasurement } = useSWR(
+    MEASUREMENT,
+    getData
+  );
+
+  const defaultValues = {
+    instructions: [""],
+    photo: "",
+    ingredients: [
+      {
+        fraction: fractionOptions[0],
+        unit: "1",
+        measurement: measurementOptions[0],
+      },
+    ],
+  };
+
   const methods = useForm({
     defaultValues: defaultValues,
   });
@@ -141,7 +134,10 @@ const RecipeFactory = () => {
           footer={<WizardControls />}
           className={styles.create__wizard}
         >
-          <Ingredients />
+          <Ingredients
+            fractionOptions={fractionOptions}
+            measurementOptions={measurementOptions}
+          />
           <Instructions />
         </Wizard>
       </form>
