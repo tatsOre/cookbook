@@ -29,10 +29,6 @@
   color: var(--color-dark);
 }
 
-.top__nav__list a {
-  padding: 0.5rem 2rem;
-}
-
 .top__nav__dropdown a:active {
   color: var(--color-dark);
 }
@@ -45,7 +41,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 1rem 0rem 0.35rem;
+  padding: 1rem 0rem;
 }
 
 .top__nav__list a {
@@ -53,6 +49,7 @@
   font-size: 1.4rem;
   text-transform: uppercase;
   text-decoration: none;
+  padding: 0.5rem 2rem;
 }
 
 .top__nav__list a:hover {
@@ -60,9 +57,18 @@
   font-weight: 700;
 }
 
-.top__nav__list a:last-child {
+.top__nav__list a:last-of-type {
+  padding-bottom: 1.5rem;
+}
+
+.top__nav__list button {
+  background-color: transparent;
+  border: none;
   border-top: 1px dashed gray;
   padding-top: 1rem;
+  font-weight: 500;
+  font-size: 1.4rem;
+  text-transform: uppercase;
 }
 
 /* Modal Side Navigation for Mobile Devices */
@@ -99,8 +105,11 @@
   color: var(--color-dark);
 }
 
-.offcanvas__body nav a:last-child {
-  margin-top: 2rem;
+.offcanvas__body nav button {
+  background-color: transparent;
+  color: var(--color-dark);
+  border: none;
+  text-transform: uppercase;
 }
 
 @media screen and (max-width: 768px) {
