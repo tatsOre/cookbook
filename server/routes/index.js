@@ -113,7 +113,7 @@ router.post(
  * GET /api/v1/auth/logout
  * Removes JWT Cookie and logout the user.
  */
-router.get("/auth/logout", authController.logout);
+router.get("/auth/logout", catchErrors(authController.logout));
 
 /**
  * GET /api/v1/auth/google
