@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 import AlertMessage from "../Alert/AlertMessage";
@@ -11,6 +12,7 @@ import { SIGNUP_URL } from "../../config";
 import { ButtonFilled } from "../Buttons/Buttons";
 
 const SignUp = () => {
+  const router = useRouter();
   const {
     register,
     formState: { errors },
@@ -21,20 +23,27 @@ const SignUp = () => {
   const [warning, setWarning] = useState({ show: false, messages: [] });
   const [disabled, setDisabled] = useState(false);
 
-  const onSubmit = async (data, event) => {
-    event.preventDefault();
-    setDisabled(true);
-
-    const response = await fetchAPI("POST", SIGNUP_URL, data);
-    const result = await response.json();
-
-    if (response.status !== 200) {
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    try {
+      setDisabled(true);
+      const response = await fetchAPI("POST", SIGNUP_URL, data);
+      if (response.status !== 200) {
+        const content = await response.json();
+        setWarning({
+          show: true,
+          messages: content.message,
+        });
+        return setDisabled(false);
+      }
+      router.push("/me/recipes");
+    } catch (error) {
       setWarning({
         show: true,
-        messages: result.message,
+        messages: error.message,
       });
+      setDisabled(false);
     }
-    setDisabled(false); // change when logs the user, decide this.
   };
 
   return (

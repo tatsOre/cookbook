@@ -39,12 +39,6 @@ const TabContent = ({ active, children }) => {
 const Dashboard = ({ tab }) => {
   const [activeTab, setActiveTab] = useState(tab || "recipes");
 
-  useEffect(() => {
-    document.title = `MyCookBook | Your ${capitalizeStr(
-      activeTab.replace("_", " ")
-    )}`;
-  }, [tab, activeTab]);
-
   return (
     <div className={`${styles.dashboard__container}`}>
       <div className={styles.dashboard__header}>

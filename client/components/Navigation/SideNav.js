@@ -35,7 +35,7 @@ const SideNav = ({ user, handleLogout }) => {
             <Link href="/create">
               <a>create recipe</a>
             </Link>
-            <Link href="/me">
+            <Link href="/me/account">
               <a>Account</a>
             </Link>
             <Link href="/me/recipes">
@@ -48,9 +48,9 @@ const SideNav = ({ user, handleLogout }) => {
               <a>Shopping Lists</a>
             </Link>
             <hr />
-            <Link shallow={true} onClick={handleLogout}>
-              <a>Logout</a>
-            </Link>
+            <button type="button" onClick={handleLogout}>
+              Logout
+            </button>
           </nav>
         </div>
       </Offcanvas>

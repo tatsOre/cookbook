@@ -1,33 +1,22 @@
-import Head from "next/head";
+import useSWR from "swr";
 import Layout from "../../components/Layout/Layout";
 import RecipePost from "../../components/RecipePost/RecipePost";
-import { capitalizeStr } from "../../src/utils";
-import { ALL_RECIPES_URL, RECIPE_BASE_URL } from "../../config";
+import { RECIPE_BASE_URL } from "../../config";
+import { getData } from "../../src/ApiCalls";
 
-export default function RecipePage({ recipe }) {
+export default function RecipePage({ slug }) {
+  const URL = `${RECIPE_BASE_URL}/${slug}`;
+  const { data, error } = useSWR(URL, getData);
+
   return (
     <Layout>
-      <Head>
-        <title>{`${capitalizeStr(recipe.title)} | MyCookBook`}</title>
-      </Head>
-      <RecipePost recipe={recipe} />
+      {!data && !error && <p>Loading...</p>}
+      {error && <p>Something went wrong</p>}
+      {data && <RecipePost recipe={data} />}
     </Layout>
   );
 }
 
-export async function getStaticPaths() {
-  const res = await fetch(ALL_RECIPES_URL);
-  const data = await res.json();
-
-  const paths = data.recipes.map((post) => ({
-    params: { slug: post._id },
-  }));
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
-  const res = await fetch(`${RECIPE_BASE_URL}/${params.slug}`);
-  const recipe = await res.json();
-
-  return { props: { recipe } };
-}
+RecipePage.getInitialProps = async (context) => {
+  return context.query;
+};

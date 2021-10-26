@@ -96,7 +96,9 @@ const authController = require("../controllers/authController");
 router.post(
   "/auth/register",
   catchErrors(authController.confirmPasswords),
-  catchErrors(authController.registerUser)
+  catchErrors(authController.registerUser),
+  catchErrors(authController.login),
+  authController.setJWTcookie
 );
 
 /**

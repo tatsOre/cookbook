@@ -10,13 +10,13 @@ const RecipeSection = () => {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <section className={styles.recipes__section}>
-      <div className={styles.section__recipes__container}>
-        {data.recipes.map((recipe) => (
+    <div className={styles.recipes__section}>
+      {data.recipes.map((recipe) => (
+        <div className={styles.card__container}>
           <RecipeCard recipe={recipe} />
-        ))}
-      </div>
-    </section>
+        </div>
+      ))}
+    </div>
   );
 };
 

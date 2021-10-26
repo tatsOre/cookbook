@@ -23,21 +23,27 @@ const Login = () => {
   const [warning, setWarning] = useState({ show: false, messages: [] });
   const [disabled, setDisabled] = useState(false);
 
-  const onSubmit = async (data, event) => {
-    event.preventDefault();
-    setDisabled(true);
-
-    const response = await fetchAPI("POST", LOGIN_URL, data);
-
-    if (response.status !== 200) {
-      const content = await response.json();
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    try {
+      setDisabled(true);
+      const response = await fetchAPI("POST", LOGIN_URL, data);
+      if (response.status !== 200) {
+        const content = await response.json();
+        setWarning({
+          show: true,
+          messages: content.message,
+        });
+        return setDisabled(false);
+      }
+      router.push("/me/recipes");
+    } catch (error) {
       setWarning({
         show: true,
-        messages: content.message,
+        messages: error.message,
       });
-      return setDisabled(false);
+      setDisabled(false);
     }
-    router.push("/me/recipes");
   };
 
   return (

@@ -102,11 +102,3 @@ main {
 .offcanvas {
   max-width: 80%;
 }
-
-/* Index Page */
-h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: var(--color-neutral);
-}

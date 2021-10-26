@@ -12,16 +12,15 @@ const {
  * POST /api/v1/auth/register
  * Add new user item.
  */
-exports.registerUser = async (req, res) => {
+exports.registerUser = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   let user = await UserModel.findOne({ email });
   if (user)
     throw new DuplicateKeyError("This email address is already being used");
 
-  user = await UserModel.create({ name, email, password });
-  // Decide if login the user...
-  res.json({ message: ["Signup successful"] });
+  await UserModel.create({ name, email, password });
+  next();
 };
 
 /**
@@ -85,8 +84,8 @@ exports.setJWTcookie = async (req, res) => {
     .cookie(process.env.COOKIE_SECRET, token, {
       expires: new Date(Date.now() + 7 * 24 * 3600000), // 7 days
       httpOnly: true,
-      sameSite: process.env.NODE_ENV === "development" ? "lax": "none",
-      secure: process.env.NODE_ENV === "development" ? false: true,
+      sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
+      secure: process.env.NODE_ENV === "development" ? false : true,
     })
     .json({ message: ["successfully logged in"] });
 };
@@ -112,10 +111,10 @@ exports.getUserFromJWT = (req) => {
  */
 exports.logout = async (req, res) => {
   res.clearCookie(process.env.COOKIE_SECRET, {
-    expires: new Date(0), 
+    expires: new Date(0),
     httpOnly: true,
-    sameSite: process.env.NODE_ENV === "development" ? "lax": "none",
-    secure: process.env.NODE_ENV === "development" ? false: true,
+    sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
+    secure: process.env.NODE_ENV === "development" ? false : true,
   });
   res.json({ message: ["logout successful"] });
 };

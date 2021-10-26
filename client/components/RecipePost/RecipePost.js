@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { capitalizeStr } from "../../src/utils";
 import useUser from "../../src/useUser";
 import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
 import RecipeImage from "../RecipeAssets/RecipeImage";
@@ -31,6 +31,12 @@ const RecipePost = ({ recipe }) => {
     comments,
     public: isPublic,
   } = recipe;
+
+  useEffect(() => {
+    if (title) {
+      document.title = `${capitalizeStr(title)} | My CookBook`;
+    }
+  }, [title]);
 
   return (
     <>

@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useUser from "../../src/useUser";
-import { fetchAPI, logout } from "../../src/ApiCalls";
+import { logout } from "../../src/ApiCalls";
 import { LinkFilled } from "../Buttons/Buttons";
 import LoginNav from "../Navigation/LogInActions";
 import Logotype from "../Logotype/Logotype";
 import SearchBar from "../Search/SearchDownshift";
 import SideNav from "../Navigation/SideNav";
 import TopNavBar from "../Navigation/TopNav";
-import { LOGOUT_URL } from "../../config";
 
 import styles from "./Header.module.css";
 
@@ -20,9 +19,13 @@ const Header = () => {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    const response = await logout();
-    if (response.message) {
-      console.log('success');
+    try {
+      const response = await logout();
+      if (response.message) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
