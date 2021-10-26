@@ -20,7 +20,7 @@ const IconFavorites = ({ className }) => {
   );
 };
 
-const ButtonFavorites = ({ id, addTooltip }) => {
+const ButtonFavorites = ({ id, large, addTooltip }) => {
   const { user } = useUser();
   const [tooltip, setTooltip] = useState({
     active: false,
@@ -28,7 +28,7 @@ const ButtonFavorites = ({ id, addTooltip }) => {
   });
   const [isFav, setFav] = useState(user?.favorites.includes(id) || false);
   const target = useRef(null);
-  const className = isFav ? styles.icon__active : styles.icon__inactive;
+  const classNameIcon = isFav ? styles.icon__active : styles.icon__inactive;
 
   const handleClickFavorite = async (id) => {
     fetchAPI("POST", EDIT_FAVORITES_URL, { recipe: id })
@@ -51,11 +51,14 @@ const ButtonFavorites = ({ id, addTooltip }) => {
     <>
       <button
         ref={target}
-        className={styles.btn__favorites}
+        className={`${styles.btn__favorites} ${
+          isFav ? styles.btn__active : styles.btn__inactive
+        }`}
         type="button"
         onClick={() => handleClickFavorite(id)}
       >
-        <IconFavorites className={className} />
+        <IconFavorites className={classNameIcon} />
+        <span>{isFav ? "Saved" : "Save"}</span>
       </button>
       {addTooltip && (
         <Overlay target={target.current} show={tooltip.active} placement="left">

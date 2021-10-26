@@ -23,10 +23,6 @@
   margin: 0;
 }
 
-.recipe__user__actions {
-  margin: 1rem 0rem;
-}
-
 .recipe__subtitle {
   font-weight: 300;
   font-size: 3rem;
@@ -77,12 +73,9 @@
 }
 
 .recipe__user__actions {
+  margin: 1rem 0rem;
   display: flex;
   align-items: center;
-}
-
-.recipe__user__actions button {
-  padding: 0.8rem 2rem;
 }
 
 .recipe__user__actions button:first-child {
