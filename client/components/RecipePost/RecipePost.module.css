@@ -102,7 +102,7 @@
   padding-top: 2rem;
 }
 
-@media screen and (max-width: 740px) {
+@media screen and (max-width: 768px) {
   .recipe {
     padding: 0rem 2rem 2rem;
   }
@@ -149,17 +149,6 @@
   .recipe__servings h4,
   .recipe__servings p {
     font-size: 1.4rem;
-  }
-}
-
-@media screen and (min-width: 741px) and (max-width: 850px) {
-  .recipe {
-    padding: 2rem;
-  }
-
-  .recipe__photo {
-    height: 230px;
-    width: 230px;
   }
 }
 

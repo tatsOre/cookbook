@@ -13,6 +13,7 @@ const RecipeInstructions = ({ instructions, comments }) => {
           </li>
         ))}
       </ul>
+      <hr />
       <p className={styles.instructions__comments}>{comments}</p>
     </>
   );

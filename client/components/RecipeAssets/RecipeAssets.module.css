@@ -17,7 +17,7 @@
 
 .categories__list li {
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.3rem;
   letter-spacing: 0.05rem;
   list-style: none;
@@ -41,6 +41,6 @@
 @media screen and (max-width: 850px) {
   .categories__title,
   .categories__list li {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 }

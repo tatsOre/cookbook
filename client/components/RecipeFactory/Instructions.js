@@ -82,7 +82,6 @@ const Instructions = () => {
           control={control}
           name="photo"
           defaultvalue=""
-          rules={{ required: "You must select a photo" }}
           render={({ field }) => (
             <input
               onChange={(e) => field.onChange(e.target.files)}
@@ -93,12 +92,17 @@ const Instructions = () => {
       </div>
 
       <div className={styles.form__section}>
-        <span htmlFor="public">Do you want your recipe to be private?</span>
+        <span htmlFor="public">Do you want your recipe to be public?</span>
         <Controller
           control={control}
           name="public"
-          render={({ field: { onChange } }) => (
-            <Form.Check inline={true} onChange={onChange} type="switch" />
+          render={({ field: { onChange, value } }) => (
+            <Form.Check
+              inline={true}
+              onChange={onChange}
+              value={value}
+              type="switch"
+            />
           )}
         />
       </div>

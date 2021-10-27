@@ -18,7 +18,7 @@ const ButtonDelete = ({ id, item }) => {
     fetchAPI("DELETE", URL);
     // TODO: HANDLE ERRORS
 
-    if (recipePage) router.push("/me");
+    if (recipePage) router.push("/me/recipes");
   };
 
   return (
@@ -42,7 +42,6 @@ const ButtonTogglePublic = ({ id, isPublic }) => {
     const response = await fetchAPI("PATCH", URL, { public: !isPublicRec });
     const result = await response.json();
     setPrivateRec(result.public);
-    console.log(result);
   };
 
   return (

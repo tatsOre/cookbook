@@ -77,8 +77,8 @@
 }
 
 .card__servings p {
-  font-weight: 600;
-  font-size: 1.3rem;
+  font-weight: 500;
+  font-size: 1.2rem;
   letter-spacing: 0.05rem;
   list-style: none;
   color: var(--color-neutral);
@@ -98,4 +98,11 @@
   text-transform: uppercase;
   text-decoration: underline;
   margin-left: 0.25rem;
+}
+
+@media screen and (max-width: 850px) {
+  .card__servings h4,
+  .card__servings p {
+    font-size: 1.3rem;
+  }
 }

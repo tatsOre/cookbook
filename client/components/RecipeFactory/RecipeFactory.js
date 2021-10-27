@@ -20,12 +20,14 @@ function onError(errors) {
   console.log(errors);
 }
 
-function normalizeFormData(data) { 
+function normalizeFormData(data) {
   return {
     ...data,
-    ingredients: data.ingredients.map(ingredient => {
-      ingredient.fraction = ingredient.fraction === "0" ? "" : ingredient.fraction;
-      ingredient.measurement = ingredient.measurement === "None" ? "" : ingredient.fraction;
+    ingredients: data.ingredients.map((ingredient) => {
+      ingredient.fraction =
+        ingredient.fraction === "0" ? "" : ingredient.fraction;
+      ingredient.measurement =
+        ingredient.measurement === "none" ? "" : ingredient.measurement;
       return ingredient;
     }),
     instructions: data.instructions.reduce(
@@ -33,19 +35,24 @@ function normalizeFormData(data) {
         ...previous,
         [idx]: current.instruction,
       }),
+      {}
     ),
   };
 }
 
-function deNormalizeFormData(data) { 
+function deNormalizeFormData(data) {
   return {
     ...data,
-    ingredients: data.ingredients.map(ingredient => {
-      ingredient.fraction = ingredient.fraction === "" ? "0" : ingredient.fraction;
-      ingredient.measurement = ingredient.measurement === "" ? "None" : ingredient.fraction;
+    ingredients: data.ingredients.map((ingredient) => {
+      ingredient.fraction =
+        ingredient.fraction === "" ? "0" : ingredient.fraction;
+      ingredient.measurement =
+        ingredient.measurement === "" ? "none" : ingredient.measurement;
       return ingredient;
     }),
-    instructions: Object.values(data.instructions).map((inst) => {return {instruction: inst}})
+    instructions: Object.values(data.instructions).map((inst) => {
+      return { instruction: inst };
+    }),
   };
 }
 
@@ -57,7 +64,7 @@ const RecipeFactory = (props) => {
     ingredients: [
       {
         fraction: "0",
-        unit: "1",
+        unit: 1,
         measurement: "none",
       },
     ],
@@ -67,7 +74,9 @@ const RecipeFactory = (props) => {
     defaultValues: defaultValues,
   });
 
-  const {data: recipeData} = props.mode === "edit" && useSWR(`${RECIPE_BASE_URL}/${props.recipeID}`, getData);
+  const { data: recipeData } =
+    props.mode === "edit" &&
+    useSWR(`${RECIPE_BASE_URL}/${props.recipeID}`, getData);
 
   //@TODO need to better solve this: https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524
   useEffect(() => {
@@ -76,7 +85,7 @@ const RecipeFactory = (props) => {
     }
     methods.reset({
       ...methods.getValues(),
-      ...deNormalizeFormData(recipeData)
+      ...deNormalizeFormData(recipeData),
     });
   }, [methods.reset, recipeData, methods.getValues]);
 
@@ -97,10 +106,9 @@ const RecipeFactory = (props) => {
   const measurementOptions = measurementData || [];
 
   async function onFormSubmit(formResult) {
-    
+    const normalizedFormResult = normalizeFormData(formResult);
+
     if (formResult.photo.length > 0) {
-      const normalizedFormResult = normalizeFormData(formResult);
-      console.log(normalizedFormResult);
       const imageUploadData = new FormData();
 
       imageUploadData.append("file", formResult.photo[0]);
@@ -114,20 +122,22 @@ const RecipeFactory = (props) => {
       });
       const imageURL = await cloudinaryResponse.json();
       normalizedFormResult.photo = await imageURL.url;
+    }
+    //console.log({ normalizedFormResult });
 
-      const response = await fetchAPI(
-        props.mode === "edit" ? "PATCH" :  "POST",
-        props.mode === "edit" ? `${RECIPE_BASE_URL}/${props.recipeID}` : `${RECIPE_BASE_URL}`,
-        normalizedFormResult
-      );
+    const response = await fetchAPI(
+      props.mode === "edit" ? "PATCH" : "POST",
+      props.mode === "edit"
+        ? `${RECIPE_BASE_URL}/${props.recipeID}`
+        : `${RECIPE_BASE_URL}`,
+      normalizedFormResult
+    );
 
-      if (response.status !== 200) {
-        console.log(response.statusText);
-      } else {
-        const result = await response.json();
-        console.log(result);
-        router.push(`/recipes/${result._id}`);
-      }
+    if (response.status !== 200) {
+      console.log(response.statusText);
+    } else {
+      const result = await response.json();
+      router.push(`/recipes/${result._id}`);
     }
   }
 
