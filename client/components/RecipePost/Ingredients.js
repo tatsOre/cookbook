@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
+import useUser from "../../src/useUser";
 import AlertMessage from "../Alert/AlertMessage";
 import { ButtonOutlined } from "../Buttons/Buttons";
 import { fetchAPI } from "../../src/ApiCalls";
@@ -12,6 +14,9 @@ export const formatIngr = ({ unit, fraction, measurement, name }) =>
   } ${name}`;
 
 const RecipeIngredients = ({ ingredients, recipe }) => {
+  const { user } = useUser();
+  const router = useRouter();
+
   const recipeIngrsInitial = ingredients.map((ingr) => ({
     ...ingr,
     checked: false,
@@ -42,6 +47,9 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
   };
 
   const handleAddToShopList = (event) => {
+    if (!user) {
+      router.push("/login");
+    }
     setIngrState(recipeIngrsInitial);
     // Remove alert message if count === 0
     setAlertMessage(false);

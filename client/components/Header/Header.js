@@ -10,9 +10,12 @@ import SideNav from "../Navigation/SideNav";
 import TopNavBar from "../Navigation/TopNav";
 
 import styles from "./Header.module.css";
+import { CURRENT_USER_URL, SEARCH_RECIPES_URL } from "../../config";
+import { useSWRConfig } from "swr";
 
 const Header = () => {
   const { user } = useUser();
+  const { mutate } = useSWRConfig();
   const router = useRouter();
 
   const isCreatePage = router.pathname.startsWith("/create");
@@ -23,6 +26,7 @@ const Header = () => {
       const response = await logout();
       if (response.message) {
         router.push("/");
+        mutate(CURRENT_USER_URL);
       }
     } catch (error) {
       console.log(error);
@@ -42,8 +46,8 @@ const Header = () => {
             </div>
             {!isCreatePage && (
               <SearchBar
-                placeholder="🔎 Search and explore recipes..."
-                URL="http://localhost:3000/api/v1/recipes/search?q="
+                placeholder="Search and explore recipes..."
+                URL={SEARCH_RECIPES_URL}
               />
             )}
             {!isCreatePage && (
@@ -62,7 +66,7 @@ const Header = () => {
             </div>
             <SearchBar
               placeholder="Search and explore recipes..."
-              URL="http://localhost:3000/api/v1/recipes/search?q="
+              URL={SEARCH_RECIPES_URL}
             />
 
             <LoginNav router={router} />

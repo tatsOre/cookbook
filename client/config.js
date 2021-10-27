@@ -16,6 +16,8 @@ export const CURRENT_USER_URL = `${BASE_URL}/api/v1/me`;
 export const SEARCH_IN_CURRENT_USER_URL = (field) =>
   `${BASE_URL}/api/v1/me/search?field=${field}&q=`;
 
+export const SEARCH_RECIPES_URL = `${BASE_URL}/api/v1/recipes/search?q=`;
+
 export const ALL_RECIPES_URL = `${BASE_URL}/api/v1/recipes`;
 
 export const EDIT_FAVORITES_URL = `${BASE_URL}/api/v1/me/favorites`;
