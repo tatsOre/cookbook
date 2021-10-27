@@ -5,6 +5,7 @@ import Overlay from "react-bootstrap/Overlay";
 import { EDIT_FAVORITES_URL } from "../../config";
 import { fetchAPI } from "../../src/ApiCalls";
 import styles from "./Buttons.module.css";
+import { useRouter } from "next/router";
 
 const IconFavorites = ({ className }) => {
   return (
@@ -20,8 +21,9 @@ const IconFavorites = ({ className }) => {
   );
 };
 
-const ButtonFavorites = ({ id, large, addTooltip }) => {
+const ButtonFavorites = ({ id, addTooltip }) => {
   const { user } = useUser();
+  const router = useRouter();
   const [tooltip, setTooltip] = useState({
     active: false,
     message: "",
@@ -31,6 +33,10 @@ const ButtonFavorites = ({ id, large, addTooltip }) => {
   const classNameIcon = isFav ? styles.icon__active : styles.icon__inactive;
 
   const handleClickFavorite = async (id) => {
+    if (!user) {
+      router.push("/login");
+    }
+
     fetchAPI("POST", EDIT_FAVORITES_URL, { recipe: id })
       .then((response) => response.json())
       .then((result) => {

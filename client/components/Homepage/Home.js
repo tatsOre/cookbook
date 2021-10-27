@@ -1,21 +1,27 @@
+import useUser from "../../src/useUser";
 import RecipeSection from "../RecipesSections/RecipesSection";
 
 import styles from "./Home.module.css";
 
 const Home = () => {
+  const { user } = useUser();
+
   return (
     <div className={styles.homepage__container}>
-      <h1>Hero</h1>
+      <div className={styles.home__hero}>
+        {user ? (
+          <p>Welcome back, {user.name.split(" ")[0]}.</p>
+        ) : (
+          <>
+            <h1>Create. Save. Share.</h1>
+            <a href="/signup">Start Now</a>
+          </>
+        )}
+      </div>
       <h2>
         <span>Explore</span>
         <br />
         the latest recipes
-      </h2>
-      <RecipeSection />
-      <h2>
-        <span>Enjoy</span>
-        <br />
-        the most rated recipes
       </h2>
       <RecipeSection />
     </div>

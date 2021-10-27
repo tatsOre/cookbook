@@ -42,7 +42,7 @@ const Header = () => {
             </div>
             {!isCreatePage && (
               <SearchBar
-                placeholder="Search and explore recipes..."
+                placeholder="🔎 Search and explore recipes..."
                 URL="http://localhost:3000/api/v1/recipes/search?q="
               />
             )}

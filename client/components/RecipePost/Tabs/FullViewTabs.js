@@ -35,7 +35,7 @@ const Tabs = ({ open, openTabs, data }) => {
     <Modal show={open} fullscreen={true} onHide={handleItemClick}>
       <Modal.Header closeButton>
         <Modal.Title>
-          <h2>Let's cook!</h2>
+          <h2>Happy Cooking!</h2>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
