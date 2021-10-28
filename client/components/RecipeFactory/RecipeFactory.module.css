@@ -22,8 +22,8 @@
 }
 
 .create__form h1 {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 600;
   color: var(--color-neutral);
 }
 
@@ -195,12 +195,13 @@
   position: relative;
   margin-bottom: 1rem;
 }
-
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 768px) {
   .create__form {
     padding: 1rem 2rem;
   }
+}
 
+@media screen and (max-width: 599px) {
   .ingredients__item input[type="number"] {
     width: 10rem;
   }

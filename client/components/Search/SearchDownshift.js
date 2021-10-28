@@ -8,7 +8,6 @@ import styles from "./Search.module.css";
 const fetchData = async (url, query, callback) => {
   if (!query) return;
   const data = await getData(`${url}${query}`);
-  console.log({ data });
   callback(data);
 };
 

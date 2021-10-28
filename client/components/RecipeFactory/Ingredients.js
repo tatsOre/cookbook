@@ -46,8 +46,6 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
 
   return (
     <div className={styles.ingredients__step}>
-      <h1 className={styles.form__title}>Create New Recipe</h1>
-
       <div className={styles.form__section}>
         <h2 htmlFor="title">Recipe Title</h2>
         <p>Add a short, descriptive headline</p>
@@ -132,15 +130,12 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
               <Controller
                 control={control}
                 name={`ingredients.${index}.fraction`}
-                rules={{ required: "At least one ingredient is needed" }}
-                defaultValue={fractionOptions[0]}
                 render={({ field: { onChange, value } }) => (
                   <DropdownButton
                     variant="secondary"
                     className={styles.ingredients__dropdown}
                     title={value}
                     onSelect={onChange}
-                    rules={{ required: true }}
                   >
                     {fractionSelection}
                   </DropdownButton>
@@ -149,14 +144,12 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
               <Controller
                 control={control}
                 name={`ingredients.${index}.measurement`}
-                defaultValue={measurementOptions[0]}
-                rules={{ required: "A measurement is needed" }}
                 render={({ field: { onChange, value } }) => (
                   <DropdownButton
                     variant="secondary"
                     className={styles.ingredients__dropdown}
-                    onSelect={onChange}
                     title={value}
+                    onSelect={onChange}
                   >
                     {measurementSelection}
                   </DropdownButton>

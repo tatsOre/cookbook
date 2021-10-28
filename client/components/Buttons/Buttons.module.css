@@ -99,15 +99,15 @@
   cursor: pointer;
 }
 
-.btn__favorites span {
-  padding-left: 0.5rem;
+.btn__favorites i {
+  padding-right: 0.5rem;
 }
 
-.btn__favorites.btn__active span {
+.btn__favorites.btn__active {
   color: var(--color-alert);
 }
 
-.btn__favorites.btn__inactive span {
+.btn__favorites.btn__inactive {
   color: var(--color-neutral);
 }
 
@@ -122,6 +122,14 @@
 
 .icon__inactive {
   fill: var(--color-neutral);
+}
+
+.btn__favorites:hover {
+  color: var(--color-alert);
+}
+
+.btn__favorites:hover i {
+  fill: var(--color-alert);
 }
 
 /* Bootstrap Tooltip */

@@ -32,8 +32,13 @@ const Tabs = ({ open, openTabs, data }) => {
   const handleItemClick = () => openTabs(false);
 
   return (
-    <Modal show={open} fullscreen={true} onHide={handleItemClick}>
-      <Modal.Header closeButton>
+    <Modal
+      show={open}
+      fullscreen={true}
+      onHide={handleItemClick}
+      className={styles.tabs__container}
+    >
+      <Modal.Header closeButton className={styles.tabs__header}>
         <Modal.Title>
           <h2>Happy Cooking!</h2>
         </Modal.Title>

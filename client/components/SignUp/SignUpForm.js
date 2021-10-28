@@ -50,7 +50,7 @@ const SignUp = () => {
     <div className={styles.form__container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h1>Start. Explore. Share.</h1>
-        <p>Fill in your details below to create an account.</p>
+        <p>Fill in your details below to create an account:</p>
         {warning.show && (
           <AlertMessage
             variant="danger"

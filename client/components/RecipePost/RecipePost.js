@@ -10,12 +10,31 @@ import Ingredients from "./Ingredients";
 import Tabs from "./Tabs/FullViewTabs";
 import UserActions from "../User/UserActions";
 
+import { RECIPE_BASE_URL } from "../../config";
+import { getData } from "../../src/ApiCalls";
+
 import styles from "./RecipePost.module.css";
 
-const RecipePost = ({ recipe }) => {
+const RecipePost = ({ recipeID }) => {
   const { user } = useUser();
+  const [recipe, setRecipe] = useState(null);
+  const [error, setError] = useState("");
+
   const [openTabs, setOpenTabs] = useState(false);
   const handleOpenTabs = () => setOpenTabs(true);
+
+  useEffect(async () => {
+    try {
+      const response = await getData(`${RECIPE_BASE_URL}/${recipeID}`);
+      setRecipe(response);
+      document.title = `${capitalizeStr(response.title)} | My CookBook`;
+    } catch (error) {
+      setError("Something went wrong.");
+    }
+  }, []);
+
+  if (!recipe && !error) return <p>Loading...</p>;
+  if (error) return <p>Something went wrong</p>;
 
   const {
     _id,
@@ -31,12 +50,6 @@ const RecipePost = ({ recipe }) => {
     comments,
     public: isPublic,
   } = recipe;
-
-  useEffect(() => {
-    if (title) {
-      document.title = `${capitalizeStr(title)} | My CookBook`;
-    }
-  }, [title]);
 
   return (
     <>

@@ -1,11 +1,14 @@
+import Head from "next/head";
 import Layout from "../../components/Layout/Layout";
-import { ALL_RECIPES_URL, RECIPE_BASE_URL } from "../../config";
 import RecipeFactory from "../../components/RecipeFactory/RecipeFactory";
 
 function RecipePage(props) {
   const { slug } = props;
   return (
     <Layout>
+      <Head>
+        <title>Edit your recipe | MyCookBook</title>
+      </Head>
       <RecipeFactory recipeID={slug} mode="edit" />
     </Layout>
   );
@@ -13,6 +16,6 @@ function RecipePage(props) {
 
 RecipePage.getInitialProps = async (context) => {
   return context.query;
-}
+};
 
 export default RecipePage;

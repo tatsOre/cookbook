@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Wizard } from "react-use-wizard";
 import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
@@ -56,8 +56,11 @@ function deNormalizeFormData(data) {
   };
 }
 
-const RecipeFactory = (props) => {
+const RecipeFactory = ({ recipeID, mode }) => {
   const router = useRouter();
+  const [initialValues, setInitialValues] = useState(null);
+  const [error, setError] = useState("");
+
   const defaultValues = {
     instructions: [""],
     photo: "",
@@ -74,20 +77,20 @@ const RecipeFactory = (props) => {
     defaultValues: defaultValues,
   });
 
-  const { data: recipeData } =
-    props.mode === "edit" &&
-    useSWR(`${RECIPE_BASE_URL}/${props.recipeID}`, getData);
-
-  //@TODO need to better solve this: https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524
-  useEffect(() => {
-    if (!recipeData) {
-      return;
+  useEffect(async () => {
+    if (mode === "edit") {
+      try {
+        const response = await getData(`${RECIPE_BASE_URL}/${recipeID}`);
+        setInitialValues(response);
+        methods.reset({
+          ...methods.getValues(),
+          ...deNormalizeFormData(response),
+        });
+      } catch (error) {
+        setError("Something went wrong");
+      }
     }
-    methods.reset({
-      ...methods.getValues(),
-      ...deNormalizeFormData(recipeData),
-    });
-  }, [methods.reset, recipeData, methods.getValues]);
+  }, []);
 
   const { data: fractionData, error: fractionError } = useSWR(
     GET_FRACTIONS_URL,
@@ -126,10 +129,8 @@ const RecipeFactory = (props) => {
     //console.log({ normalizedFormResult });
 
     const response = await fetchAPI(
-      props.mode === "edit" ? "PATCH" : "POST",
-      props.mode === "edit"
-        ? `${RECIPE_BASE_URL}/${props.recipeID}`
-        : `${RECIPE_BASE_URL}`,
+      mode === "edit" ? "PATCH" : "POST",
+      mode === "edit" ? `${RECIPE_BASE_URL}/${recipeID}` : `${RECIPE_BASE_URL}`,
       normalizedFormResult
     );
 
@@ -147,6 +148,11 @@ const RecipeFactory = (props) => {
         onSubmit={methods.handleSubmit(onFormSubmit, onError)}
         className={styles.create__form}
       >
+        <h1 className={styles.form__title}>
+          {mode === "edit"
+            ? `Edit ${initialValues && initialValues.title}`
+            : "Create Recipe"}
+        </h1>
         <Wizard
           startIndex={0}
           footer={<WizardControls methods={methods} />}

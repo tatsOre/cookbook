@@ -38,7 +38,7 @@
   object-fit: cover;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 768px) {
   .categories__title,
   .categories__list li {
     font-size: 1.3rem;
