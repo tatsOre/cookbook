@@ -47,6 +47,10 @@
   text-decoration-thickness: 1px;
 }
 
+.shopList__modal__header {
+  padding: 2rem 3rem;
+}
+
 @media screen and (max-width: 768px) {
   .shopList__card {
     width: 100%;

@@ -23,6 +23,7 @@
   list-style: none;
   border-bottom: 1px solid gainsboro;
   padding: 1rem;
+  text-transform: capitalize;
 }
 
 .item__active {

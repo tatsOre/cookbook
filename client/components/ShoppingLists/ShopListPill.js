@@ -35,10 +35,10 @@ const ShopListPill = ({ data }) => {
       </div>
 
       <Modal show={show} fullscreen="sm-down" onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>
+        <Modal.Header closeButton className={styles.shopList__modal__header}>
+          <h3>
             Shopping List for <b>{recipe?.title}</b>
-          </Modal.Title>
+          </h3>
         </Modal.Header>
         <Modal.Body>
           <ul className={styles.shopList__items}>
