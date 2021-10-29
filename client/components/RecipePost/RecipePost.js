@@ -16,6 +16,7 @@ import { getData } from "../../src/ApiCalls";
 import styles from "./RecipePost.module.css";
 
 const RecipePost = ({ recipeID }) => {
+  console.log(recipeID);
   const { user } = useUser();
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState("");
@@ -31,7 +32,7 @@ const RecipePost = ({ recipeID }) => {
     } catch (error) {
       setError("Something went wrong.");
     }
-  }, []);
+  }, [recipeID]);
 
   if (!recipe && !error) return <p>Loading...</p>;
   if (error) return <p>Something went wrong</p>;
@@ -69,7 +70,7 @@ const RecipePost = ({ recipeID }) => {
               <span className={styles.firstcharacter}>
                 {description.charAt(0)}
               </span>
-              {description.slice(1, -1)}
+              {description.slice(1)}
             </p>
 
             {!user?.recipes.includes(_id) && (

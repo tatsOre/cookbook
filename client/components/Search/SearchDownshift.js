@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import debounce from "lodash.debounce";
 import { resetIdCounter, useCombobox } from "downshift";
 import Link from "next/link";
@@ -16,6 +17,7 @@ const chill = debounce((url, query, callback) => {
 }, 750);
 
 const SearchBar = ({ placeholder, URL, withBackdrop }) => {
+  const router = useRouter();
   const [results, setResults] = useState([]);
   resetIdCounter();
   const {
@@ -35,7 +37,7 @@ const SearchBar = ({ placeholder, URL, withBackdrop }) => {
       });
     },
     onSelectedItemChange({ selectedItem }) {
-      window.location.href = `/recipes/${selectedItem._id}`;
+      router.push(`/recipes/${selectedItem._id}`);
     },
     itemToString: (item) => item?.name || "",
   });
@@ -65,11 +67,7 @@ const SearchBar = ({ placeholder, URL, withBackdrop }) => {
                     : styles.item__inactive
                 }`}
               >
-                <Link href={`/recipes/${item._id}`}>
-                  <a>
-                    <span>{item.title}</span>
-                  </a>
-                </Link>
+                <Link href={`/recipes/${item._id}`}>{item.title}</Link>
               </li>
             ))}
           {isOpen && !results.length && inputValue && (

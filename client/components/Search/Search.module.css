@@ -30,10 +30,6 @@
   color: var(--color-dark);
   text-decoration: none;
   font-weight: 600;
-  width: 100%;
-}
-
-.search__results span {
   text-transform: capitalize;
 }
 
