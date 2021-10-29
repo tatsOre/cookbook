@@ -21,8 +21,19 @@
 
 .search__results li {
   list-style: none;
-  border-bottom: 1px solid gainsboro;
+  width: 100%;
   padding: 1rem;
+  border-bottom: 1px solid gainsboro;
+}
+
+.search__results li a {
+  color: var(--color-dark);
+  text-decoration: none;
+  font-weight: 600;
+  width: 100%;
+}
+
+.search__results span {
   text-transform: capitalize;
 }
 

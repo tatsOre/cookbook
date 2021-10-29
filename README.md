@@ -2,10 +2,13 @@
 
 #### Screenshots
 
-![index-page](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/01_Index.jpg "Index Page") ![save-favorites](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/02_Save_Favs.jpg "Save Favorites")
+![index-page](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/02_Save_Favs.jpg "Index Page") ![login-page](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/05_Login_Page.jpg "Login Page")
 
-![create-step-1](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/02_Save_Favs.jpg "Create Step One") ![create-step-2](image2.png "Create Step Two")
-![create-step-1](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/05_Login_Page.jpg "Create Step One") ![create-step-2](image2.png "Create Step Two")
+![search-feature](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/10_Search_Bar.jpg "Search Recipes") ![recipe-post](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/03_Recipe_Post.jpg "Recipe Post Page")
+
+![cook-mode](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/04_Cook_Mode.jpg "Cook Mode")
+
+![create-step-1](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Ing.jpg "Create Step One") ![create-step-2](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Steps.jpg "Create Step Two")
 
 ### About me:
 
