@@ -1,5 +1,18 @@
 ## CookBook Web App
 
+**Create and save your or your family recipes, keep them for you or share them with the world!**
+
+A simple, straightforward, and easy-to-use platform where users can create/read/update/delete recipes and check/save others, with a fullscreen recipe version to use while cooking or in the supermarket. Also, users can create and save grocery lists according to the selected recipes.
+
+#### Technologies and third-party services used:
+
+**API/Server:** NodeJS, ExpressJS
+**Auth:** JWT, PassportJS
+**Assets manager:** Cloudinary
+**Databases:** MongoDB Atlas, Mongoose
+**FrontEnd:** NextJS, React
+**CSS:** Bootstrap, CSS Modules, Downshift library
+
 #### Index and Login pages:
 
 ![index-page](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/02_Save_Favs.jpg "Index Page") ![login-page](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/05_Login_Page.jpg "Login Page")
