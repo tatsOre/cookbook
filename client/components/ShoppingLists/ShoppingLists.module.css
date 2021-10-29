@@ -14,6 +14,7 @@
   font-weight: 700;
   color: var(--color-accent);
   text-decoration: none;
+  text-transform: capitalize;
 }
 
 .shopList__card h3 a:hover {

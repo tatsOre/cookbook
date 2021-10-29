@@ -6,12 +6,12 @@ A simple, straightforward, and easy-to-use platform where users can create/read/
 
 #### Technologies and third-party services used:
 
-**API/Server:** NodeJS, ExpressJS
-**Auth:** JWT, PassportJS
-**Assets manager:** Cloudinary
-**Databases:** MongoDB Atlas, Mongoose
-**FrontEnd:** NextJS, React
-**CSS:** Bootstrap, CSS Modules, Downshift library
+- **API/Server:** NodeJS, ExpressJS
+- **Auth:** JWT, PassportJS
+- **Assets manager:** Cloudinary
+- **Databases:** MongoDB Atlas, Mongoose
+- **FrontEnd:** NextJS, React
+- **CSS:** Bootstrap, CSS Modules, Downshift library
 
 #### Index and Login pages:
 
@@ -21,9 +21,13 @@ A simple, straightforward, and easy-to-use platform where users can create/read/
 
 ![search-feature](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/10_Search_Bar.jpg "Search Recipes") ![recipe-post](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/03_Recipe_Post.jpg "Recipe Post Page")
 
-#### Cooking Mode (Fullscreen view):
+#### Cooking Mode (Fullscreen view) and User Menu:
 
-![cook-mode](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/04_Cook_Mode.jpg "Cook Mode")
+![cook-mode](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/04_Cook_Mode.jpg "Cook Mode") ![user-menu](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/06_Menu_Mobile.jpg "User Menu")
+
+#### Save Grocery Lists and User Dashboard (Recipes, Favorites and Shopping Lists with contextual search):
+
+![save-lists](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/12_Create_ShopLists.jpg "Save Shopping Lists") ![user-dashboard](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/09_User_Dashboard_ShopLists.jpg "User Dashboard")
 
 #### Create Recipes. Step One and Step Two:
 
