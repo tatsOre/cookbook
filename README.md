@@ -13,13 +13,19 @@ A simple, straightforward, and easy-to-use platform where users can create/read/
 - **FrontEnd:** NextJS, React
 - **CSS:** Bootstrap, CSS Modules, Downshift library
 
+---
+
 #### To use:
 
-`$ git clone https://github.com/tatsOre/cookbook.git`
-Terminal 1: go to /server and `npm run dev`
-Terminal 2: go to /client and `npm run dev`
+- `$ git clone https://github.com/tatsOre/cookbook.git`
+- Terminal 1: cd to /server and `npm run dev`
+- Terminal 2: cd to /client and `npm run dev`
+
+---
 
 ### Mockups: [Link](https://balsamiq.cloud/svyqg1u/p83jzmk/rAD9C)
+
+---
 
 ### Screenshots:
 
@@ -41,11 +47,13 @@ Terminal 2: go to /client and `npm run dev`
 
 #### Create Recipes. Step One and Step Two:
 
-![create-step-1](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Ing.jpg "Create Step One") ![create-step-2](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Steps.jpg "Create Step Two")
+## ![create-step-1](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Ing.jpg "Create Step One") ![create-step-2](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Steps.jpg "Create Step Two")
 
 ### Known bugs:
 
 - Google Auth is partially implemented.
+
+---
 
 ### About me:
 
