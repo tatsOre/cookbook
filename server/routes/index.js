@@ -130,11 +130,16 @@ router.use(
  * GET /api/v1/auth/google_redirect
  * Register|Find Google Users. Set JWT Cookie and send user main info.
  */
+const REDIRECT =
+  process.env.NODE_ENV !== "development"
+    ? process.env.CLIENT_ADDRESS
+    : "http://localhost:3001";
+
 router.get(
   "/auth/google_redirect",
   passport.authenticate("google", {
     assignProperty: "googleUser",
-    failureRedirect: "http://localhost:3001/login", // Todo: change to client address
+    failureRedirect: `${REDIRECT}/login`, // Todo: change to client address
   }),
   authController.registerGoogleUser
 );
