@@ -136,8 +136,7 @@ router.get(
     assignProperty: "googleUser",
     failureRedirect: "http://localhost:3001/login", // Todo: change to client address
   }),
-  authController.registerGoogleUser,
-  authController.setJWTcookie
+  authController.registerGoogleUser
 );
 
 /*

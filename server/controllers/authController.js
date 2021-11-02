@@ -28,6 +28,11 @@ exports.registerUser = async (req, res, next) => {
  * Register|Find Google Users.
  */
 exports.registerGoogleUser = async (req, res, next) => {
+  const REDIRECT =
+    process.env.NODE_ENV !== "development"
+      ? process.env.CLIENT_ADDRESS
+      : "http://localhost:3001";
+
   const { googleUser } = req;
   let user = await UserModel.findOne({ "providers.google.id": googleUser.id });
   if (!user) {
@@ -45,8 +50,20 @@ exports.registerGoogleUser = async (req, res, next) => {
       photo: googleUser._json.picture,
     });
   }
-  req.user = user;
-  return next();
+  const body = { _id: user._id, email: user.email };
+  const expiresIn = "7d";
+  const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
+    expiresIn,
+  });
+
+  res
+    .cookie(process.env.COOKIE_SECRET, token, {
+      expires: new Date(Date.now() + 7 * 24 * 3600000), // 7 days
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
+      secure: process.env.NODE_ENV === "development" ? false : true,
+    })
+    .redirect(REDIRECT);
 };
 
 /**
@@ -72,7 +89,6 @@ exports.login = async (req, res, next) => {
 /**
  * Set JWT Cookie and send user main info.
  */
-// TODO: fix Google flow
 exports.setJWTcookie = async (req, res) => {
   const { user } = req;
   const body = { _id: user._id, email: user.email };

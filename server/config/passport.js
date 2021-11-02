@@ -5,6 +5,11 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const UserModel = require("../models/User");
 
 module.exports = function () {
+  const callbackBASEURL =
+    process.env.NODE_ENV !== "development"
+      ? process.env.SERVER_ADDRESS
+      : "http://localhost:3000";
+
   const options = {
     secretOrKey: process.env.JWT_SECRET,
     jwtFromRequest: (req) => {
@@ -29,7 +34,7 @@ module.exports = function () {
       {
         clientID: process.env.GOOGLE_APP_CLIENT_ID,
         clientSecret: process.env.GOOGLE_APP_SECRET_KEY,
-        callbackURL: `${process.env.SERVER_ADDRESS}:${process.env.PORT}/api/v1/auth/google_redirect`,
+        callbackURL: `${callbackBASEURL}/api/v1/auth/google_redirect`,
       },
       function (accessToken, refreshToken, profile, done) {
         // console.log({ accessToken, refreshToken, profile });
