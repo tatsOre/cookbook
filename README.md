@@ -1,6 +1,6 @@
 ## CookBook Web App
 
-**Create and save yours or your family recipes, and share them with the world!**
+**Create and save your or your family's recipes, and share them with the world!**
 
 CookBook is the final project for the advanced program focused on Web Programming for Holberton School and was the opportunity to abstract and put in action the interoperability of the main concepts learned these last months, train the ability to estimate, design, develop and deliver a feature set, and to understand what it means when a piece of software is in production!
 
