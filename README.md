@@ -1,8 +1,10 @@
 ## CookBook Web App
 
-**Create and save your or your family recipes, keep them for you or share them with the world!**
+**Create and save yours or your family recipes, and share them with the world!**
 
-A simple, straightforward, and easy-to-use platform where users can create/read/update/delete recipes and check/save others, with a fullscreen recipe version to use while cooking or in the supermarket. Also, users can create and save grocery lists according to the selected recipes.
+CookBook is the final project for the advanced program focused on Web Programming for Holberton School and was the opportunity to abstract and put in action the interoperability of the main concepts learned these last months, train the ability to estimate, design, develop and deliver a feature set, and to understand what it means when a piece of software is in production!
+
+With this in mind, I decided to build a simple, straightforward, and easy-to-use web application where users can create/read/update/delete recipes and check/save others, with a fullscreen recipe version to use while cooking or in the supermarket. Also, users can create and save grocery lists.
 
 #### Technologies and third-party services used:
 
@@ -52,8 +54,18 @@ A simple, straightforward, and easy-to-use platform where users can create/read/
 ### Known bugs:
 
 - Google Auth is partially implemented.
+- Due to the cookie implementation, the app doesn't work properly on iPhones.
 
 ---
+
+### What to improve in the future?
+
+- Auth strategies and cookies implementation.
+- Implement update/maintain states for shopping lists.
+- Implement reset password flow.
+- UI and UX
+- Routing and feedback messages for the users.
+- Testing
 
 ### About me:
 
