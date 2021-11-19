@@ -51,6 +51,8 @@ With this in mind, I decided to build a simple, straightforward, and easy-to-use
 
 ## ![create-step-1](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Ing.jpg "Create Step One") ![create-step-2](https://github.com/tatsOre/cookbook/blob/master/client/public/readme_assets/08_Create_Recipe_Steps.jpg "Create Step Two")
 
+### Live Demo: [Link](https://cookbook.tats-in.tech/)
+
 ### Known bugs:
 
 - Google Auth is partially implemented.
