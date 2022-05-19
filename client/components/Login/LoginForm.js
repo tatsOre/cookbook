@@ -95,16 +95,14 @@ const Login = () => {
             <span role="alert">{errors.password.message}</span>
           )}
 
-          <Link href="/">
+{/*           <Link href="/">
             <a className={styles.form__link}>Forgot your password?</a>
-          </Link>
+          </Link> */}
         </div>
 
         <ButtonFilled type="submit" disabled={disabled}>
           Log in
         </ButtonFilled>
-
-        <ProvidersButtons />
       </form>
 
       <div className={styles.signup__block}>

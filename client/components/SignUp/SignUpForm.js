@@ -131,7 +131,6 @@ const SignUp = () => {
         <ButtonFilled type="submit" disabled={disabled}>
           Create account
         </ButtonFilled>
-        <ProvidersButtons />
       </form>
 
       <div className={styles.login__block}>
@@ -141,9 +140,9 @@ const SignUp = () => {
             <a> Log in</a>
           </Link>
         </p>
-        <Link href="/">
+{/*         <Link href="/">
           <a>Forgot your password?</a>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

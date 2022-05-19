@@ -13,8 +13,9 @@ const Home = () => {
           <p>Welcome back, {user.name.split(" ")[0]}.</p>
         ) : (
           <>
-            <h1>Create. Save. Share.</h1>
-            <a href="/signup">Start Now</a>
+            <h1>It's all about the food.</h1>
+            <p>Create. Save. Share.</p>
+            <a href="/signup">Start Now!</a>
           </>
         )}
       </div>

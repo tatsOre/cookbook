@@ -22,11 +22,6 @@
   margin: 0 1rem;
 }
 
-.logotype {
-  padding-top: 1.2rem;
-  margin-right: 2rem;
-}
-
 @media screen and (max-width: 768px) {
   .header__container {
     padding: 1.5rem;

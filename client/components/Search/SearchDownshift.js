@@ -55,27 +55,29 @@ const SearchBar = ({ placeholder, URL, withBackdrop }) => {
             })}
           />
         </div>
-        <ul className={styles.search__results} {...getMenuProps()}>
-          {isOpen &&
-            results.map((item, index) => (
-              <li
-                {...getItemProps({ item, index })}
-                key={item._id}
-                className={`${styles.results__items} ${
-                  highlightedIndex === index
-                    ? styles.item__active
-                    : styles.item__inactive
-                }`}
-              >
-                <Link href={`/recipes/${item._id}`}>{item.title}</Link>
+        {isOpen && (
+          <ul className={styles.search__results} {...getMenuProps()}>
+            {!results.length && inputValue ? (
+              <li>
+                Sorry, No items found for <b>{inputValue}</b>
               </li>
-            ))}
-          {isOpen && !results.length && inputValue && (
-            <li>
-              Sorry, No items found for <b>{inputValue}</b>
-            </li>
-          )}
-        </ul>
+            ) : (
+              results.map((item, index) => (
+                <li
+                  {...getItemProps({ item, index })}
+                  key={item._id}
+                  className={`${styles.results__items} ${
+                    highlightedIndex === index
+                      ? styles.item__active
+                      : styles.item__inactive
+                  }`}
+                >
+                  <Link href={`/recipes/${item._id}`}>{item.title}</Link>
+                </li>
+              ))
+            )}
+          </ul>
+        )}
       </div>
       {isOpen && withBackdrop && inputValue && (
         <div className={styles.backdrop}></div>

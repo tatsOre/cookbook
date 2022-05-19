@@ -4,7 +4,7 @@ import styles from "./Logotype.module.css";
 const Logotype = () => {
   return (
     <Link href="/">
-      <a className={styles.logotype}>MyCookBook</a>
+      <a className={styles.logotype}><span>My</span>CookBook</a>
     </Link>
   );
 };

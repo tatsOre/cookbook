@@ -5,12 +5,8 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footer__container}>
-        <div>
-          <Logotype />
-        </div>
-
         <div className={styles.footer__text}>
-          <p>The CookBook App, 2021</p>
+          <p>My CookBook App, 2022. 1.2.</p>
         </div>
       </div>
     </footer>

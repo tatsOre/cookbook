@@ -1,7 +1,6 @@
 .footer {
   width: 100%;
   color: var(--color-dark);
-  background-color: var(--color-neutral);
 }
 
 .footer__container {
