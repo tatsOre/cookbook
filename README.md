@@ -2,9 +2,7 @@
 
 **Create and save your or your family's recipes, and share them with the world!**
 
-CookBook is the final project for the advanced program focused on Web Programming for Holberton School and was the opportunity to abstract and put in action the interoperability of the main concepts learned these last months, train the ability to estimate, design, develop and deliver a feature set, and to understand what it means when a piece of software is in production!
-
-With this in mind, I decided to build a simple, straightforward, and easy-to-use web application where users can create/read/update/delete recipes and check/save others, with a fullscreen recipe version to use while cooking or in the supermarket. Also, users can create and save grocery lists.
+CookBook is a web application where users can create/read/update/delete recipes and check/save others, with a fullscreen recipe version to use while cooking or in the supermarket. Also, users can create and save grocery lists.
 
 #### Technologies and third-party services used:
 
@@ -72,7 +70,5 @@ With this in mind, I decided to build a simple, straightforward, and easy-to-use
 ### About me:
 
 [LinkedIn](https://www.linkedin.com/in/tatiana-orejuela-zapata/) | [Github](https://github.com/tatsOre)
-
-##### Advanced Program - Web Stack programming ― Final Project
 
 ##### October, 2021.
