@@ -67,7 +67,7 @@ const RecipeFactory = ({ recipeID, mode }) => {
     ingredients: [
       {
         fraction: "0",
-        unit: 1,
+        unit: 0,
         measurement: "none",
       },
     ],

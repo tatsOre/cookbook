@@ -52,6 +52,7 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
         <input
           {...register("title", { required: "A title is required" })}
           type="text"
+          maxLength="50"
         />
         {errors?.title && <span role="alert">{errors?.title.message}</span>}
       </div>
@@ -59,6 +60,7 @@ const Ingredients = ({ fractionOptions, measurementOptions }) => {
       <div className={styles.form__section}>
         <h2 htmlFor="Description">Add a description</h2>
         <textarea
+          maxLength="370"
           {...register("description", {
             required: "A description is required",
           })}

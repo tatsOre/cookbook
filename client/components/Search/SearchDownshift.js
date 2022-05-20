@@ -55,9 +55,10 @@ const SearchBar = ({ placeholder, URL, withBackdrop }) => {
             })}
           />
         </div>
-        {isOpen && (
-          <ul className={styles.search__results} {...getMenuProps()}>
-            {!results.length && inputValue ? (
+
+        <ul className={styles.search__results} {...getMenuProps()}>
+          {isOpen &&
+            (!results.length && inputValue ? (
               <li>
                 Sorry, No items found for <b>{inputValue}</b>
               </li>
@@ -75,9 +76,8 @@ const SearchBar = ({ placeholder, URL, withBackdrop }) => {
                   <Link href={`/recipes/${item._id}`}>{item.title}</Link>
                 </li>
               ))
-            )}
-          </ul>
-        )}
+            ))}
+        </ul>
       </div>
       {isOpen && withBackdrop && inputValue && (
         <div className={styles.backdrop}></div>
