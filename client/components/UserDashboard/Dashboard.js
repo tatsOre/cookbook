@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 
 import WithWidget from "../User/userSWR";
 import RecipePill from "../RecipeCard/RecipePill";
+import RecipeCard from "../Homepage/RecipeCard";
 import FavoritePill from "../RecipeCard/FavoritePill";
 import ShopListPill from "../ShoppingLists/ShopListPill";
 import SearchBar from "../Search/SearchDownshift";
 import { SEARCH_IN_CURRENT_USER_URL } from "../../config";
+
 import styles from "./Dashboard.module.css";
-import { capitalizeStr } from "../../src/utils";
 
 const RecipesWidget = WithWidget(RecipePill);
-const FavoritesWidget = WithWidget(FavoritePill);
+const FavoritesWidget = WithWidget(RecipeCard);
 const ShopListsWidget = WithWidget(ShopListPill);
 
 const SEARCH_IN_OWNED_URL = SEARCH_IN_CURRENT_USER_URL("recipes");
@@ -36,28 +37,20 @@ const TabContent = ({ active, children }) => {
   );
 };
 
-const Dashboard = ({ tab }) => {
+export default function Dashboard({ tab }) {
   const [activeTab, setActiveTab] = useState(tab || "recipes");
 
   return (
     <div className={`${styles.dashboard__container}`}>
-      <div className={styles.dashboard__header}>
-        <TabLink
-          label="recipes"
-          active={activeTab === "recipes"}
-          setActiveTab={setActiveTab}
-        />
-        <TabLink
-          label="favorites"
-          active={activeTab === "favorites"}
-          setActiveTab={setActiveTab}
-        />
-        <TabLink
-          label="shopping_lists"
-          active={activeTab === "shopping_lists"}
-          setActiveTab={setActiveTab}
-        />
-      </div>
+      <nav className={styles.dashboard__nav}>
+        {["recipes", "favorites", "shopping_lists"].map((section) => (
+          <TabLink
+            label={section}
+            active={activeTab === section}
+            setActiveTab={setActiveTab}
+          />
+        ))}
+      </nav>
 
       <div className={styles.dashboard__body}>
         <TabContent active={activeTab === "recipes"}>
@@ -95,6 +88,4 @@ const Dashboard = ({ tab }) => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}

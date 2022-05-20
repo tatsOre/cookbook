@@ -12,7 +12,7 @@ const fetcher = (URL, callback) => {
   };
 };
 
-function WithWidget(Component) {
+export default function WithWidget(Component) {
   return function WithUserWidget({ field, fallback }) {
     const URL = `${CURRENT_USER_URL}/${field}`;
     const { data, isLoading, isError } = fetcher(URL, getData);
@@ -30,5 +30,3 @@ function WithWidget(Component) {
     );
   };
 }
-
-export default WithWidget;
