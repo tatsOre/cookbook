@@ -16,7 +16,6 @@ import { getData } from "../../src/ApiCalls";
 import styles from "./RecipePost.module.css";
 
 const RecipePost = ({ recipeID }) => {
-  console.log(recipeID);
   const { user } = useUser();
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState("");

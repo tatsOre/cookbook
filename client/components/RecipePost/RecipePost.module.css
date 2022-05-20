@@ -157,11 +157,12 @@
   }
 
   .recipe__ingredients {
-    min-width: 35%;
+    flex-basis: 35%;
   }
 
   .recipe__instructions {
-    padding-left: 3rem;
+    flex-basis: 65%;
+    margin-left: 3rem;
   }
 }
 

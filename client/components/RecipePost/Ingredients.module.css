@@ -1,23 +1,26 @@
 .ingredients__list fieldset {
-  display: flex;
-  flex-direction: column;
   padding: 0;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.ingredients__list fieldset div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   margin-bottom: 1rem;
 }
 
 .ingredients__list label {
-  margin-bottom: 1rem;
-  margin-left: 0.2rem;
-}
-
-.ingredients__list label span {
-  font-variant-numeric: diagonal-fractions;
-  color: red;
+  flex-basis: 90%;
+  font-size: 1.5rem;
 }
 
 .ingredients__list input {
+  flex-basis: 5%;
   color: white;
   accent-color: var(--color-light);
+  margin-top: 0.5rem;
   margin-right: 1rem;
 }
 

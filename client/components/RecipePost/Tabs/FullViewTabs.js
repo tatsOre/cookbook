@@ -1,9 +1,8 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
-import { formatIngr } from "../Ingredients";
+import {formatIngr } from '../../../src/utils'
 import styles from "./Tabs.module.css";
-import CloseButton from "react-bootstrap/CloseButton";
 import Instructions from "../Instructions";
 
 const TabLink = ({ label, active, setActiveTab }) => {

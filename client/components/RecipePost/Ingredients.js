@@ -1,17 +1,13 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useRouter } from "next/router";
 import useUser from "../../src/useUser";
 import AlertMessage from "../Alert/AlertMessage";
 import { ButtonOutlined } from "../Buttons/Buttons";
 import { fetchAPI } from "../../src/ApiCalls";
+import { formatIngr } from "../../src/utils";
 import { SHOP_LIST_BASE_URL } from "../../config";
 
 import styles from "./Ingredients.module.css";
-
-export const formatIngr = ({ unit, fraction, measurement, name }) =>
-  `${unit ? unit : ""} ${fraction} ${measurement}${
-    parseInt(unit) > 1 && measurement ? "s" : ""
-  } ${name}`;
 
 const RecipeIngredients = ({ ingredients, recipe }) => {
   const { user } = useUser();
@@ -57,7 +53,7 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
     // count 0 === Add? = all ingrs to shop list:
     const addToShopList = count ? selected : ingredients;
 
-    const items = addToShopList.map((obj) => formatIngr(obj));
+    const items = addToShopList.map((ingr) => formatIngr(ingr));
 
     fetchAPI("POST", SHOP_LIST_BASE_URL, { recipe, items })
       .then((response) => {
@@ -65,23 +61,26 @@ const RecipeIngredients = ({ ingredients, recipe }) => {
           setAlertMessage(true);
         }
       }) // todo: handle errors in UI/UX
-      .catch((error) => console.log({ error }));
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <form onSubmit={handleAddToShopList} className={styles.ingredients__list}>
       <fieldset>
         {ingrState.map((item, index) => (
-          <label key={`ingr-${index}`}>
+          <div key={`ingr-${item._id}`}>
             <input
+              id={item._id}
               type="checkbox"
               value={index}
               onChange={handleInputChange}
               checked={!!item.checked}
               readOnly
             />
-            {formatIngr(item)}
-          </label>
+            <label htmlFor={item._id}>{formatIngr(item)}</label>
+          </div>
         ))}
       </fieldset>
       {alertMessage && (

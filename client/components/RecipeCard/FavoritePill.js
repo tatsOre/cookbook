@@ -7,7 +7,7 @@ import styles from "./RecipePill.module.css";
 const FavoritePill = ({ data }) => {
   const { _id, title, photo, categories, cuisine } = data;
   return (
-    <div className={styles.favorite__card}>
+    <div className={styles.card__pill}>
       <div className={styles.card__favs__header}>
         <Link href={`/recipes/${_id}`}>
           <a>

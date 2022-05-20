@@ -4,13 +4,6 @@
   padding: 0rem 1.5rem 1.5rem;
 }
 
-.homepage__container h2 {
-  font-size: 4rem;
-  font-weight: 200;
-  margin-bottom: 2rem;
-  color: var(--color-dark);
-}
-
 .home__hero {
   background: url("../../public/images/annie-spratt-XiWtCLWK5K8-unsplash.jpg")
     no-repeat;
@@ -24,11 +17,26 @@
   justify-content: center;
   align-items: center;
   padding-top: 1rem;
+  color: white;
+}
+
+.home__hero h1 {
+  font-size: 5rem;
+  font-weight: 700;
+  text-shadow: var(--color-dark) 1px 0 15px;
+  line-height: 1rem;
+}
+
+.home__hero p {
+  font-size: 5rem;
+  font-weight: 500;
+  letter-spacing: 0.25%;
+  text-shadow: black 0px 4px 8px;
+  margin-bottom: 1rem;
 }
 
 .home__hero a {
   padding: 1.25rem 3.5rem;
-  color: white;
   background-color: var(--color-alert);
   text-decoration: none;
   font-size: 2rem;
@@ -41,21 +49,19 @@
   text-decoration: underline;
 }
 
-.home__hero h1 {
-  color: white;
-  font-size: 5rem;
-  font-weight: 700;
-  text-shadow: var(--color-dark) 1px 0 15px;
-  line-height: 1rem;
+/* Home Recipes Sections */
+.recipes__section h2 {
+  font-size: 4rem;
+  font-weight: 200;
+  margin-bottom: 2rem;
+  color: var(--color-dark);
+  flex-basis: 100%;
 }
 
-.home__hero p {
-  color: white;
-  font-size: 3rem;
-  font-weight: 500;
-  letter-spacing: 0.25%;
-  text-shadow: black 0px 2px 4px;
-  margin-bottom: 1rem;
+.recipes__section {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 699px) {
@@ -68,10 +74,16 @@
   .home__hero p {
     font-size: 2rem;
   }
+  .home__hero .home__welcome {
+    font-size: 3.25rem;
+  }
   .home__hero a {
     font-size: 1.5rem;
   }
-  .homepage__container h2 {
+  .recipes__section h2 {
     font-size: 3rem;
+  }
+  .recipes__section {
+    flex-direction: column;
   }
 }

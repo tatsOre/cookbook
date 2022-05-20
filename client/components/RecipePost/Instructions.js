@@ -5,11 +5,9 @@ const RecipeInstructions = ({ instructions, comments }) => {
     <>
       <ul className={styles.instructions__list}>
         {Object.values(instructions).map((step, index) => (
-          <li key={`step-${index + 1}`}>
-            <div className={styles.instructions__item}>
-              <p className={styles.instructions__label}>STEP {index + 1}</p>
-              <p className={styles.instructions__step}>{step}</p>
-            </div>
+          <li key={`step-${index + 1}`} className={styles.instructions__item}>
+            <p className={styles.instructions__label}>Step {index + 1}</p>
+            <p className={styles.instructions__step}>{step}</p>
           </li>
         ))}
       </ul>

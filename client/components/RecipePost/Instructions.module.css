@@ -1,7 +1,6 @@
 .instructions__label {
   color: var(--color-neutral);
   font-weight: 500;
-  text-decoration: underline;
 }
 
 .instructions__step {
