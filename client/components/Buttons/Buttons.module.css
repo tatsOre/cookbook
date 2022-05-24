@@ -94,7 +94,7 @@
 .btn__favorites {
   background-color: transparent;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.rem;
   font-weight: 600;
   cursor: pointer;
 }
@@ -109,11 +109,6 @@
 
 .btn__favorites.btn__inactive {
   color: var(--color-neutral);
-}
-
-.btn__favorites svg {
-  width: 20px;
-  height: 20px;
 }
 
 .icon__active {

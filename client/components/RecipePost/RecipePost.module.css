@@ -1,74 +1,90 @@
 .recipe {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 6rem 4rem;
+  padding-inline: 4rem;
+  padding-block: 6rem;
   background-color: white;
 }
 
-.recipe__header {
-  display: flex;
+.recipe header {
   width: 100%;
-  padding-bottom: 2rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: 25% auto;
+  grid-template-rows: auto;
+  column-gap: 2rem;
+  grid-template-areas:
+    "image title"
+    "image author"
+    "image useractions"
+    "image description"
+    "image details";
 }
 
-.recipe__title__responsive {
-  text-transform: capitalize;
-  display: none;
+.recipe header > button {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+}
+
+.recipe header > button svg {
+  width: 40px;
+  height: 40px;
+}
+
+.recipe header figure {
+  width: 100%;
+  height: 250px;
+  grid-area: image;
 }
 
 .recipe__title {
   text-transform: capitalize;
+  max-width: 90%;
   font-weight: 300;
   font-size: 4rem;
   margin: 0;
+  grid-area: title;
 }
 
-.recipe__subtitle {
-  font-weight: 300;
-  font-size: 3rem;
-  line-height: 4rem;
-  margin-bottom: 1rem;
+.recipe__author {
+  grid-area: author;
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+  color: var(--color-neutral);
 }
 
-.recipe__author a {
-  margin-left: 0.5rem;
+.recipe__author span a {
   text-decoration: none;
   color: var(--color-accent);
-}
-
-.recipe__photo {
-  height: 300px;
-  width: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 2rem;
+  font-weight: bold;
 }
 
 .recipe__description {
-  font-size: 1.5rem;
-  line-height: 2.6rem;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
   font-weight: 400;
+  grid-area: description;
 }
 
 .recipe__details {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  grid-area: details;
 }
 
 .recipe__details div {
   margin-right: 3rem;
 }
 
-.recipe__servings h4 {
+.recipe__details h4 {
   text-transform: uppercase;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.125rem;
 }
 
-.recipe__servings p {
+.recipe__details p {
   text-transform: uppercase;
   font-size: 1.3rem;
   color: var(--color-neutral);
@@ -77,9 +93,9 @@
 }
 
 .recipe__user__actions {
-  margin: 1rem 0rem;
   display: flex;
   align-items: center;
+  grid-area: useractions;
 }
 
 .recipe__user__actions button:first-child {
@@ -100,92 +116,81 @@
   opacity: 0.6;
 }
 
-.recipe__ingredients_container {
+.recipe section {
   position: relative;
-  padding-top: 2rem;
+  padding-top: 1.5rem;
+  display: flex;
+  column-gap: 2rem;
 }
 
-@media screen and (max-width: 768px) {
-  .recipe {
-    padding: 0rem 2rem 2rem;
-  }
+h2.recipe__subtitle {
+  font-weight: 300;
+  font-size: 3rem;
+  line-height: 4rem;
+  margin-bottom: 1rem;
+}
 
-  .recipe__header {
-    flex-direction: column;
-    padding-bottom: 1rem;
+.recipe section .recipe__ingredients {
+  flex-basis: 35%;
+}
+
+.recipe section .recipe__instructions {
+  flex-basis: 65%;
+}
+
+@media screen and (max-width: 900px) {
+  .recipe {
+    padding-block: 1.5rem;
   }
 
   .recipe__title {
-    display: none;
-  }
-
-  .recipe__title__responsive {
-    font-size: 3.3rem;
-    font-weight: 400;
-    display: block;
-  }
-
-  .recipe__photo {
-    height: 300px;
-    width: 100%;
-  }
-
-  .recipe__user__actions {
-    margin: 1.5rem 0rem;
-  }
-
-  .firstcharacter {
-    color: var(--color-neutral);
-    float: left;
-    font-weight: 400;
-    font-size: 75px;
-    line-height: 60px;
-    padding-top: 4px;
-    padding-right: 8px;
-    padding-left: 3px;
-  }
-
-  .recipe__servings h4,
-  .recipe__servings p {
-    font-size: 1.3rem;
-  }
-}
-
-@media screen and (min-width: 851px) {
-  .recipe__ingredients_container {
-    display: flex;
-  }
-
-  .recipe__ingredients {
-    flex-basis: 35%;
-  }
-
-  .recipe__instructions {
-    flex-basis: 65%;
-    margin-left: 3rem;
-  }
-}
-
-@media screen and (max-width: 499px) {
-  .firstcharacter {
-    font-weight: 300;
-    font-size: 60px;
-    line-height: 40px;
-    padding-top: 10px;
-    padding-right: 5px;
-    margin-left: -4px;
-  }
-
-  .recipe__title__responsive {
     font-size: 3rem;
   }
 
-  .recipe__servings h4,
-  .recipe__servings p {
-    font-size: 1.3rem;
+  .recipe__description.with__capital::first-letter {
+    font-size: 350%;
+    padding-top: 13px;
+    margin-right: 3px;
+    margin-left: -2px;
+    color: var(--color-neutral);
+    float: left;
+    font-weight: 300;
   }
 
-  .recipe__user__actions a {
-    padding: 0.55rem 2.5rem;
+  .recipe header {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "title"
+      "author"
+      "useractions"
+      "image"
+      "description"
+      "details";
+  }
+
+  .recipe header figure {
+    height: 100%;
+    padding-block: 1rem;
+  }
+
+  .recipe section {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .recipe {
+    padding: 1.5rem;
+  }
+
+  .recipe__title {
+    font-size: 2.5rem;
+    max-width: 85%;
+  }
+
+  .recipe header > button {
+    top: 0;
   }
 }

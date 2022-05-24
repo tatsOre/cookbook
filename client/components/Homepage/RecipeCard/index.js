@@ -14,7 +14,14 @@ export default function RecipeCard({ data }) {
     photo,
     author,
     servings,
+    updatedAt,
   } = data;
+
+  const date = new Date(updatedAt).toLocaleDateString("en-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <article className={styles.card__container}>
@@ -48,6 +55,8 @@ export default function RecipeCard({ data }) {
             <p>{servings}</p>
           </div>
         </div>
+
+        <ButtonFavorites id={_id} addTooltip="true" />
       </header>
 
       <h3 className={styles.card__title}>
@@ -57,11 +66,12 @@ export default function RecipeCard({ data }) {
       </h3>
 
       <p className={styles.card__description}>{description}</p>
+
       <p className={styles.card__author}>
-        By <a href="#">{author?.name || "Zeena Willow"}</a>
+        <small>Last updated on {date}</small> by <a href="#">{author?.name || "Zeena Willow"}</a>
       </p>
 
-      <ButtonFavorites id={_id} addTooltip="true" />
+      
     </article>
   );
 }

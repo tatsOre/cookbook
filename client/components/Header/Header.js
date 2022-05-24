@@ -40,9 +40,8 @@ const Header = () => {
           <>
             <div>
               <SideNav user={user} handleLogout={handleLogout} />
-              <div className={styles.logotype}>
-                <Logotype />
-              </div>
+
+              <Logotype />
             </div>
             {!isCreatePage && (
               <SearchBar
@@ -64,6 +63,7 @@ const Header = () => {
             <div className={styles.logotype}>
               <Logotype />
             </div>
+
             <SearchBar
               placeholder="Search and explore recipes..."
               URL={SEARCH_RECIPES_URL}

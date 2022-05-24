@@ -28,14 +28,15 @@
 }
 
 .home__hero p {
-  font-size: 5rem;
-  font-weight: 500;
+  font-size: 3rem;
+  font-weight: 400;
   letter-spacing: 0.25%;
   text-shadow: black 0px 4px 8px;
   margin-bottom: 1rem;
 }
 
 .home__hero a {
+  color: white;
   padding: 1.25rem 3.5rem;
   background-color: var(--color-alert);
   text-decoration: none;
@@ -47,6 +48,10 @@
 
 .home__hero a:hover {
   text-decoration: underline;
+  -webkit-text-decoration-color: rgb(255, 152, 141);
+  text-decoration-color: rgb(255, 152, 141);
+  -webkit-text-decoration-style: wavy;
+  text-decoration-style: wavy;
 }
 
 /* Home Recipes Sections */
@@ -72,7 +77,7 @@
     font-size: 2.75rem;
   }
   .home__hero p {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
   .home__hero .home__welcome {
     font-size: 3.25rem;

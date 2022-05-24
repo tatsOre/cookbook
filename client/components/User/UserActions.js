@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import ButtonFavorites from "../Buttons/ButtonFavorites";
 import {
   ButtonDelete,
   ButtonTogglePublic,
@@ -10,25 +8,17 @@ import useUser from "../../src/useUser";
 
 const UserActions = ({ recipeID, isPublic }) => {
   const { user } = useUser();
-  const router = useRouter();
   const userRecipes = user?.recipes || [];
-  const recipePage = router.pathname.startsWith("/recipes/");
 
-  return (
+  return userRecipes.includes(recipeID) ? (
     <>
-      {userRecipes.includes(recipeID) ? (
-        <>
-          <ButtonTogglePublic id={recipeID} isPublic={isPublic} />
-          <Link href={`/edit/${recipeID}`} passHref>
-            <LinkOutlined className="btn__edit__recipe">Edit</LinkOutlined>
-          </Link>
-          <ButtonDelete id={recipeID} item="recipe" />
-        </>
-      ) : (
-        <ButtonFavorites id={recipeID} addTooltip={recipePage ? false : true} />
-      )}
+      <ButtonTogglePublic id={recipeID} isPublic={isPublic} />
+      <Link href={`/edit/${recipeID}`} passHref>
+        <LinkOutlined className="btn__edit__recipe">Edit</LinkOutlined>
+      </Link>
+      <ButtonDelete id={recipeID} item="recipe" />
     </>
-  );
+  ) : null;
 };
 
 export default UserActions;

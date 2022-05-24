@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { capitalizeStr } from "../../src/utils";
 import useUser from "../../src/useUser";
+import ButtonFavorites from "../Buttons/ButtonFavorites";
 import RecipeCategoriesLabels from "../RecipeAssets/RecipeCategories";
 import RecipeImage from "../RecipeAssets/RecipeImage";
 import Instructions from "./Instructions";
@@ -14,9 +15,11 @@ import { RECIPE_BASE_URL } from "../../config";
 import { getData } from "../../src/ApiCalls";
 
 import styles from "./RecipePost.module.css";
+import { useRouter } from "next/router";
 
 const RecipePost = ({ recipeID }) => {
   const { user } = useUser();
+  const router = useRouter();
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState("");
 
@@ -49,62 +52,76 @@ const RecipePost = ({ recipeID }) => {
     author,
     comments,
     public: isPublic,
+    updatedAt,
   } = recipe;
+
+  const date = new Date(updatedAt).toLocaleDateString("en-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <>
       <article className={styles.recipe}>
-        <div className={styles.recipe__header}>
-          <h1 className={styles.recipe__title__responsive}>{title}</h1>
-          <div className={styles.recipe__photo}>
-            <RecipeImage photo={photo} title={title} />
+        <header>
+          {!user?.recipes.includes(_id) ? (
+            <ButtonFavorites id={_id} addTooltip={true} />
+          ) : null}
+
+          <RecipeImage photo={photo} title={title} />
+
+          <h1 className={styles.recipe__title}>{title}</h1>
+
+          <p className={styles.recipe__author}>
+            Last updated on {date}
+            {!user?.recipes.includes(_id) ? (
+              <span>
+                {" "}
+                by <a href="#"> {author?.name || "Zeena Willow"}</a>
+              </span>
+            ) : null}
+          </p>
+
+          <p
+            className={`${styles.recipe__description} ${
+              description.length > 140 ? styles.with__capital : ""
+            }`}
+          >
+            {description}
+          </p>
+
+          <div className={styles.recipe__details}>
+            {categories.length ? (
+              <div className={styles.recipe__categories}>
+                <RecipeCategoriesLabels
+                  title="categories"
+                  category={categories}
+                />
+              </div>
+            ) : null}
+
+            {cuisine.length ? (
+              <div className={styles.recipe__cuisine}>
+                <RecipeCategoriesLabels title="cuisine" category={cuisine} />
+              </div>
+            ) : null}
+
+            <div className={styles.recipe__servings}>
+              <h4>Servings:</h4> <p>{servings}</p>
+            </div>
           </div>
 
-          <div>
-            <h1 className={styles.recipe__title}>{title}</h1>
+          {user?.recipes.includes(_id) ? (
             <div className={styles.recipe__user__actions}>
               <UserActions recipeID={_id} isPublic={isPublic} />
             </div>
-            <p className={styles.recipe__description}>
-              <span className={styles.firstcharacter}>
-                {description.charAt(0)}
-              </span>
-              {description.slice(1)}
-            </p>
+          ) : null}
+        </header>
 
-            {!user?.recipes.includes(_id) && (
-              <span className={styles.recipe__author}>
-                By
-                <Link href="/">
-                  <a>{author?.name}</a>
-                </Link>
-              </span>
-            )}
-
-            <div className={styles.recipe__details}>
-              {categories.length ? (
-                <div className={styles.recipe__categories}>
-                  <RecipeCategoriesLabels
-                    title="categories"
-                    category={categories}
-                  />
-                </div>
-              ) : null}
-
-              {cuisine.length ? (
-                <div className={styles.recipe__cuisine}>
-                  <RecipeCategoriesLabels title="cuisine" category={cuisine} />
-                </div>
-              ) : null}
-
-              <div className={styles.recipe__servings}>
-                <h4>Servings:</h4> <p>{servings}</p>
-              </div>
-            </div>
-          </div>
-        </div>
         <hr />
-        <div className={styles.recipe__ingredients_container}>
+
+        <section>
           <button
             className={styles.recipes__btn__expand}
             type="button"
@@ -117,15 +134,17 @@ const RecipePost = ({ recipeID }) => {
               src="/icons/expand-icon.svg"
             />
           </button>
+
           <div className={styles.recipe__ingredients}>
             <h2 className={styles.recipe__subtitle}>Ingredients</h2>
             <Ingredients ingredients={ingredients} recipe={_id} />
           </div>
+
           <div className={styles.recipe__instructions}>
             <h2 className={styles.recipe__subtitle}>Instructions</h2>
             <Instructions instructions={instructions} comments={comments} />
           </div>
-        </div>
+        </section>
       </article>
 
       <Tabs

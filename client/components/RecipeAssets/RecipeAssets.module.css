@@ -38,6 +38,10 @@
   object-fit: cover;
 }
 
+.recipe__image figcaption {
+  visibility: hidden;
+}
+
 @media screen and (max-width: 768px) {
   .categories__title,
   .categories__list li {

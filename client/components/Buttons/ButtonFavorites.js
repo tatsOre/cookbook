@@ -57,14 +57,13 @@ const ButtonFavorites = ({ id, addTooltip }) => {
     <>
       <button
         ref={target}
-        className={`${styles.btn__favorites} ${
+        className={`btn-fav ${styles.btn__favorites} ${
           isFav ? styles.btn__active : styles.btn__inactive
         }`}
         type="button"
         onClick={() => handleClickFavorite(id)}
       >
         <IconFavorites className={classNameIcon} />
-        {isFav ? "Saved" : "Save"}
       </button>
       {addTooltip && (
         <Overlay target={target.current} show={tooltip.active} placement="left">
