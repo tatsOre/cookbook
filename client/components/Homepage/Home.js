@@ -9,6 +9,16 @@ export default function Home() {
 
   return (
     <div className={styles.homepage__container}>
+      <p
+        style={{
+          padding: "1rem",
+          color: "tomato",
+          fontSize: '14px'
+        }}
+      >
+        Cookbook is in beta and some features will not work if you're using
+        Safari browser.
+      </p>
       <section className={styles.home__hero}>
         {user ? (
           <p className={styles.home__welcome}>
