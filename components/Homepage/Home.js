@@ -13,11 +13,10 @@ export default function Home() {
         style={{
           padding: "1rem",
           color: "tomato",
-          fontSize: '14px'
+          fontSize: '12px'
         }}
       >
-        Cookbook is in beta and some features will not work if you're using
-        Safari browser.
+        🔧 The kitchen is under maintenance. Time to chill and call KFC.
       </p>
       <section className={styles.home__hero}>
         {user ? (

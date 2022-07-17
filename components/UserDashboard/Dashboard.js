@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/router";
 import WithWidget from "../User/userSWR";
 import RecipePill from "../RecipeCard/RecipePill";
 import RecipeCard from "../Homepage/RecipeCard";
@@ -9,6 +9,7 @@ import SearchBar from "../Search/SearchDownshift";
 import { SEARCH_IN_CURRENT_USER_URL } from "../../config";
 
 import styles from "./Dashboard.module.css";
+import useUser from "../../src/useUser";
 
 const RecipesWidget = WithWidget(RecipePill);
 const FavoritesWidget = WithWidget(RecipeCard);
@@ -40,7 +41,17 @@ const TabContent = ({ active, children }) => {
 export default function Dashboard({ tab }) {
   const [activeTab, setActiveTab] = useState(tab || "recipes");
 
-  return (
+  const router = useRouter();
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, []);
+
+  return user ? (
     <div className={`${styles.dashboard__container}`}>
       <nav className={styles.dashboard__nav}>
         {["recipes", "favorites", "shopping_lists"].map((section) => (
@@ -87,5 +98,5 @@ export default function Dashboard({ tab }) {
         </TabContent>
       </div>
     </div>
-  );
+  ) : null;
 }
